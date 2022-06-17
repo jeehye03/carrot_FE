@@ -8,6 +8,7 @@ import MyPage from "./pages/MyPage";
 import Add from "./pages/Add";
 import Detail from "./pages/Detail";
 import NotFound from "./pages/NotFound";
+import Profile from "./pages/Profile";
 
 /*
 시작페이지
@@ -31,7 +32,7 @@ function Router() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/add" element={<Add />} />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/profile" element={<Detail />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/" element={<Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
