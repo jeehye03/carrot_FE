@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 회원가입전지역선택페이지
 회원가입페이지
 로그인페이지
+프로필페이지
 메인페이지
 마이페이지 -> component => 3
 추가페이지
@@ -30,6 +31,7 @@ function Router() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/add" element={<Add />} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/profile" element={<Detail />} />
         <Route path="/" element={<Main />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
