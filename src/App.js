@@ -15,12 +15,8 @@ function App() {
 const GlobalStyle = createGlobalStyle`
 ${reset}; // Reset CSS
 
-body {
-  color: #000000;
-}
-
 body, button, input, textarea {
-  color: #000000;
+  color: #444444;
   font-family: ${(props) => props.theme.fontFamily.default}, sans-serif;
 }
 

@@ -1,4 +1,10 @@
 const color = {
+  black: "#444444",
+  grey: "#AAAAAA",
+  lightGrey : "#DDDDDD",
+  orange: "#FF7E36",
+  lightPink: "#FEEDE5",
+  white: "#FFFFFF"
 }
 
 const hoverColor = {
@@ -16,7 +22,6 @@ export const defaultTheme = {
 
 /*
 export const darkTheme = {
-
 }
 
 export const lightTheme = {
