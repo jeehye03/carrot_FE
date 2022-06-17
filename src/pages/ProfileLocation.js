@@ -14,7 +14,7 @@ function RegisterLocation () {
   const navigate = useNavigate();
 
   const locationClick = (name) => {
-    navigate("/register", { state : name });
+    navigate("/profile");
   }
 
   return (
