@@ -20,7 +20,6 @@ function Add() {
     setCategory(e.target.value);
   };
 
-  console.log(category);
   // 파일 업로드
   const selectFile = async (post) => {
     const uploded_file = await uploadBytes(

@@ -10,7 +10,7 @@ function Profile() {
     <Wrap>
       <Header>
         <div>
-          <BiLeftArrowAlt size="25" onClick={() => navigate("/mypage")} />
+          <BiLeftArrowAlt size="25" onClick={() => navigate("/")} />
         </div>
         <div>
           <p>프로필 수정</p>
