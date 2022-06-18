@@ -1,17 +1,11 @@
 const color = {
   black: "#444444",
   grey: "#AAAAAA",
-<<<<<<< Updated upstream
-  lightGrey : "#DDDDDD",
-  orange: "#FF7E36",
-  lightPink: "#FEEDE5",
-  white: "#FFFFFF"
-}
-=======
   lightGrey: "#DDDDDD",
   orange: "#FF7E36",
+  lightPink: "#FEEDE5",
+  white: "#FFFFFF",
 };
->>>>>>> Stashed changes
 
 const hoverColor = {};
 
