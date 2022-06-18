@@ -1,9 +1,64 @@
 import styled from "styled-components";
 import { IoIosClose, IoIosCamera, IoIosArrowForward } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import React from "react";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { storage } from "../shared/firebase";
+// 이미지 업로드
 
 function Add() {
   const navigate = useNavigate();
+  const fileInput = React.useRef();
+  const img_ref = React.useRef();
+  const title_ref = React.useRef();
+  const price_ref = React.useRef();
+  const content_ref = React.useRef();
+  const [category, setCategory] = React.useState();
+  const [imageSrc, setImageSrc] = React.useState(); // 프리뷰
+
+  const changeCategory = (e) => {
+    setCategory(e.target.value);
+  };
+
+  console.log(category);
+  // 파일 업로드
+  const selectFile = async (post) => {
+    const uploded_file = await uploadBytes(
+      ref(storage, `images/${post.target.files[0].name}`),
+      post.target.files[0]
+    );
+    // 스토리지로 url 다운로드
+    const file_url = await getDownloadURL(uploded_file.ref);
+
+    img_ref.current = { url: file_url };
+
+    //setFiles(URL.createObjectURL(e.target.files[0]));
+
+    // 프리뷰
+    const reader = new FileReader();
+    const file = post.target.files[0];
+
+    // //파일내용 읽어오기
+    reader.readAsDataURL(file);
+
+    //읽기가 끝나면 발생하는 이벤트 핸들러
+    reader.onloadend = () => {
+      //reader.result는 파일 내용물
+      setImageSrc(reader.result);
+    };
+  };
+
+  const upload = () => {
+    const newPost = {
+      title: title_ref.current.value,
+      postimg: img_ref.current.url,
+      content: content_ref.current.value,
+      category: category,
+      price: price_ref.current.value,
+    };
+
+    console.log(newPost);
+  };
 
   return (
     <Wrap>
@@ -15,7 +70,7 @@ function Add() {
           }}
         />
         <h4>중고거래 글쓰기</h4>
-        <h5>완료</h5>
+        <h5 onClick={upload}>완료</h5>
       </Header>
 
       {/* 사진업로드 */}
@@ -24,27 +79,46 @@ function Add() {
           <label htmlFor="file">
             <IoIosCamera className="camera" />
           </label>
-          <input type="file" id="file" />
+          <input type="file" id="file" ref={fileInput} onChange={selectFile} />
+          {imageSrc && <img src={imageSrc} alt="preview-img" />}
         </File>
 
         <div>
           <Title>
-            <input placeholder="글 제목" />
+            <input placeholder="글 제목" ref={title_ref} />
           </Title>
 
-          <Kategorie>
-            <div>카테고리 선택</div>
-            <IoIosArrowForward />
-          </Kategorie>
+          <Categorie>
+            {/* <div>카테고리 선택</div> */}
+            <select name="category" id="category" onChange={changeCategory}>
+              <option value="none">카테고리 선택</option>
+              <option value="디지털기기">디지털기기</option>
+              <option value="생활가전">생활가전</option>
+              <option value="가구&인테리어">가구/인테리어</option>
+              <option value="유아동">유아동</option>
+              <option value="생활&가공식품">생활/가공식품</option>
+              <option value="유아도서">유아도서</option>
+              <option value="스포츠/레저">스포츠/레저</option>
+              <option value="여성패션">여성패션/잡화</option>
+              <option value="남성패션">남성패션/잡화</option>
+              <option value="게임&취미">게임/취미</option>
+              <option value="뷰티&미용">뷰티/미용</option>
+              <option value="반려동물용품">반려동물용품</option>
+              <option value="도서&티켓&음반">도서/티켓/음반</option>
+              <option value="기타">기타 중고물품</option>
+              <option value="삽니다">삽니다</option>
+            </select>
+            {/* <IoIosArrowForward /> */}
+          </Categorie>
 
           <Locate>
             <div>지역</div>
-            <IoIosArrowForward />
+            {/* <IoIosArrowForward /> */}
           </Locate>
         </div>
 
         <Price>
-          <input type="text" placeholder="가격 [선택사항]" />
+          <input type="text" placeholder="가격 [선택사항]" ref={price_ref} />
           <label htmlFor="price">
             <input type="radio" id="price" />
             가격 제안받기
@@ -56,6 +130,7 @@ function Add() {
           rows="5"
           placeholder="올릴 게시글 내용을 작성해주세요. (가품 및 판매금지품목은 게시가 제한될
           수 있어요.)"
+          ref={content_ref}
         />
       </Container>
     </Wrap>
@@ -65,17 +140,17 @@ const Wrap = styled.div`
   box-sizing: border-box;
   font-size: 13px;
 
-  & input {
+  input {
     font-size: 13px;
   }
 
-  & textarea {
+  textarea {
     margin-top: 45px;
     border: none;
     outline: none;
     resize: none;
   }
-  & textarea::placeholder {
+  textarea::placeholder {
     color: #dadada;
     font-size: 13px;
   }
@@ -88,10 +163,10 @@ const Header = styled.header`
   padding: 16px 15px;
   border-bottom: 1px solid #dadada;
 
-  & h4 {
+  h4 {
     font-weight: 800;
   }
-  & h5 {
+  h5 {
     color: #ff7e36;
   }
 `;
@@ -106,11 +181,18 @@ const File = styled.div`
   .camera {
     font-size: 35px;
   }
-  & label {
+  label {
     cursor: pointer;
   }
-  & input[type="file"] {
+  input[type="file"] {
     display: none;
+  }
+
+  img {
+    width: 130px;
+    height: 130px;
+    margin-left: 10px;
+    border-radius: 5px;
   }
 `;
 
@@ -118,18 +200,25 @@ const Title = styled.div`
   padding: 20px 0px;
   border-bottom: 1px solid #dadada;
   outline: none;
-  & input {
+  input {
     border: none;
     outline: none;
   }
 
-  & input::placeholder {
+  input::placeholder {
     color: #dadada;
   }
 `;
-const Kategorie = styled(Title)`
+const Categorie = styled(Title)`
   display: flex;
   justify-content: space-between;
+
+  select {
+    width: 100%;
+    border: none;
+    outline: none;
+    font-size: 14px;
+  }
 `;
 
 const Locate = styled(Title)`

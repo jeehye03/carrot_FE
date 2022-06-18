@@ -2,13 +2,15 @@ import styled from "styled-components";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { IoIosArrowForward, IoIosCamera } from "react-icons/io";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
+  const navigate = useNavigate();
   return (
     <Wrap>
       <Header>
         <div>
-          <BiLeftArrowAlt size="25" />
+          <BiLeftArrowAlt size="25" onClick={() => navigate("/mypage")} />
         </div>
         <div>
           <p>프로필 수정</p>
@@ -81,7 +83,7 @@ const File = styled.div`
     border-radius: 50%;
     position: absolute;
     bottom: 35px;
-    right: 110px;
+    left: 53%;
   }
 
   & label {
