@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import logo from "../public/images/logo.png";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 
 function Start () {
@@ -71,7 +72,6 @@ const WrapBottom = styled.div`
     width: 85%;
     height: 50px;
     border: none;
-    background-color: ${props => props.theme.color.orange};
     border-radius: 5px;
     color: ${props => props.theme.color.white};
     font-weight: bold;
@@ -82,6 +82,12 @@ const WrapBottom = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      background-color: ${props => props.theme.color.orange};
+      transition: background .3s;
+
+      &:hover {
+        background-color: ${props => props.theme.hoverColor.orange};
+      }
     }
   }
 
