@@ -1,6 +1,7 @@
 import '../shared/listForm.css';
 import { AiFillHome } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
+
 import MainItemList from '../components/MainItemList';
 import MyPage from '../components/MyPage';
 
@@ -9,6 +10,8 @@ import React, { useState } from "react";
 
 function Main () {
   const [pageState, setState] = useState(<MainItemList/>);
+  const [homeBtnColor, setHomeBtnColor] = useState("black")
+  const [myBtnColor, setMyBtnColor] = useState("#AAAAAA")
   const [titleWord, setTitle] = useState("성수동 2가")
 
   return (
@@ -21,12 +24,17 @@ function Main () {
 
         <div className="BMenuBar"> 
           <div className="BMenuBox" onClick={() => { setTitle("성수동 2가"); 
+                                                     setHomeBtnColor("black");
+                                                     setMyBtnColor("#AAAAAA")
                                                      setState(<MainItemList/>);}}>
-            <AiFillHome size="30px"/>HOME</div>
+            <AiFillHome size="30px" color={homeBtnColor}/>
+            <p style={{color: homeBtnColor}}></p>HOME</div>
           <div className="BMenuBox" onClick={() => { setTitle("나의 당근");
+                                                     setHomeBtnColor("#AAAAAA");
+                                                     setMyBtnColor("black")
                                                      setState(<MyPage/>);}}>
-            <BiUser size="40px" color="#AAAAAA"/>
-              <p style={{color:"gray"}}>MY Carrot</p> 
+            <BiUser size="40px" color={myBtnColor}/>
+              <p style={{color: myBtnColor}}>MY Carrot</p> 
           </div>        
         </div>
     </div>
