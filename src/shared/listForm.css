@@ -1,0 +1,42 @@
+.TMenuBar{
+    border-bottom: 1px solid #AAAAAA;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height :  50px;
+}
+
+.BMenuBar{
+    height : 94px;
+    display: flex;
+    align-items: center;
+}
+
+.BMenuBox{
+    width: 50%;
+    height: 94px;
+    border: 1px solid #AAAAAA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column
+}
+
+.ContentsBox {
+    height : 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.MainListBox {
+    height : 700px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.Wrap {
+    width : 390px;
+    height : 844px;
+    border: 1px solid blue;
+}

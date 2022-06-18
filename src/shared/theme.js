@@ -7,7 +7,9 @@ const color = {
   white: "#FFFFFF",
 };
 
-const hoverColor = {};
+const hoverColor = {
+  orange: "#D65A16",
+};
 
 const fontFamily = {
   default: "NEXON Lv1 Gothic OTF",
