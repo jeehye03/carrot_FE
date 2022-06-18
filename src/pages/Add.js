@@ -21,7 +21,7 @@ function Add() {
       {/* 사진업로드 */}
       <Container>
         <File>
-          <label for="file">
+          <label htmlFor="file">
             <IoIosCamera className="camera" />
           </label>
           <input type="file" id="file" />
@@ -45,7 +45,7 @@ function Add() {
 
         <Price>
           <input type="text" placeholder="가격 [선택사항]" />
-          <label for="price">
+          <label htmlFor="price">
             <input type="radio" id="price" />
             가격 제안받기
           </label>
