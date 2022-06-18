@@ -69,7 +69,7 @@ function Detail() {
 const Wrap = styled.div`
   box-sizing: border-box;
 
-  & img {
+  img {
     background-size: cover;
     background-position: center;
     height: 400px;
@@ -98,7 +98,7 @@ const ProfileBar = styled.div`
   padding-bottom: 16px;
   border-bottom: 1px solid #dadada;
 
-  & p {
+  p {
     font-size: 13px;
   }
 `;
@@ -110,7 +110,7 @@ const Profile = styled.div`
   width: 100px;
   line-height: 20px;
 
-  & div > p:first-child {
+  div > p:first-child {
     font-weight: 600;
     font-size: 16px;
   }
@@ -120,7 +120,7 @@ const Contents = styled.div`
   padding-top: 35px;
   line-height: 25px;
 
-  & p:first-child {
+  p:first-child {
     font-weight: 600;
   }
 `;
@@ -150,14 +150,14 @@ const Price = styled.div`
   line-height: 25px;
   align-items: center;
 
-  & div :first-child {
+  div :first-child {
     font-weight: 600;
   }
-  & div :last-child {
+  div :last-child {
     color: #ff7e36;
     font-size: 14px;
   }
-  & button {
+  button {
     background-color: #ff7e36;
     border: none;
     border-radius: 5px;
