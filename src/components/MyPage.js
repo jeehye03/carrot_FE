@@ -1,11 +1,22 @@
+import React, { useState } from "react";
+
 import '../shared/listForm.css';
 import styled from "styled-components";
-import { MdArrowForwardIos } from 'react-icons/md'
-import {AiFillHeart} from 'react-icons/ai'
-import { BsFillBasket2Fill } from 'react-icons/bs'
-import { BsReceipt } from 'react-icons/bs'
+import { MdArrowForwardIos } from 'react-icons/md';
+import {AiFillHeart} from 'react-icons/ai';
+import { BsFillBasket2Fill } from 'react-icons/bs';
+import { BsReceipt } from 'react-icons/bs';
+
+import SalesList from './SalesList';
+import ConcernsList from "./ConcernsList";
+
+import { useNavigate } from "react-router-dom";
+
 
 function MyPage () {
+    const [subMenu, setSubMenu] = useState(<SalesList/>);
+    const navigate = useNavigate();
+
   return ( 
       <>
           <div className="ContentsBox">
@@ -15,19 +26,23 @@ function MyPage () {
                       <div style={{ padding: '40px' }}> 모모로 </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
-                      <MdArrowForwardIos size="25" color='black' />
+                      <MdArrowForwardIos size="25" color='black' onClick={()=>{navigate("/profile")}}/>
                   </div>
               </MyInfoBox>
 
               <MyMenuMiddle>
-                  <div><Circle><BsReceipt size="25" color='#ff7E36' /></Circle>판매내역</div>
-                  <div><Circle><BsFillBasket2Fill size="25" color='#ff7E36' /></Circle>구매내역</div>
-                  <div><Circle><AiFillHeart size="25" color='#ff7E36' /></Circle>관심목록</div>
+                  <div><Circle onClick={()=>{setSubMenu(<SalesList/>);}}>
+                    <BsReceipt size="25" color='#ff7E36' /></Circle>판매내역</div>
+                  <div><Circle onClick={()=>{alert("준비중이에요:) ");}}><BsFillBasket2Fill size="25" color='#ff7E36' /></Circle>구매내역</div>
+                  <div><Circle onClick={()=>{setSubMenu(<ConcernsList/>);}}><AiFillHeart size="25" color='#ff7E36' /></Circle>관심목록</div>
               </MyMenuMiddle>
+            </div>
+            <div style={{height : '450px'}}>
+              {subMenu}
+            </div>
 
-          </div>
+
       </>
-
     )
 
 }
@@ -36,7 +51,7 @@ const MyInfoBox = styled.div`
 display: flex;
 justify-content: space-around;
 border-bottom: 1px solid #AAAAAA;
-height: 150px;
+height: 130px;
 }`;
 
 const MyMenuMiddle = styled.div`
@@ -45,6 +60,7 @@ border-bottom: 1px solid #AAAAAA;
 display: flex;
 align-items: center;
 justify-content: space-around;
+padding:15px auto;
 `;
 
 const Circle = styled.div`
