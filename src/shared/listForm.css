@@ -23,10 +23,17 @@
 }
 
 .ContentsBox {
+    height : 250px;
+    display: flex;
+    flex-direction: column;
+}
+
+.MainListBox {
     height : 700px;
     display: flex;
     flex-direction: column;
 }
+
 
 .Wrap {
     width : 390px;
