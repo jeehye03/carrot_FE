@@ -1,18 +1,17 @@
 const color = {
   black: "#444444",
   grey: "#AAAAAA",
-  lightGrey : "#DDDDDD",
+  lightGrey: "#DDDDDD",
   orange: "#FF7E36",
   lightPink: "#FEEDE5",
-  white: "#FFFFFF"
-}
+  white: "#FFFFFF",
+};
 
-const hoverColor = {
-}
+const hoverColor = {};
 
 const fontFamily = {
-  default: 'NEXON Lv1 Gothic OTF',
-}
+  default: "NEXON Lv1 Gothic OTF",
+};
 
 export const defaultTheme = {
   color,
