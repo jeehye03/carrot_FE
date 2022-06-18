@@ -4,8 +4,6 @@ import RegisterLocation from "./pages/RegisterLocation";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Main from "./pages/Main";
-import MyPage from "./components/MyPage";
-import MainItemList from "./components/MainItemList"
 import Add from "./pages/Add";
 import Detail from "./pages/Detail";
 import NotFound from "./pages/NotFound";
@@ -33,10 +31,7 @@ function Router() {
         <Route path="/add" element={<Add />} />
         <Route path="/detail" element={<Detail />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<Main />}>
-          <Route path="/mypage" element={<MyPage/>} />
-          <Route path="/itemlist" element={<MainItemList />} /> 
-        </Route>
+        <Route path="/" element={<Main />}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
