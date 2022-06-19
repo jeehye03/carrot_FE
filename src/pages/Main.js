@@ -33,6 +33,7 @@ function Main () {
     <div className="Wrap">
         <div className="TMenuBar"> 
           <span> {titleWord} </span>
+          { titleWord === "나의 당근"?  <p> 로그아웃 </p> : "" }
     </div>
         
         {pageState}
