@@ -11,7 +11,7 @@ function SalesList () {
             <div style={{display:'flex'}}>
                 <Img src="https://i.pinimg.com/564x/83/6b/5f/836b5fbea54ad957fbc397600ea072de.jpg"/>
                 <TextArea>
-                    <span style={{fontSize : '15px', marginBottom: '5px'}}>귀엽고 깜찍한 조르디에요</span>
+                    <span style={{fontSize : '15px', marginBottom: '5px'}}>귀엽고 깜찍한 죠르디에요</span>
                     <span style={{fontSize : '12px', padding:'5px', color:'#AAAAAA'}}>군자동</span>
                     <span style={{fontSize : '13px', padding:'5px', fontWeight: 'bold'}}>30,000원</span>
                 </TextArea>

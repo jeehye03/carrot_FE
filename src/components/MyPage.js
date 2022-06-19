@@ -6,7 +6,6 @@ import { MdArrowForwardIos } from 'react-icons/md';
 import {AiFillHeart} from 'react-icons/ai';
 import { BsFillBasket2Fill } from 'react-icons/bs';
 import { BsReceipt } from 'react-icons/bs';
-
 import SalesList from './SalesList';
 import ConcernsList from "./ConcernsList";
 
@@ -16,6 +15,14 @@ import { useNavigate } from "react-router-dom";
 function MyPage () {
     const [subMenu, setSubMenu] = useState(<SalesList/>);
     const navigate = useNavigate();
+
+    const setSalseMenu=() =>{
+      setSubMenu(<SalesList/>);
+    }
+
+    const setConcerMenu =()=>{
+      setSubMenu(<ConcernsList/>);
+    }
 
   return ( 
       <>
@@ -31,10 +38,10 @@ function MyPage () {
               </MyInfoBox>
 
               <MyMenuMiddle>
-                  <div><Circle onClick={()=>{setSubMenu(<SalesList/>);}}>
+                  <div><Circle onClick={()=>{setSalseMenu();}}>
                     <BsReceipt size="25" color='#ff7E36' /></Circle>판매내역</div>
                   <div><Circle onClick={()=>{alert("준비중이에요:) ");}}><BsFillBasket2Fill size="25" color='#ff7E36' /></Circle>구매내역</div>
-                  <div><Circle onClick={()=>{setSubMenu(<ConcernsList/>);}}><AiFillHeart size="25" color='#ff7E36' /></Circle>관심목록</div>
+                  <div><Circle onClick={()=>{setConcerMenu()}}><AiFillHeart size="25" color='#ff7E36' /></Circle>관심목록</div>
               </MyMenuMiddle>
             </div>
             <div style={{height : '450px'}}>
