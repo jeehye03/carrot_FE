@@ -8,11 +8,13 @@ import MyPage from '../components/MyPage';
 import React, { useState } from "react";
 
 
+
 function Main () {
   const [pageState, setState] = useState(<MainItemList/>);
   const [homeBtnColor, setHomeBtnColor] = useState("black")
   const [myBtnColor, setMyBtnColor] = useState("#AAAAAA")
   const [titleWord, setTitle] = useState("성수동 2가")
+
 
   const homeButtonAction= ()=>{
     setTitle("성수동 2가"); 

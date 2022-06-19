@@ -3,26 +3,46 @@ import styled from "styled-components";
 import { AiFillPlusCircle } from 'react-icons/ai';
 import { useNavigate } from "react-router-dom";
 
+import React, { useState } from "react";
+import { useSelector,  useDispatch } from 'react-redux';
+import {loadMainposts} from '../redux/modules/mainPosts'
+
+
 function MainItemList () {
+  const dispatch = useDispatch();
+  const [boardList, setBoardList] = useState();
+
+  const mainPostList = useSelector((state) => state.posts.list);
+
+  React.useEffect(() =>{
+    dispatch(loadMainposts());
+  }, [boardList])
+
+
   const navigate = useNavigate();
   return ( 
-      <div className="MainListBox"> 
-        <CardBox className='card' >
-          <div style={{display:'flex'}} onClick={()=>{ navigate("/detail");}} >
-            <Img src="https://velog.velcdn.com/images/eppo/post/2e1a14ff-f6cd-4f63-9cd1-330722065e62/image.png"/>
+    <div className="MainListBox">
+      {mainPostList.map((list, index)=>(
+        <div key={index}>
+          <CardBox className='card'>
+          <div style={{ display: 'flex' }} onClick={() => { navigate("/detail"); }} >
+            <Img src={list.postImg} />
             <TextArea>
-                <span style={{fontSize : '15px', marginBottom: '5px'}}>귀엽고 깜찍한 춘식이 팔아요</span>
-                <span style={{fontSize : '12px', padding:'5px', color:'#AAAAAA'}}>군자동</span>
-                <span style={{fontSize : '13px', padding:'5px', fontWeight: 'bold'}}>30,000원</span>
+              <span style={{ fontSize: '15px', marginBottom: '5px' }}>{list.title}</span>
+              <span style={{ fontSize: '12px', padding: '5px', color: '#AAAAAA' }}>{list.userLocation}</span>
+              <span style={{ fontSize: '13px', padding: '5px', fontWeight: 'bold' }}>{list.price}</span>
             </TextArea>
-        </div>
-        <div style={{display:'flex', alignItems: 'flex-end'}}>❤️ 10</div>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'flex-end' }}>❤️ {list.likeNum}</div>
         </CardBox>
-        
-        <FixedButton>
-          <AiFillPlusCircle size="60" color='#ff7E36' onClick={()=>{navigate("/add");}}/>
-        </FixedButton>
-      </div>
+        </div>
+      ))}
+
+
+      <FixedButton>
+        <AiFillPlusCircle size="60" color='#ff7E36' onClick={() => { navigate("/add"); }} />
+      </FixedButton>
+    </div>
     )
 
 }
@@ -31,6 +51,7 @@ function MainItemList () {
 const CardBox = styled.div`
 display:flex;
 padding: 15px;
+
 height : 130px;
 justify-content: space-around;
 border-bottom: 1px solid  #AAAAAA;
@@ -40,7 +61,8 @@ border-bottom: 1px solid  #AAAAAA;
 const TextArea = styled.div`
 display: flex;
 flex-direction: column;
-padding: 10px
+width: 200px;
+padding: 10px;
 `;
 
 const FixedButton = styled.div`
