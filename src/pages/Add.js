@@ -1,42 +1,44 @@
 import styled from "styled-components";
-import { IoIosClose, IoIosCamera, IoIosArrowForward } from "react-icons/io";
+import { IoIosClose, IoIosCamera } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import React from "react";
+import { useState, useRef } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
+import { carrotPost } from "../redux/modules/post";
+import { useDispatch } from "react-redux";
 // 이미지 업로드
 
 function Add() {
   const navigate = useNavigate();
-  const fileInput = React.useRef();
-  const img_ref = React.useRef();
-  const title_ref = React.useRef();
-  const price_ref = React.useRef();
-  const content_ref = React.useRef();
-  const [category, setCategory] = React.useState();
-  const [imageSrc, setImageSrc] = React.useState(); // 프리뷰
+  const dispatch = useDispatch();
+
+  const fileInput = useRef();
+  const img_ref = useRef();
+  const title_ref = useRef();
+  const price_ref = useRef();
+  const content_ref = useRef();
+  const [category, setCategory] = useState();
+  const [imageSrc, setImageSrc] = useState(); // 프리뷰
+  const [enteredNum, setEnterdNum] = useState();
 
   const changeCategory = (e) => {
     setCategory(e.target.value);
   };
 
-  console.log(category);
   // 파일 업로드
-  const selectFile = async (post) => {
+  const selectFile = async (e) => {
     const uploded_file = await uploadBytes(
-      ref(storage, `images/${post.target.files[0].name}`),
-      post.target.files[0]
+      ref(storage, `images/${e.target.files[0].name}`),
+      e.target.files[0] // 어떤 파일 저장 할건지
     );
     // 스토리지로 url 다운로드
     const file_url = await getDownloadURL(uploded_file.ref);
 
     img_ref.current = { url: file_url };
 
-    //setFiles(URL.createObjectURL(e.target.files[0]));
-
     // 프리뷰
     const reader = new FileReader();
-    const file = post.target.files[0];
+    const file = e.target.files[0];
 
     // //파일내용 읽어오기
     reader.readAsDataURL(file);
@@ -48,16 +50,34 @@ function Add() {
     };
   };
 
+  // 금액 콤마(,) 찍기
+
+  const priceComma = (e) => {
+    let value = e.target.value;
+    value = Number(value.replaceAll(",", ""));
+    if (isNaN(value)) {
+      //NaN인지 판별
+      value = 0;
+    } else {
+      setEnterdNum(value.toLocaleString("ko-KR"));
+    }
+  };
+
+  // 콤마제거
+  const commaRemovePrice = enteredNum?.replace(/,/g, "");
+  let numberPrice = parseInt(commaRemovePrice);
+
   const upload = () => {
     const newPost = {
       title: title_ref.current.value,
-      postimg: img_ref.current.url,
+      postImg: img_ref.current.url,
       content: content_ref.current.value,
       category: category,
-      price: price_ref.current.value,
+      price: numberPrice,
     };
 
-    console.log(newPost);
+    dispatch(carrotPost(newPost));
+    //console.log(newPost);
   };
 
   return (
@@ -118,7 +138,13 @@ function Add() {
         </div>
 
         <Price>
-          <input type="text" placeholder="가격 [선택사항]" ref={price_ref} />
+          <input
+            type="text"
+            placeholder="가격 [선택사항]"
+            ref={price_ref}
+            onChange={priceComma}
+            value={enteredNum || ""}
+          />
           <label htmlFor="price">
             <input type="radio" id="price" />
             가격 제안받기

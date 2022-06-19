@@ -1,0 +1,30 @@
+{
+  "posts": [
+    {
+      "title": "아이폰",
+      "postImg": "https://firebasestorage.googleapis.com/v0/b/carrotmarket-20c28.appspot.com/o/images%2F%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%91%E1%85%A9%E1%86%AB.jpeg?alt=media&token=10b3b44f-0573-45fa-8b5a-c7572f7bee63",
+      "content": "아이폰12 미니 네고 불가",
+      "category": "디지털기기",
+      "price": 800000,
+      "id": 1
+    },
+    {
+      "title": "커피머신",
+      "postImg": "https://firebasestorage.googleapis.com/v0/b/carrotmarket-20c28.appspot.com/o/images%2F%E1%84%8F%E1%85%A5%E1%84%91%E1%85%B5%E1%84%86%E1%85%A5%E1%84%89%E1%85%B5%E1%86%AB.jpeg?alt=media&token=7ee02c39-7dd3-45c3-ae39-1feb227f2969",
+      "content": "커피머신 새상품 입니다!",
+      "category": "생활가전",
+      "price": 200000,
+      "id": 2
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
