@@ -12,65 +12,37 @@ import ConcernsList from "./ConcernsList";
 
 import { useNavigate } from "react-router-dom";
 
-function MyPage() {
-  const [subMenu, setSubMenu] = useState(<SalesList />);
-  const navigate = useNavigate();
+function MyPage () {
+    const [subMenu, setSubMenu] = useState(<SalesList/>);
+    const navigate = useNavigate();
+   
+  return ( 
+      <>
+          <div className="ContentsBox">
+              <MyInfoBox>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <Img src="https://velog.velcdn.com/images/eppo/post/89789686-647d-4d2b-8e27-cac3b75d4cd4/image.png" />
+                      <div style={{ padding: '40px' }}> 모모로 </div>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <MdArrowForwardIos size="25" color='black' onClick={()=>{navigate("/profile")}}/>
+                  </div>
+              </MyInfoBox>
 
-  return (
-    <>
-      <div className="ContentsBox">
-        <MyInfoBox>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <Img src="https://velog.velcdn.com/images/eppo/post/89789686-647d-4d2b-8e27-cac3b75d4cd4/image.png" />
-            <div style={{ padding: "40px" }}> 모모로 </div>
-          </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <MdArrowForwardIos
-              size="25"
-              color="black"
-              onClick={() => {
-                navigate("/profile");
-              }}
-            />
-          </div>
-        </MyInfoBox>
+              <MyMenuMiddle>
+                  <div><Circle onClick={()=>{setSubMenu(<SalesList/>);}}>
+                    <BsReceipt size="25" color='#ff7E36' /></Circle>판매내역</div>
+                  <div><Circle onClick={()=>{alert("준비중이에요:) ");}}><BsFillBasket2Fill size="25" color='#ff7E36' /></Circle>구매내역</div>
+                  <div><Circle onClick={()=>{setSubMenu(<ConcernsList/>);}}><AiFillHeart size="25" color='#ff7E36' /></Circle>관심목록</div>
+              </MyMenuMiddle>
+            </div>
+            <div style={{height : '450px'}}>
+              {subMenu}
+            </div>
 
-        <MyMenuMiddle>
-          <div>
-            <Circle
-              onClick={() => {
-                setSubMenu(<SalesList />);
-              }}
-            >
-              <BsReceipt size="25" color="#ff7E36" />
-            </Circle>
-            판매내역
-          </div>
-          <div>
-            <Circle
-              onClick={() => {
-                alert("준비중이에요:) ");
-              }}
-            >
-              <BsFillBasket2Fill size="25" color="#ff7E36" />
-            </Circle>
-            구매내역
-          </div>
-          <div>
-            <Circle
-              onClick={() => {
-                setSubMenu(<ConcernsList />);
-              }}
-            >
-              <AiFillHeart size="25" color="#ff7E36" />
-            </Circle>
-            관심목록
-          </div>
-        </MyMenuMiddle>
-      </div>
-      <div style={{ height: "450px" }}>{subMenu}</div>
-    </>
-  );
+
+      </>
+    )
 }
 
 const MyInfoBox = styled.div`
