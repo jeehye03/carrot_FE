@@ -17,7 +17,7 @@ function SalesList () {
                 </TextArea>
             </div>
 
-            <CBtn onClick={{}}>거래완료</CBtn>
+            <CBtn>거래완료</CBtn>
                      {/* 거래완료 API */}
             </CardBox>
 
