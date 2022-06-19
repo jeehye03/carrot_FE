@@ -4,6 +4,7 @@ import posts from "./modules/mainPosts"
 
 const store = configureStore({
   reducer: { user , posts}
+
 });
 
 export default store;

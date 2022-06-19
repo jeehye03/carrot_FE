@@ -1,6 +1,6 @@
-import '../shared/listForm.css';
+import "../shared/listForm.css";
 import styled from "styled-components";
-import { AiFillPlusCircle } from 'react-icons/ai';
+import { AiFillPlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
@@ -8,57 +8,54 @@ import { useSelector,  useDispatch } from 'react-redux';
 import {loadMainposts} from '../redux/modules/mainPosts'
 
 
-function MainItemList () {
+function MainItemList() {
   const dispatch = useDispatch();
   const [boardList, setBoardList] = useState();
 
   const mainPostList = useSelector((state) => state.posts.list);
 
-  React.useEffect(() =>{
+  React.useEffect(() => {
     dispatch(loadMainposts());
   }, [boardList])
 
 
   const navigate = useNavigate();
-  return ( 
+  return (
     <div className="MainListBox">
-      {mainPostList.map((list, index)=>(
+      {mainPostList.map((list, index) => (
         <div key={index}>
           <CardBox className='card'>
-          <div style={{ display: 'flex' }} onClick={() => { navigate("/detail"); }} >
-            <Img src={list.postImg} />
-            <TextArea>
-              <span style={{ fontSize: '15px', marginBottom: '5px' }}>{list.title}</span>
-              <span style={{ fontSize: '12px', padding: '5px', color: '#AAAAAA' }}>{list.userLocation}</span>
-              <span style={{ fontSize: '13px', padding: '5px', fontWeight: 'bold' }}>{list.price}</span>
-            </TextArea>
-          </div>
-          <div style={{ display: 'flex', alignItems: 'flex-end' }}>❤️ {list.likeNum}</div>
-        </CardBox>
+            <div style={{ display: 'flex' }} onClick={() => { navigate("/detail"); }} >
+              <Img src={list.postImg} />
+              <TextArea>
+                <span style={{ fontSize: '15px', marginBottom: '5px' }}>{list.title}</span>
+                <span style={{ fontSize: '12px', padding: '5px', color: '#AAAAAA' }}>{list.userLocation}</span>
+                <span style={{ fontSize: '13px', padding: '5px', fontWeight: 'bold' }}>{list.price}</span>
+              </TextArea>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'flex-end' }}>❤️ {list.likeNum}</div>
+          </CardBox>
         </div>
       ))}
 
-
       <FixedButton>
-        <AiFillPlusCircle size="60" color='#ff7E36' onClick={() => { navigate("/add"); }} />
+        <AiFillPlusCircle size="60" color="#ff7E36" onClick={() => { navigate("/add"); }}
+        />
       </FixedButton>
     </div>
-    )
-
+  );
 }
-
 
 const CardBox = styled.div`
 display:flex;
 padding: 15px;
-
 height : 130px;
 justify-content: space-around;
 border-bottom: 1px solid  #AAAAAA;
 `;
 
-
 const TextArea = styled.div`
+
 display: flex;
 flex-direction: column;
 width: 200px;
@@ -66,14 +63,15 @@ padding: 10px;
 `;
 
 const FixedButton = styled.div`
-display: flex;
-position: fixed;
-bottom: 13%;
-right: 5%;
+  display: flex;
+  position: fixed;
+  bottom: 13%;
+  right: 5%;
 `;
 
-
-const Img = styled.img` width:100px; border-radius: 10px; `;
-
+const Img = styled.img`
+  width: 100px;
+  border-radius: 10px;
+`;
 
 export default MainItemList;

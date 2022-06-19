@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 
-import '../shared/listForm.css';
+import "../shared/listForm.css";
 import styled from "styled-components";
-import { MdArrowForwardIos } from 'react-icons/md';
-import {AiFillHeart} from 'react-icons/ai';
-import { BsFillBasket2Fill } from 'react-icons/bs';
-import { BsReceipt } from 'react-icons/bs';
+import { MdArrowForwardIos } from "react-icons/md";
+import { AiFillHeart } from "react-icons/ai";
+import { BsFillBasket2Fill } from "react-icons/bs";
+import { BsReceipt } from "react-icons/bs";
 
-import SalesList from './SalesList';
+import SalesList from "./SalesList";
 import ConcernsList from "./ConcernsList";
 
 import { useNavigate } from "react-router-dom";
-
 
 function MyPage () {
     const [subMenu, setSubMenu] = useState(<SalesList/>);
@@ -44,39 +43,37 @@ function MyPage () {
 
       </>
     )
-
 }
 
 const MyInfoBox = styled.div`
-display: flex;
-justify-content: space-around;
-border-bottom: 1px solid #AAAAAA;
-height: 130px;
-}`;
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #aaaaaa;
+  height: 130px;
+`;
 
 const MyMenuMiddle = styled.div`
-height : 120px;
-border-bottom: 1px solid #AAAAAA;
-display: flex;
-align-items: center;
-justify-content: space-around;
-padding:15px auto;
+  height: 120px;
+  border-bottom: 1px solid #aaaaaa;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 15px auto;
 `;
 
 const Circle = styled.div`
-background-color: rgb(254, 237, 229);
-width: 60px;
-height: 60px;
-border-radius: 100%;
-display: flex;
-align-items: center;
-justify-content: center;
-margin-bottom: 10px;
-
+  background-color: rgb(254, 237, 229);
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
 `;
 
-
-const Img = styled.img` width:100px`;
-
+const Img = styled.img`
+  width: 100px;
+`;
 
 export default MyPage;
