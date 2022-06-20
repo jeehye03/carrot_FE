@@ -65,6 +65,7 @@ function Detail() {
               <p>{postDetail?.userLocation}</p>
             </div>
           </Profile>
+          <button onClick={()=>{navigate("/modify/"+postId)}}>수정</button>
           <Ondo>
             <p>{postDetail?.mannerOndo} °C</p>
             <p>매너온도</p>

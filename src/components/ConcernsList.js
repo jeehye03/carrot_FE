@@ -1,12 +1,26 @@
-import React from "react";
 import '../public/css/listForm.css';
 import styled from "styled-components";
 
 
+import React, { useState } from "react";
+import { loadSalseposts } from '../redux/modules/post'
+import { useSelector,  useDispatch } from 'react-redux';
+
+
 function ConcernsList () {
+    const [boardList, setBoardList] = useState();
+    // const navigate = useNavigate();
+    const dispatch = useDispatch();
+  
+    React.useEffect(() => {
+    dispatch(loadSalseposts());
+    }, [boardList])
+
+
     return (
         <div className="ContentsBox"> 
         <SubTitle>관심 목록</SubTitle> 
+        {!(boardList) ? <NotFound> 관심 목록이 없어요</NotFound> :
             <CardBox className='card'>
             <div style={{display:'flex'}}>
                 <Img src="https://velog.velcdn.com/images/eppo/post/2e1a14ff-f6cd-4f63-9cd1-330722065e62/image.png"/>
@@ -18,6 +32,7 @@ function ConcernsList () {
             </div>
             <div style={{display:'flex', alignItems: 'center', width:'25px'}}>❤️</div>
             </CardBox>
+        }
 
             {/* 관심목록이 없을 때 삼항연산자로 표시하여 랜더 */}
 
@@ -55,6 +70,13 @@ font-weight: bold;
 
 `;
 
+
+const NotFound = styled.div`
+display: flex;
+height: 100px;
+align-items: center;
+justify-content: center;
+`;
 
 
 export default ConcernsList;
