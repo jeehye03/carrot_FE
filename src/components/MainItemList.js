@@ -1,18 +1,18 @@
-import "../shared/listForm.css";
+import '../public/css/listForm.css';
 import styled from "styled-components";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
 import { useSelector,  useDispatch } from 'react-redux';
-import {loadMainposts} from '../redux/modules/mainPosts'
+import { loadMainposts } from '../redux/modules/post'
 
 
 function MainItemList() {
   const dispatch = useDispatch();
   const [boardList, setBoardList] = useState();
 
-  const mainPostList = useSelector((state) => state.posts.list);
+  const mainPostList = useSelector((state) => state.post.postList);
 
   React.useEffect(() => {
     dispatch(loadMainposts());

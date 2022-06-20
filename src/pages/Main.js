@@ -1,4 +1,4 @@
-import '../shared/listForm.css';
+import '../public/css/listForm.css';
 import { AiFillHome } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 
