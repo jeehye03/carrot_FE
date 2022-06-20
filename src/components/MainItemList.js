@@ -13,6 +13,7 @@ function MainItemList() {
   const [boardList, setBoardList] = useState();
 
   const mainPostList = useSelector((state) => state.post.postList);
+  
 
   React.useEffect(() => {
     dispatch(loadMainposts());
@@ -26,7 +27,7 @@ function MainItemList() {
       {mainPostList.posts&&mainPostList.posts.map((list, index) => (
         <div key={index}>
           <CardBox className='card'>
-            <div style={{ display: 'flex' }} onClick={() => { navigate("/detail"); }} >
+            <div style={{ display: 'flex' }} onClick={() => { navigate("/detail/"+list.postId); }} >
               <Img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxRYyqe0UK-hgDlo9JqT9oQJoVqiHCI3eQehb_HCgp8Q&s" />
               <TextArea>
                 <span style={{ fontSize: '15px', marginBottom: '5px' }}>{list.title}</span>
