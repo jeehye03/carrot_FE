@@ -35,7 +35,7 @@ export const carrotGetPost = () => {
 // 메인화면 포스트 
 export const loadMainposts = () =>{
   return async function (dispatch) {
-      await axios.get("http://localhost:5001/postList").then(re=>{
+      await axios.get("http://54.180.121.151/api/post").then(re=>{
           dispatch(roadPosts(re.data));
       })
   }
