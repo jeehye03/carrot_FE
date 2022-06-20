@@ -17,13 +17,13 @@ export const carrotPost = (newPost) => {
   };
 };
 
-// 게시물 조회
-export const carrotGetPost = () => {
+// 게시물 상세 조회
+export const carrotGetPost = (postId) => {
   return async function (dispatch) {
-    axios
-      .get("http://localhost:5001/posts/1")
+    await instance
+      .get(`api/post/${postId}`)
       .then((res) => {
-        //console.log(res);
+        console.log(res);
         dispatch(getLoadPost(res.data));
       })
       .catch((err) => {
