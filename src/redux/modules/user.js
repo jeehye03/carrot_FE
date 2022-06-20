@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loadProfile } from "../../shared/axios";
+import { instance, loadProfile } from "../../shared/axios";
+import axios from "axios";
 
 export const carrotLoginStatus = (status) => {
   return async function (dispatch) {

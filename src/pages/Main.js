@@ -5,16 +5,30 @@ import { BiUser } from 'react-icons/bi';
 import MainItemList from '../components/MainItemList';
 import MyPage from '../components/MyPage';
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getToken, removeToken } from '../shared/localStorage';
 
 
 
 function Main () {
+  const navigate = useNavigate();
   const [pageState, setState] = useState(<MainItemList/>);
   const [homeBtnColor, setHomeBtnColor] = useState("black")
   const [myBtnColor, setMyBtnColor] = useState("#AAAAAA")
-  const [titleWord, setTitle] = useState("성수동 2가")
+  const [titleWord, setTitle] = useState("성수동 2가");
 
+  const logout = (e) => {
+    removeToken();
+    navigate("/start");
+  }
+
+  useEffect(() => {
+    const token = getToken();
+    if (!token) {
+      navigate("/start");
+    }
+  }, []);
 
   const homeButtonAction= ()=>{
     setTitle("성수동 2가"); 
@@ -33,9 +47,9 @@ function Main () {
 
   return (
     <div className="Wrap">
-        <div className="TMenuBar"> 
-          <span> {titleWord} </span>
-          { titleWord === "나의 당근"?  <p> 로그아웃 </p> : "" }
+      <div className="TMenuBar"> 
+      <span> {titleWord} </span>
+      { titleWord === "나의 당근"?  <p onClick={logout} style={{cursor: "pointer"}}> 로그아웃 </p> : "" }
     </div>
         
         {pageState}

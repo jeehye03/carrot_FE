@@ -40,13 +40,15 @@ function Login () {
       return;
     }
     
-    login(data).then((response) => {
+    login(data)
+    .then((response) => {
       alert("로그인 성공!");
       saveToken(response.data.token);
       dispatch(carrotLoginStatus(true));
       dispatch(getCarrotUserInfo());
       navigate("/");
-    }).catch((err) => {
+    })
+    .catch((err) => {
       alert("로그인 실패!");
     });
   }
