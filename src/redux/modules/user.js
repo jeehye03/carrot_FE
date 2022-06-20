@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadProfile } from "../../shared/axios";
+import axios from "axios";
 
 export const carrotLoginStatus = (status) => {
   return async function (dispatch) {
@@ -7,9 +8,18 @@ export const carrotLoginStatus = (status) => {
   }
 };
 
+export const carrotLogin = (token) => {
+  return async function (dispatch) {
+    dispatch(updateLogin(true));
+    const response = await axios.get("http://54.180.121.151/api/user/me", { headers : {"Authorization": `Bearer ${token}`} });
+    dispatch(setUser(response.data.user));
+  }
+}
+
 export const getCarrotUserInfo = () => {
   return async function (dispatch) {
     const response = await loadProfile();
+    console.log(response);
     dispatch(setUser(response.data.user));
   }
 }

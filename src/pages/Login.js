@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { css } from "styled-components";
 import HeaderBack from "../components/HeaderBack";
-import { carrotLoginStatus, getCarrotUserInfo } from "../redux/modules/user";
+import { carrotLogin, getCarrotUserInfo } from "../redux/modules/user";
 import { login } from "../shared/axios";
 import { saveToken } from "../shared/localStorage";
 
@@ -40,13 +40,14 @@ function Login () {
       return;
     }
     
-    login(data).then((response) => {
+    login(data)
+    .then((response) => {
       alert("로그인 성공!");
       saveToken(response.data.token);
-      dispatch(carrotLoginStatus(true));
-      dispatch(getCarrotUserInfo());
+      dispatch(carrotLogin(response.data.token));
       navigate("/");
-    }).catch((err) => {
+    })
+    .catch((err) => {
       alert("로그인 실패!");
     });
   }

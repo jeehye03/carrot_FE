@@ -24,6 +24,7 @@ function Profile() {
   const fileRef = useRef(null);
 
   useEffect(() => {
+    console.log(user);
     if (userRedux.isLogin && userRedux.nickname !== "") {
       load();
     }
@@ -99,7 +100,7 @@ function Profile() {
       <Article>
         <File>
           <div>
-            <img id="previewImage" src={user?.userImg} alt="profile" />
+            <img id="previewImage" src={user.userImg === "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : user.userImg} alt="profile" />
             {/* <img src="https://images.squarespace-cdn.com/content/v1/5c9f919e94d71a2bab6d18d8/1578604998045-HYULPFF63SR5H2OZSDQ3/portrait-placeholder.png" alt="profile" /> */}
           </div>
           <label htmlFor="file">
