@@ -15,45 +15,43 @@ function SalesList() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  // dispatch(loadSalseposts());
-  // }, [boardList])
+  React.useEffect(() => {
+  dispatch(loadSalseposts());
+  }, [boardList])
 
   
   return (
     <div className="ContentsBox">
       <SubTitle>판매 내역</SubTitle>
-      {/* {!(boardList) ? <NotFound> 판매내역이 없어요</NotFound> : */}
-            <CardBox className="card">
-            <div style={{ display: "flex" }}>
-              <Img src="https://i.pinimg.com/564x/83/6b/5f/836b5fbea54ad957fbc397600ea072de.jpg" />
-              <TextArea>
-                <span style={{ fontSize: "15px", marginBottom: "5px" }}>
-                  귀엽고 깜찍한 죠르디에요
-                </span>
-                <span
-                  style={{ fontSize: "12px", padding: "5px", color: "#AAAAAA" }}
-                >
-                  군자동
-                </span>
-                <span
-                  style={{ fontSize: "13px", padding: "5px", fontWeight: "bold" }}
-                >
-                  30,000원
-                </span>
-              </TextArea>
-            </div>
-    
-            <AiOutlineMenu/>
-            {/* 거래완료 API */}
-          </CardBox>
+      {!(boardList) ? <NotFound> 판매내역이 없어요</NotFound> :
+        <>  <CardBox className="card">
+          <div style={{ display: "flex" }}>
+            <Img src="https://i.pinimg.com/564x/83/6b/5f/836b5fbea54ad957fbc397600ea072de.jpg" />
+            <TextArea>
+              <span style={{ fontSize: "15px", marginBottom: "5px" }}>
+                귀엽고 깜찍한 죠르디에요
+              </span>
+              <span
+                style={{ fontSize: "12px", padding: "5px", color: "#AAAAAA" }}
+              >
+                군자동
+              </span>
+              <span
+                style={{ fontSize: "13px", padding: "5px", fontWeight: "bold" }}
+              >
+                30,000원
+              </span>
+            </TextArea>
+          </div>
+
+          <AiOutlineMenu />
+          {/* 거래완료 API */}
+        </CardBox>
           <StateBox>
             <BMenuBox>예약중</BMenuBox>
             <BMenuBox>거래완료</BMenuBox>
-          </StateBox>
-
-      {/* } */}
-      {/* 판매 리스트가 없을 때 삼항연산자로 표시하여 랜더   */}
+          </StateBox></>
+      }
     </div>
   );
 }
