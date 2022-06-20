@@ -37,9 +37,18 @@ export const loadMainposts = () =>{
   return async function (dispatch) {
       await axios.get("http://54.180.121.151/api/post").then(re=>{
           dispatch(roadPosts(re.data));
-      })
+      }).catch((err) => { console.log(err);});
   }
 }
+
+export const loadSalseposts = () =>{
+  return async function (dispatch) {
+      await axios.get("http://54.180.121.151/api/user").then(re=>{
+          dispatch(roadPosts(re.data));
+      }).catch((err) => {console.log(err);});
+  }
+}
+
 
 
 

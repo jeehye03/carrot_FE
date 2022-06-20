@@ -4,6 +4,16 @@ import styled from "styled-components";
 
 
 function SalesList () {
+    const [boardList, setBoardList] = useState();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+    dispatch(loadMainposts());
+    }, [boardList])
+  
+
+
     return (
         <div className="ContentsBox"> 
         <SubTitle>판매 내역</SubTitle>
