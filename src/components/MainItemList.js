@@ -18,15 +18,16 @@ function MainItemList() {
     dispatch(loadMainposts());
   }, [boardList])
 
+  console.log(mainPostList.posts);
 
   const navigate = useNavigate();
   return (
     <div className="MainListBox">
-      {mainPostList.map((list, index) => (
+      {mainPostList.posts.map((list, index) => (
         <div key={index}>
           <CardBox className='card'>
             <div style={{ display: 'flex' }} onClick={() => { navigate("/detail"); }} >
-              <Img src={list.postImg} />
+              <Img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxRYyqe0UK-hgDlo9JqT9oQJoVqiHCI3eQehb_HCgp8Q&s" />
               <TextArea>
                 <span style={{ fontSize: '15px', marginBottom: '5px' }}>{list.title}</span>
                 <span style={{ fontSize: '12px', padding: '5px', color: '#AAAAAA' }}>{list.userLocation}</span>
