@@ -3,7 +3,7 @@ import { AiFillHome } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 
 import MainItemList from '../components/MainItemList';
-import MyPage from '../components/MyPage';
+import MyPage from './MyPage';
 
 import React, { useEffect, useState } from "react";
 
@@ -15,10 +15,7 @@ import { useSelector } from 'react-redux';
 function Main () {
   const navigate = useNavigate();
   const [pageState, setState] = useState(<MainItemList/>);
-  const [homeBtnColor, setHomeBtnColor] = useState("black")
-  const [myBtnColor, setMyBtnColor] = useState("#AAAAAA")
   const user = useSelector((state) => state.user);
-  const [titleWord, setTitle] = useState();
 
 
   const logout = (e) => {
@@ -31,47 +28,26 @@ function Main () {
     if (!token) {
       navigate("/start");
     }
-  }, [titleWord]);
+  },);
 
-  const setTitleWord = ()=>{
-    if(titleWord==='나의 당근'){
-      return setTitle("나의 당근")
-    }
-    setTitle(user.userLocation);
-  }
 
-  setTimeout(setTitleWord,100);
-
-  const homeButtonAction= ()=>{
-    setTitle(user.userLocation)
-    setHomeBtnColor("black");
-    setMyBtnColor("#AAAAAA")
-    setState(<MainItemList/>);
-  }
-  
-  const myCarrotButtonAction = () =>{
-    setTitle("나의 당근")  
-    setHomeBtnColor("#AAAAAA");
-    setMyBtnColor("black")
-    setState(<MyPage/>);
-  }
 
   return (
     <div className="Wrap">
       <div className="TMenuBar"> 
-      <span> {titleWord} </span>
-      { titleWord === "나의 당근"?  <p onClick={logout} style={{cursor: "pointer"}}> 로그아웃 </p> : "" }
+      <span> {user.userLocation} </span>
+
     </div>
         
         {pageState}
 
         <div className="BMenuBar"> 
-          <div className="BMenuBox" onClick={()=>{homeButtonAction()}}>
-            <AiFillHome size="30px" color={homeBtnColor}/>
-            <p style={{color: homeBtnColor}}></p>HOME</div>
-          <div className="BMenuBox" onClick={()=>{myCarrotButtonAction()}}>
-            <BiUser size="40px" color={myBtnColor}/>
-              <p style={{color: myBtnColor}}>MY Carrot</p> 
+          <div className="BMenuBox" onClick={() => { navigate("/") }}>
+            <AiFillHome size="30px" color={"black"}/>
+            <p style={{color: "black"}}></p>HOME</div>
+          <div className="BMenuBox" onClick={() => { navigate("/mypage") }}>
+            <BiUser size="40px" color={"#AAAAAA"}/>
+              <p style={{color: "#AAAAAA"}}>MY Carrot</p> 
           </div>        
         </div>
     </div>
