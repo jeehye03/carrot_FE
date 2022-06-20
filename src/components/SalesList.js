@@ -1,5 +1,5 @@
 import React from "react";
-import '../shared/listForm.css';
+import '../public/css/listForm.css';
 import styled from "styled-components";
 
 

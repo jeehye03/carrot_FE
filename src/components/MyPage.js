@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import "../shared/listForm.css";
+import '../public/css/listForm.css';
 import styled from "styled-components";
 import { MdArrowForwardIos } from "react-icons/md";
 import { AiFillHeart } from "react-icons/ai";
@@ -11,10 +11,19 @@ import SalesList from "./SalesList";
 import ConcernsList from "./ConcernsList";
 
 import { useNavigate } from "react-router-dom";
+import { useSelector,  useDispatch } from 'react-redux';
 
 function MyPage () {
     const [subMenu, setSubMenu] = useState(<SalesList/>);
+    const [boardList, setBoardList] = useState();
+    
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    React.useEffect(() => {
+    //  dispatch(loadMainposts());
+    }, [boardList])
+  
    
   return ( 
       <>
