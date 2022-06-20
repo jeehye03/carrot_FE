@@ -1,5 +1,6 @@
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { BsPersonCircle, BsHeart, BsHeartFill } from "react-icons/bs";
+import { FaRegSmile } from "react-icons/fa";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineIosShare } from "react-icons/md";
 import { FiMoreVertical } from "react-icons/fi";
@@ -7,7 +8,7 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { carrotGetPost } from "../redux/modules/post";
+import { carrotGetPost, postLike } from "../redux/modules/post";
 
 function Detail() {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ function Detail() {
   const postPrice = Number(postDetail?.price);
   const params = useParams();
   const postId = params.postid;
-  //console.log(postId);
 
+  console.log(postDetail);
   // 금액 콤마(,) 찍어서 보여주기
   let carrotPrice = postPrice?.toLocaleString("ko-KR");
   //console.log(carrotPrice);
@@ -33,6 +34,7 @@ function Detail() {
     } else {
       setHeart(true);
     }
+    dispatch(postLike(postId));
   };
 
   return (
@@ -60,13 +62,17 @@ function Detail() {
         <ProfileBar>
           <Profile>
             <BsPersonCircle size="35" />
-            <div>
+            <Nickname>
               <p>{postDetail?.nickname}</p>
               <p>{postDetail?.userLocation}</p>
-            </div>
+            </Nickname>
           </Profile>
           <Ondo>
-            <p>{postDetail?.mannerOndo} °C</p>
+            <div>
+              <p>{postDetail?.mannerOndo} °C </p>
+              <FaRegSmile size={20} />
+            </div>
+
             <p>매너온도</p>
           </Ondo>
         </ProfileBar>
@@ -75,6 +81,7 @@ function Detail() {
           <p>{postDetail?.title}</p>
           <p>{postDetail?.category}</p>
           <p>{postDetail?.content}</p>
+          <p>관심 {postDetail?.userLike}</p>
         </Contents>
       </Container>
       <Footer>
@@ -118,7 +125,7 @@ const Header = styled.div`
   justify-content: space-between;
   width: 100%;
   align-items: center;
-  padding: 16px 16px;
+  padding: 16px 10px;
   color: gray;
   font-size: 23px;
   position: absolute;
@@ -140,7 +147,7 @@ const Profile = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 180px;
+  //width: 180px;
   line-height: 20px;
 
   div > p:first-child {
@@ -149,9 +156,27 @@ const Profile = styled.div`
   }
 `;
 
+const Nickname = styled.div`
+  width: 180px;
+  padding-left: 10px;
+`;
+
 const Ondo = styled.div`
+  line-height: 20px;
+  div {
+    display: flex;
+    justify-content: space-between;
+    width: 80px;
+    align-items: center;
+  }
+  & p:first-child {
+    color: #6bb7e0;
+    font-weight: 600;
+    font-size: 15px;
+  }
   & p:last-child {
-    font-size: 13px;
+    color: #aaa;
+    text-decoration: underline;
   }
 `;
 
@@ -165,6 +190,11 @@ const Contents = styled.div`
   & p:nth-child(2) {
     font-size: 13px;
     text-decoration: underline;
+  }
+  & p:last-child {
+    font-size: 13px;
+    position: absolute;
+    bottom: 80px;
   }
 `;
 

@@ -67,6 +67,7 @@ function Add() {
   // 콤마제거
   const commaRemovePrice = enteredNum?.replace(/,/g, "");
   let numberPrice = parseInt(commaRemovePrice);
+  console.log(numberPrice);
 
   const upload = () => {
     const newPost = {
@@ -78,7 +79,7 @@ function Add() {
     };
 
     dispatch(carrotPost(newPost));
-    //console.log(newPost);
+    navigate("/");
   };
 
   return (
