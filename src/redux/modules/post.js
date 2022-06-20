@@ -5,8 +5,8 @@ import { instance } from "../../shared/axios";
 // 게시물 등록
 export const carrotPost = (newPost) => {
   return async function (dispatch) {
-    axios
-      .post("http://localhost:5001/posts", newPost)
+    await instance
+      .post("api/post", newPost)
       .then((res) => {
         console.log(res);
         dispatch(uploadPost(newPost));
@@ -32,9 +32,16 @@ export const carrotGetPost = () => {
   };
 };
 
-// 메인화면 포스트 
-export const loadMainposts = () =>{
+// 메인화면 포스트
+export const loadMainposts = () => {
   return async function (dispatch) {
+
+    await axios.get("http://54.180.121.151/api/post").then((re) => {
+      dispatch(roadPosts(re.data));
+    });
+  };
+};
+
       await axios.get("http://54.180.121.151/api/post").then(re=>{
           dispatch(roadPosts(re.data));
       }).catch((err) => { console.log(err);});
@@ -48,6 +55,7 @@ export const loadSalseposts = () =>{
       }).catch((err) => {console.log(err);});
   }
 }
+
 
 
 
@@ -71,11 +79,11 @@ const postSlice = createSlice({
       state.post = action.payload;
       //console.log(state.post);
     },
-    roadPosts : (state, action) =>{
+    roadPosts: (state, action) => {
       state.postList = action.payload;
-    }
+    },
   },
 });
 
-const { uploadPost, getLoadPost, roadPosts} = postSlice.actions;
+const { uploadPost, getLoadPost, roadPosts } = postSlice.actions;
 export default postSlice.reducer;
