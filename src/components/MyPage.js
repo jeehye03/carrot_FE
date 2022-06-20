@@ -11,7 +11,8 @@ import SalesList from "./SalesList";
 import ConcernsList from "./ConcernsList";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 function MyPage () {
     const [subMenu, setSubMenu] = useState(<SalesList/>);
@@ -19,6 +20,9 @@ function MyPage () {
     
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const user = useSelector((state) => state.user);
+
 
     React.useEffect(() => {
     //  dispatch(loadMainposts());
@@ -31,7 +35,7 @@ function MyPage () {
               <MyInfoBox>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                       <Img src="https://velog.velcdn.com/images/eppo/post/89789686-647d-4d2b-8e27-cac3b75d4cd4/image.png" />
-                      <div style={{ padding: '40px' }}> 모모로 </div>
+                      <div style={{ padding: '40px' }}> {user.nickname} </div>
                   </div>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                       <MdArrowForwardIos size="25" color='black' onClick={()=>{navigate("/profile")}}/>

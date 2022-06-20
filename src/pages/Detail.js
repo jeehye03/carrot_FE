@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { deletePost } from "../redux/modules/post";
 import { carrotGetPost, postLike } from "../redux/modules/post";
 
 function Detail() {
@@ -22,7 +23,8 @@ function Detail() {
   console.log(postDetail);
   // 금액 콤마(,) 찍어서 보여주기
   let carrotPrice = postPrice?.toLocaleString("ko-KR");
-  //console.log(carrotPrice);
+  const user = useSelector((state) => state.user);
+
 
   useEffect(() => {
     dispatch(carrotGetPost(postId));
@@ -67,7 +69,14 @@ function Detail() {
               <p>{postDetail?.userLocation}</p>
             </Nickname>
           </Profile>
-          <button onClick={()=>{navigate("/modify/"+postId)}}>수정</button>
+          {user?.nickname === postDetail?.nickname ? 
+            <><button onClick={()=>{navigate("/modify/"+postId)}}>수정</button>
+            <button onClick={()=>{dispatch(deletePost(postId)); 
+                                  alert("삭제가 완료되었습니다. ");
+                                  navigate("/");}}>삭제</button></>
+            : ""}
+
+          
           <Ondo>
             <div>
               <p>{postDetail?.mannerOndo} °C </p>
