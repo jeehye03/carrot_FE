@@ -79,7 +79,7 @@ function Profile() {
 
     await instance.put("/api/user/edit", data);
     dispatch(getCarrotUserInfo());
-    navigate("/");
+    navigate("/mypage")
   }
 
   const onClick = (e) => {
@@ -90,7 +90,7 @@ function Profile() {
     <Wrap>
       <Header>
         <div>
-          <BiLeftArrowAlt size="25" onClick={() => navigate("/")} />
+          <BiLeftArrowAlt size="25" onClick={() =>  navigate("/mypage")} />
         </div>
         <div>
           <p>프로필 수정</p>
