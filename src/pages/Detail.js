@@ -13,15 +13,18 @@ function Detail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [heart, setHeart] = useState(false); // 찜하기
-  const postDetail = useSelector((state) => state.post.post);
-  const postPrice = postDetail.price;
+  const postDetail = useSelector((state) => state.post.post.detailPost);
+  const postPrice = Number(postDetail?.price);
+  const params = useParams();
+  const postId = params.postid;
+  //console.log(postId);
 
   // 금액 콤마(,) 찍어서 보여주기
   let carrotPrice = postPrice?.toLocaleString("ko-KR");
-  console.log(carrotPrice);
+  //console.log(carrotPrice);
 
   useEffect(() => {
-    dispatch(carrotGetPost());
+    dispatch(carrotGetPost(postId));
   }, []);
 
   const likeHeart = () => {
@@ -50,7 +53,7 @@ function Detail() {
       </Header>
 
       <div>
-        <img src={postDetail.postImg} />
+        <img src={postDetail?.postImg} />
       </div>
 
       <Container>
@@ -58,18 +61,20 @@ function Detail() {
           <Profile>
             <BsPersonCircle size="35" />
             <div>
-              <p>모모로</p>
-              <p>성수동</p>
+              <p>{postDetail?.nickname}</p>
+              <p>{postDetail?.userLocation}</p>
             </div>
           </Profile>
-
-          <p>매너온도</p>
+          <Ondo>
+            <p>{postDetail?.mannerOndo} °C</p>
+            <p>매너온도</p>
+          </Ondo>
         </ProfileBar>
 
         <Contents>
-          <p>{postDetail.title}</p>
-          <p>{postDetail.category}</p>
-          <p>{postDetail.content}</p>
+          <p>{postDetail?.title}</p>
+          <p>{postDetail?.category}</p>
+          <p>{postDetail?.content}</p>
         </Contents>
       </Container>
       <Footer>
@@ -135,12 +140,19 @@ const Profile = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 100px;
+  width: 180px;
   line-height: 20px;
 
   div > p:first-child {
     font-weight: 600;
     font-size: 16px;
+    background-color: gold;
+  }
+`;
+
+const Ondo = styled.div`
+  & p:last-child {
+    font-size: 13px;
   }
 `;
 
