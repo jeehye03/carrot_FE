@@ -2,6 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { instance } from "../../shared/axios";
 
+// 찜하기
+export const postLike = (postId) => {
+  return async function (dispatch) {
+    instance
+      .post(`api/like/${postId}`)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(likeNum(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
 // 게시물 등록
 export const carrotPost = (newPost) => {
   return async function (dispatch) {
@@ -33,7 +48,7 @@ export const carrotGetPost = (postId) => {
     await instance
       .get(`api/post/${postId}`)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         dispatch(getLoadPost(res.data));
       })
       .catch((err) => {
@@ -100,8 +115,11 @@ const postSlice = createSlice({
     roadPosts: (state, action) => {
       state.postList = action.payload;
     },
+    likeNum: (state, action) => {
+      state.post.likeNum = action.payload;
+    },
   },
 });
 
-const { uploadPost, getLoadPost, roadPosts } = postSlice.actions;
+const { uploadPost, getLoadPost, roadPosts, likeNum } = postSlice.actions;
 export default postSlice.reducer;
