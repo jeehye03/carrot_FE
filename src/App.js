@@ -4,7 +4,7 @@ import { defaultTheme } from "./shared/theme";
 import reset from "./shared/reset.css";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { carrotLoginStatus } from "./redux/modules/user";
+import { carrotLoginStatus, getCarrotUserInfo } from "./redux/modules/user";
 
 function App() {
   const dispatch = useDispatch();
@@ -14,6 +14,7 @@ function App() {
 
     if (token) { // 토큰이 있는지 체크
       dispatch(carrotLoginStatus(true));
+      dispatch(getCarrotUserInfo());
     } else {
       dispatch(carrotLoginStatus(false));
     }

@@ -4,25 +4,35 @@ import { IoIosArrowForward, IoIosCamera } from "react-icons/io";
 import { useState } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import axios from "axios";
 import { useRef } from "react";
 import { storage } from "../shared/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { instance, loadProfile } from "../shared/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { getCarrotUserInfo } from "../redux/modules/user";
 
 function Profile() {
   const navigate = useNavigate();
   const location = useLocation();
+  const dispatch = useDispatch();
+
+  const userRedux = useSelector((state) => state.user);
 
   const [user, setUser] = useState({});
 
   const nickRef = useRef(null);
   const fileRef = useRef(null);
 
+  useEffect(() => {
+    if (userRedux.isLogin && userRedux.nickname !== "") {
+      load();
+    }
+  }, [userRedux]);
+
   const load = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/user/1");
-      nickRef.current.value = response.data.nickname;
-      let data = response.data;
+      const data = userRedux;
+      nickRef.current.value = data.nickname;
       if (location.state) { // location.state 값이 있으면 data의 location 값을 바꿔준다
         data.location = location.state;
       }
@@ -43,33 +53,24 @@ function Profile() {
     reader.readAsDataURL(e.target.files[0]);
   }
 
-  useEffect(() => {
-    load();
-  }, []);
-
   const send = async () => {
     let data = {};
-    if (fileRef.current?.files[0]) {
-      const image = fileRef.current?.files[0];
 
-      const _upload = ref(storage, `images/${image.name}`);
+    const image = fileRef.current?.files[0];
 
-      const snapshot = await uploadBytes(_upload, image);
-      const url = await getDownloadURL(_upload);
+    const _upload = ref(storage, `images/${image.name}`);
 
-      data = {
-        nickname: nickRef.current.value,
-        location: user.location,
-        image: url
-      }
-    } else {
-      data = {
-        nickname: nickRef.current.value,
-        location: user.location,
-      }
+    const snapshot = await uploadBytes(_upload, image);
+    const url = await getDownloadURL(_upload);
+
+    data = {
+      nickname: nickRef.current.value,
+      userLocation: user.userLocation,
+      userImg: url
     }
+    console.log(data);
 
-    const response = await axios.patch("http://localhost:5001/user/1", data);
+    const response = await instance.put("/api/user/edit", data);
     navigate("/");
   }
 
@@ -105,7 +106,7 @@ function Profile() {
 
         <Link to={"/profile/location"}>
           <Locate>
-            <div>{user?.location}</div>
+            <div>{user?.userLocation}</div>
             <IoIosArrowForward />
           </Locate>
         </Link>
