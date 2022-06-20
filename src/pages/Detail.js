@@ -146,7 +146,6 @@ const Profile = styled.div`
   div > p:first-child {
     font-weight: 600;
     font-size: 16px;
-    background-color: gold;
   }
 `;
 

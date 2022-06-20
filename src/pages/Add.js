@@ -5,13 +5,12 @@ import { useState, useRef } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
 import { carrotPost } from "../redux/modules/post";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // 이미지 업로드
 
 function Add() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const fileInput = useRef();
   const img_ref = useRef();
   const title_ref = useRef();
@@ -20,6 +19,8 @@ function Add() {
   const [category, setCategory] = useState();
   const [imageSrc, setImageSrc] = useState(); // 프리뷰
   const [enteredNum, setEnterdNum] = useState();
+
+  const location = useSelector((state) => state.user.userLocation);
 
   const changeCategory = (e) => {
     setCategory(e.target.value);
@@ -132,7 +133,7 @@ function Add() {
           </Categorie>
 
           <Locate>
-            <div>지역</div>
+            <div>{location}</div>
             {/* <IoIosArrowForward /> */}
           </Locate>
         </div>
