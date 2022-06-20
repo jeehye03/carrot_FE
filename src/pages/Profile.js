@@ -24,7 +24,6 @@ function Profile() {
   const fileRef = useRef(null);
 
   useEffect(() => {
-    console.log(user);
     if (userRedux.isLogin && userRedux.nickname !== "") {
       load();
     }
