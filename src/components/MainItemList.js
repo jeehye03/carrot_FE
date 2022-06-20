@@ -28,7 +28,7 @@ function MainItemList() {
         <div key={index}>
           <CardBox className='card'>
             <div style={{ display: 'flex' }} onClick={() => { navigate("/detail/"+list.postId); }} >
-              <Img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxRYyqe0UK-hgDlo9JqT9oQJoVqiHCI3eQehb_HCgp8Q&s" />
+              <Img src= {list.postImg} />
               <TextArea>
                 <span style={{ fontSize: '15px', marginBottom: '5px' }}>{list.title}</span>
                 <span style={{ fontSize: '12px', padding: '5px', color: '#AAAAAA' }}>{list.userLocation}</span>
