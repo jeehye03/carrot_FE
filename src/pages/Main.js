@@ -6,9 +6,10 @@ import MainItemList from '../components/MainItemList';
 import MyPage from '../components/MyPage';
 
 import React, { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { getToken, removeToken } from '../shared/localStorage';
-
+import { useSelector } from 'react-redux';
 
 
 function Main () {
@@ -16,7 +17,9 @@ function Main () {
   const [pageState, setState] = useState(<MainItemList/>);
   const [homeBtnColor, setHomeBtnColor] = useState("black")
   const [myBtnColor, setMyBtnColor] = useState("#AAAAAA")
-  const [titleWord, setTitle] = useState("성수동 2가");
+  const user = useSelector((state) => state.user);
+  const [titleWord, setTitle] = useState();
+
 
   const logout = (e) => {
     removeToken();
@@ -28,21 +31,29 @@ function Main () {
     if (!token) {
       navigate("/start");
     }
-  }, []);
+  }, [titleWord]);
+
+  const setTitleWord = ()=>{
+    if(titleWord==='나의 당근'){
+      return setTitle("나의 당근")
+    }
+    setTitle(user.userLocation);
+  }
+
+  setTimeout(setTitleWord,100);
 
   const homeButtonAction= ()=>{
-    setTitle("성수동 2가"); 
+    setTitle(user.userLocation)
     setHomeBtnColor("black");
     setMyBtnColor("#AAAAAA")
     setState(<MainItemList/>);
   }
   
   const myCarrotButtonAction = () =>{
-    setTitle("나의 당근");
+    setTitle("나의 당근")  
     setHomeBtnColor("#AAAAAA");
     setMyBtnColor("black")
     setState(<MyPage/>);
-
   }
 
   return (
