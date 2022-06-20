@@ -23,7 +23,7 @@ function MainItemList() {
   const navigate = useNavigate();
   return (
     <div className="MainListBox">
-      {mainPostList.posts.map((list, index) => (
+      {mainPostList.posts&&mainPostList.posts.map((list, index) => (
         <div key={index}>
           <CardBox className='card'>
             <div style={{ display: 'flex' }} onClick={() => { navigate("/detail"); }} >
