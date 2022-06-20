@@ -32,6 +32,17 @@ export const carrotGetPost = () => {
   };
 };
 
+// 메인화면 포스트 
+export const loadMainposts = () =>{
+  return async function (dispatch) {
+      await axios.get("http://localhost:5001/postList").then(re=>{
+          dispatch(roadPosts(re.data));
+      })
+  }
+}
+
+
+
 //Reducer
 const postSlice = createSlice({
   name: "post",
@@ -51,8 +62,11 @@ const postSlice = createSlice({
       state.post = action.payload;
       //console.log(state.post);
     },
+    roadPosts : (state, action) =>{
+      state.postList = action.payload;
+    }
   },
 });
 
-const { uploadPost, getLoadPost } = postSlice.actions;
+const { uploadPost, getLoadPost, roadPosts} = postSlice.actions;
 export default postSlice.reducer;
