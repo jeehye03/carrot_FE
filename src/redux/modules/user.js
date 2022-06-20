@@ -11,6 +11,9 @@ const userSlice = createSlice({
   name: "user",
   initialState: {
     isLogin: false,
+    profileImage: "",
+    nickname: "",
+    location: ""
   },
   reducers: {
     updateLogin: (state, action) => {
