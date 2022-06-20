@@ -41,14 +41,12 @@ function Login () {
     }
     
     login(data).then((response) => {
-      if (response.data.result) {
-        alert("로그인 성공!");
-        saveToken(response.data.token);
-        dispatch(carrotLoginStatus(true));
-        navigate("/");
-      } else {
-        alert("로그인 실패!");
-      }
+      alert("로그인 성공!");
+      saveToken(response.data.token);
+      dispatch(carrotLoginStatus(true));
+      navigate("/");
+    }).catch((err) => {
+      alert("로그인 실패!");
     });
   }
 

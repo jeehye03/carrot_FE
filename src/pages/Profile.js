@@ -2,10 +2,81 @@ import styled from "styled-components";
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { IoIosArrowForward, IoIosCamera } from "react-icons/io";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
+import { useRef } from "react";
+import { storage } from "../shared/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 function Profile() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const [user, setUser] = useState({});
+
+  const nickRef = useRef(null);
+  const fileRef = useRef(null);
+
+  const load = async () => {
+    try {
+      const response = await axios.get("http://localhost:5001/user/1");
+      nickRef.current.value = response.data.nickname;
+      let data = response.data;
+      if (location.state) { // location.state 값이 있으면 data의 location 값을 바꿔준다
+        data.location = location.state;
+      }
+      setUser(data);
+    } catch (err) {
+      console.log("에러 " + err);
+    }
+  }
+
+  const selectFile = (e) => {
+    let reader = new FileReader();
+
+    reader.onload = (e) => {
+      var img = document.getElementById("previewImage");
+      img.setAttribute("src", e.target.result);
+    }
+
+    reader.readAsDataURL(e.target.files[0]);
+  }
+
+  useEffect(() => {
+    load();
+  }, []);
+
+  const send = async () => {
+    let data = {};
+    if (fileRef.current?.files[0]) {
+      const image = fileRef.current?.files[0];
+
+      const _upload = ref(storage, `images/${image.name}`);
+
+      const snapshot = await uploadBytes(_upload, image);
+      const url = await getDownloadURL(_upload);
+
+      data = {
+        nickname: nickRef.current.value,
+        location: user.location,
+        image: url
+      }
+    } else {
+      data = {
+        nickname: nickRef.current.value,
+        location: user.location,
+      }
+    }
+
+    const response = await axios.patch("http://localhost:5001/user/1", data);
+    navigate("/");
+  }
+
+  const onClick = (e) => {
+    send();
+  }
+
   return (
     <Wrap>
       <Header>
@@ -19,25 +90,28 @@ function Profile() {
       <Article>
         <File>
           <div>
-            <img src="https://images.squarespace-cdn.com/content/v1/5c9f919e94d71a2bab6d18d8/1578604998045-HYULPFF63SR5H2OZSDQ3/portrait-placeholder.png" />
+            <img id="previewImage" src={user?.image} alt="profile" />
+            {/* <img src="https://images.squarespace-cdn.com/content/v1/5c9f919e94d71a2bab6d18d8/1578604998045-HYULPFF63SR5H2OZSDQ3/portrait-placeholder.png" alt="profile" /> */}
           </div>
           <label htmlFor="file">
             <IoIosCamera className="camera" />
           </label>
-          <input type="file" id="file" />
+          <input type="file" id="file" onChange={selectFile} ref={fileRef} />
         </File>
         <Name>
-          <input type="text" placeholder="닉네임" />
+          <input type="text" placeholder="닉네임" ref={nickRef} />
           <p>프로필 사진과 닉네임을 입력해주세요.</p>
         </Name>
 
-        <Locate>
-          <div>지역</div>
-          <IoIosArrowForward />
-        </Locate>
+        <Link to={"/profile/location"}>
+          <Locate>
+            <div>{user?.location}</div>
+            <IoIosArrowForward />
+          </Locate>
+        </Link>
       </Article>
       <Footer>
-        <button>완료</button>
+        <button onClick={onClick}>완료</button>
       </Footer>
     </Wrap>
   );
@@ -72,7 +146,9 @@ const File = styled.div`
 
   & img {
     width: 130px;
+    height: 130px;
     border-radius: 50%;
+    object-fit: cover;
   }
 
   .camera {
@@ -101,12 +177,14 @@ const Name = styled.div`
     border-radius: 5px;
     text-align: center;
     margin: 10px 0;
-    padding: 15px;
+    padding: 20px;
     width: 100%;
   }
+  
   & p {
     text-align: center;
     margin-top: 10px;
+    color: #AAAAAA;
   }
 `;
 
@@ -124,16 +202,19 @@ const Footer = styled.div`
     border: none;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    background-color: ${props => props.theme.color.orange};
+    color: ${props => props.theme.color.white};
   }
 `;
 
 const Locate = styled.div`
-  padding: 20px 0px;
-  margin: 20px;
+  padding: 30px 20px;
+  margin-top: 50px;
   border-bottom: 1px solid #dadada;
   border-top: 1px solid #dadada;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 export default Profile;

@@ -14,7 +14,7 @@ function RegisterLocation () {
   const navigate = useNavigate();
 
   const locationClick = (name) => {
-    navigate("/profile");
+    navigate("/profile", { state: name });
   }
 
   return (
@@ -64,6 +64,12 @@ const Location = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  transition: background-color .3s;
+
+  &:hover {
+    background-color: #eee;
+  }
 `;
 
 export default RegisterLocation;
