@@ -8,6 +8,7 @@ import Add from "./pages/Add";
 import Detail from "./pages/Detail";
 import NotFound from "./pages/NotFound";
 import Profile from "./pages/Profile";
+import Modify from "./pages/Modify";
 import ProfileLocation from "./pages/ProfileLocation";
 
 /*
@@ -30,6 +31,7 @@ function Router() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/add" element={<Add />} />
+        <Route path="/modify/:postid" element={<Modify />} />
         <Route path="/detail/:postid" element={<Detail />} />
         <Route path="/profile/location" element={<ProfileLocation />} />
         <Route path="/profile" element={<Profile />} />

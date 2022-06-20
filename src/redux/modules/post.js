@@ -8,7 +8,6 @@ export const carrotPost = (newPost) => {
     await instance
       .post("api/post", newPost)
       .then((res) => {
-        console.log(res);
         dispatch(uploadPost(newPost));
       })
       .catch((err) => {
@@ -16,6 +15,17 @@ export const carrotPost = (newPost) => {
       });
   };
 };
+
+// 게시물 수정 
+export const modyfyPost = (modifyPostInfo) =>{
+  return async function (dispatch){
+    console.log(modifyPostInfo);
+    await instance.put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo).then((re)=>{
+    console.log(re);
+
+    })
+  }
+}
 
 // 게시물 상세 조회
 export const carrotGetPost = (postId) => {
@@ -35,25 +45,34 @@ export const carrotGetPost = (postId) => {
 // 메인화면 포스트
 export const loadMainposts = () => {
   return async function (dispatch) {
-    await axios
-      .get("http://54.180.121.151/api/post")
+    await instance.get("/api/post")
       .then((re) => {
         dispatch(roadPosts(re.data));
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err);
       });
   };
 };
 
+// 판매목록 리드 
 export const loadSalseposts = () => {
   return async function (dispatch) {
-    await axios
-      .get("http://54.180.121.151/api/user")
+    await instance.get("/api/user")
       .then((re) => {
         dispatch(roadPosts(re.data));
-      })
-      .catch((err) => {
+      }).catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+// 관심목록 리드 
+export const loadConcernsposts = () => {
+  return async function (dispatch) {
+    await instance.get("/api/user/likeList")
+      .then((re) => {
+        dispatch(roadPosts(re.data));
+      }).catch((err) => {
         console.log(err);
       });
   };
