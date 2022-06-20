@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import '../public/css/listForm.css';
+import "../public/css/listForm.css";
 import styled from "styled-components";
 import { MdArrowForwardIos } from "react-icons/md";
 import { AiFillHeart } from "react-icons/ai";
