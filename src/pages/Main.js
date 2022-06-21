@@ -8,7 +8,7 @@ import MyPage from './MyPage';
 import React, { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { getToken, removeToken } from '../shared/localStorage';
+
 import { useSelector } from 'react-redux';
 
 
@@ -18,17 +18,6 @@ function Main () {
   const user = useSelector((state) => state.user);
 
 
-  const logout = (e) => {
-    removeToken();
-    navigate("/start");
-  }
-
-  useEffect(() => {
-    const token = getToken();
-    if (!token) {
-      navigate("/start");
-    }
-  },);
 
 
 
