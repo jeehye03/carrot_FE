@@ -1,15 +1,16 @@
-
 import "../public/css/listForm.css";
 import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import React, { useState } from "react";
+
 import { loadSalseposts } from '../redux/modules/post'
 import { useSelector,  useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 
 import Modal from "../components/Modal";
 import { deletePost } from "../redux/modules/post";
+
 
 function SalesList() {
   const [boardList, setBoardList] = useState();
@@ -27,12 +28,12 @@ function SalesList() {
     setModalOpen(false);
   };
 
-
   React.useEffect(() => {
     dispatch(loadSalseposts());
-  }, [boardList])
+  }, [boardList]);
 
   return (
+
     <div style={{ padding: '8px', height: '450px', overflow: 'scroll' }}>
       <SubTitle>판매 내역</SubTitle>
       {!(postList) ? <NotFound> 판매내역이 없어요</NotFound> : ""}
@@ -85,6 +86,7 @@ function SalesList() {
           </CardBox></>
         </div>
       ))}
+
     </div>
 
   );
@@ -93,11 +95,11 @@ function SalesList() {
 const CardBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;;
+  justify-content: space-between;
   height: 130px;
   padding: 15px;
   align-items: flex-start;
-  border-bottom: 1px solid #AAAAAA;
+  border-bottom: 1px solid #aaaaaa;
 `;
 
 const Img = styled.img`
@@ -123,15 +125,13 @@ const SubTitle = styled.div`
 
 
 const NotFound = styled.div`
-display: flex;
-height: 100px;
-align-items: center;
-justify-content: center;
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
 `;
 
-
 // 모달 스타일
-
 const ButtonModify = styled.button`
   width: 100%;
   height: 50px;
