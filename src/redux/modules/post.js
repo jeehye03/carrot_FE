@@ -9,8 +9,22 @@ export const postLike = (postId) => {
     instance
       .post(`api/like/${postId}`)
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
         dispatch(likeNum(res.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
+
+// 찜하기 취소
+export const postUnLike = (postId) => {
+  return function (dispatch) {
+    instance
+      .delete(`api/like/${postId}`)
+      .then((res) => {
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -32,10 +46,11 @@ export const carrotPost = (newPost) => {
   };
 };
 
-// 게시물 수정 
-export const modyfyPost = (modifyPostInfo) =>{
-  return async function (dispatch){
+// 게시물 수정
+export const modyfyPost = (modifyPostInfo) => {
+  return async function (dispatch) {
     console.log(modifyPostInfo);
+
     await instance.put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo).then((re)=>{
       dispatch(getLoadPost(re.data));
     }).catch((err) => { console.log(err);});
@@ -52,6 +67,7 @@ export const deletePost = (postId)=>{
     }).catch((err) => { console.log(err);});
   }
 }
+
 
 // 게시물 상세 조회
 export const carrotGetPost = (postId) => {
@@ -70,36 +86,44 @@ export const carrotGetPost = (postId) => {
 // 메인화면 포스트 리드 
 export const loadMainposts = () => {
   return async function (dispatch) {
-    await instance.get("/api/post")
+    await instance
+      .get("/api/post")
       .then((re) => {
         dispatch(roadPosts(re.data));
-      }).catch((err) => {
+      })
+      .catch((err) => {
         console.log(err);
       });
   };
 };
 
-// 판매목록 리드 
+// 판매목록 리드
 export const loadSalseposts = () => {
   return async function (dispatch) {
-    await instance.get("/api/user")
+    await instance
+      .get("/api/user")
       .then((re) => {
         dispatch(roadPosts(re.data));
+
       }).catch((err) => {
         console.log("판매목록"+err);
+
       });
   };
 };
 
-// 관심목록 리드 
+// 관심목록 리드
 export const loadConcernsposts = () => {
   return async function (dispatch) {
-    await instance.get("/api/user/likeList")
+    await instance
+      .get("/api/user/likeList")
       .then((re) => {
         console.log(re);
         dispatch(roadPosts(re.data));
+
       }).catch((err) => {
         console.log("관심목록"+err);
+
       });
   };
 
@@ -128,7 +152,8 @@ const postSlice = createSlice({
       state.postList = action.payload;
     },
     likeNum: (state, action) => {
-      state.post.likeNum = action.payload;
+      state.likeNum = action.payload;
+      //console.log(state.likeNum);
     },
   },
 });

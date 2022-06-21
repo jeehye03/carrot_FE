@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { deletePost } from "../redux/modules/post";
 import { carrotGetPost, postLike } from "../redux/modules/post";
 
@@ -20,7 +21,7 @@ function Detail() {
   const params = useParams();
   const postId = params.postid;
 
-  console.log(postDetail);
+  // console.log(postDetail);
   // 금액 콤마(,) 찍어서 보여주기
   let carrotPrice = postPrice?.toLocaleString("ko-KR");
   const user = useSelector((state) => state.user);
@@ -28,7 +29,7 @@ function Detail() {
 
   useEffect(() => {
     dispatch(carrotGetPost(postId));
-  }, []);
+  }, [dispatch, postId]);
 
   const likeHeart = () => {
     if (heart) {
@@ -69,6 +70,7 @@ function Detail() {
               <p>{postDetail?.userLocation}</p>
             </Nickname>
           </Profile>
+
           {user?.nickname === postDetail?.nickname ? 
             <><button onClick={()=>{navigate("/modify/"+postId)}}>수정</button>
             <button onClick={()=>{dispatch(deletePost(postId)); 
@@ -77,6 +79,7 @@ function Detail() {
             : ""}
 
           
+
           <Ondo>
             <div>
               <p>{postDetail?.mannerOndo} °C </p>
