@@ -19,13 +19,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column
+    flex-direction: column;
+    
 }
 
 .ContentsBox {
     height : 250px;
     display: flex;
     flex-direction: column;
+    padding : 8px;
 }
 
 .MainListBox {
@@ -33,11 +35,12 @@
     display: flex;
     flex-direction: column;
     overflow:scroll;
+    padding : 8px;
 }
 
 
 .Wrap {
     width : 390px;
     height : 844px;
-    border: 1px solid blue;
+ 
 }
