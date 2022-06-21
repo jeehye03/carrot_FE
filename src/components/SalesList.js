@@ -13,6 +13,7 @@ import { deletePost } from "../redux/modules/post";
 
 function SalesList() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   // const [boardList, setBoardList] = useState();
 
   const postList = useSelector((state) => state.post.postList);
@@ -94,36 +95,35 @@ function SalesList() {
                 }}
               >거래완료</button>}
             </CardButton>
+            <Modal open={modalOpen} close={closeModal} header="">
+              {user.nickname === list.nickname ? (
+                <ButtonWrap>
+                  <ButtonModify
+                    onClick={() => {
+                      navigate("/modify/" + list.postId);
+                    }}
+                  >
+                    수정
+                  </ButtonModify>
+
+                  <ButtonDelete
+                    onClick={() => {
+                      dispatch(deletePost(list.postId));
+                      alert("삭제가 완료되었습니다. ");
+                      navigate("/");
+                    }}
+                  >
+                    삭제
+                  </ButtonDelete>
+                </ButtonWrap>
+              ) : (
+                <Claim>신고하기</Claim>
+              )}
+            </Modal>
           </Card>
 
         ))
         }
-
-        <Modal open={modalOpen} close={closeModal} header="">
-          {user.nickname === list.nickname ? (
-            <ButtonWrap>
-              <ButtonModify
-                onClick={() => {
-                  navigate("/modify/" + list.postId);
-                }}
-              >
-                수정
-              </ButtonModify>
-
-              <ButtonDelete
-                onClick={() => {
-                  dispatch(deletePost(list.postId));
-                  alert("삭제가 완료되었습니다. ");
-                  navigate("/");
-                }}
-              >
-                삭제
-              </ButtonDelete>
-            </ButtonWrap>
-          ) : (
-            <Claim>신고하기</Claim>
-          )}
-        </Modal>
       </div>
     </div>
   );
