@@ -101,7 +101,7 @@ export const loadMainposts = () => {
 export const loadSalseposts = () => {
   return async function (dispatch) {
     await instance
-      .get("/api/user")
+      .get("/api/user/sellList")
       .then((re) => {
         dispatch(roadPosts(re.data));
 
