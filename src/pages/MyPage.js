@@ -47,7 +47,7 @@ function MyPage () {
         <div className="ContentsBox">
           <MyInfoBox>
             <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Img src="https://velog.velcdn.com/images/eppo/post/89789686-647d-4d2b-8e27-cac3b75d4cd4/image.png" />
+              <Img src={user.userImg} />
               <div style={{ padding: '40px' }}> {user.nickname} </div>
             </div>
             <div style={{ display: 'flex', alignItems: 'center' }}>
