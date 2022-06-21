@@ -162,7 +162,7 @@ function Add() {
             value={enteredNum || ""}
           />
           <label htmlFor="price">
-            <input type="radio" id="price" ref={chk_ref} />
+            <input type="checkbox" id="price" ref={chk_ref} />
             가격 제안받기
           </label>
         </Price>
@@ -273,6 +273,10 @@ const Price = styled(Title)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  input[type="checkbox"] {
+    accent-color: #ff7e36;
+  }
 `;
 
 export default Add;

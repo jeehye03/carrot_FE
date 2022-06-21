@@ -10,12 +10,7 @@ const Modal = (props) => {
     <div className={open ? "openModal modal" : "modal"} onClick={close}>
       {open ? (
         <section>
-          <header>
-            {header}
-            <button className="close" onClick={close}>
-              &times; {/* x 모양 */}
-            </button>
-          </header>
+          <header>{header}</header>
           <main>{props.children}</main>
           <footer>
             <button className="close" onClick={close}>
