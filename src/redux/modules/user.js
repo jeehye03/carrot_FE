@@ -10,8 +10,12 @@ export const carrotLoginStatus = (status) => {
 
 export const getCarrotUserInfo = () => {
   return async function (dispatch) {
-    const response = await loadProfile();
-    dispatch(setUser(response.data.user));
+    try {
+      const response = await loadProfile();
+      dispatch(setUser(response.data.user));
+    } catch (err) {
+      console.log(err);
+    }
   }
 }
 
