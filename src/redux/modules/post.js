@@ -8,8 +8,8 @@ export const postLike = (postId) => {
     instance
       .post(`api/like/${postId}`)
       .then((res) => {
-        console.log(res);
-        dispatch(likeNum(res.data));
+        //console.log(res);
+        dispatch(setLike({ userLike: true, likeNum: res.data.likeNum }));
       })
       .catch((err) => {
         console.log(err);
@@ -23,7 +23,8 @@ export const postUnLike = (postId) => {
     instance
       .delete(`api/like/${postId}`)
       .then((res) => {
-        console.log(res.data);
+        //console.log(res.data);
+        dispatch(setLike({ userLike: false, likeNum: res.data.likeNum }));
       })
       .catch((err) => {
         console.log(err);
@@ -37,6 +38,7 @@ export const carrotPost = (newPost) => {
     instance
       .post("api/post", newPost)
       .then((res) => {
+        console.log(res);
         dispatch(uploadPost(newPost));
       })
       .catch((err) => {
@@ -82,7 +84,8 @@ export const carrotGetPost = (postId) => {
     await instance
       .get(`api/post/${postId}`)
       .then((res) => {
-        dispatch(getLoadPost(res.data));
+        // console.log(res.data);
+        dispatch(getLoadPost(res.data.detailPost));
       })
       .catch((err) => {
         console.log(err);
@@ -163,9 +166,9 @@ const postSlice = createSlice({
     roadPosts: (state, action) => {
       state.postList = action.payload;
     },
-    likeNum: (state, action) => {
-      state.likeNum = action.payload;
-      //console.log(state.likeNum);
+    setLike: (state, action) => {
+      state.post.likeNum = action.payload.likeNum;
+      state.post.userLike = action.payload.userLike;
     },
     changeTradeState: (state, action) => {
       state.postList = state.postList.map((post) => {
@@ -178,5 +181,5 @@ const postSlice = createSlice({
   },
 });
 
-const { uploadPost, getLoadPost, roadPosts, likeNum, changeTradeState } = postSlice.actions;
+const { uploadPost, getLoadPost, roadPosts, likeNum, changeTradeState, setLike } = postSlice.actions;
 export default postSlice.reducer;

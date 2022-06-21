@@ -1,23 +1,29 @@
 import { BiLeftArrowAlt } from "react-icons/bi";
-import { BsPersonCircle, BsHeart, BsHeartFill } from "react-icons/bs";
+import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { FaRegSmile } from "react-icons/fa";
 import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineIosShare } from "react-icons/md";
 import { FiMoreVertical } from "react-icons/fi";
+// 이모티콘
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { deletePost } from "../redux/modules/post";
-import { carrotGetPost, postLike } from "../redux/modules/post";
+import {
+  deletePost,
+  postUnLike,
+  carrotGetPost,
+  postLike,
+} from "../redux/modules/post";
+
 import Modal from "../components/Modal";
 
 function Detail() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [heart, setHeart] = useState(false); // 찜하기
-  const postDetail = useSelector((state) => state.post.post.detailPost);
+  // const [heart, setHeart] = useState(false); // 찜하기
+  const postDetail = useSelector((state) => state.post.post);
   const postPrice = Number(postDetail?.price);
   const params = useParams();
   const postId = params.postid;
@@ -32,7 +38,7 @@ function Detail() {
     setModalOpen(false);
   };
 
-  // console.log(postDetail);
+  //console.log(postDetail);
   // 금액 콤마(,) 찍어서 보여주기
   let carrotPrice = postPrice?.toLocaleString("ko-KR");
 
@@ -41,12 +47,11 @@ function Detail() {
   }, [dispatch, postId]);
 
   const likeHeart = () => {
-    if (heart) {
-      setHeart(false);
+    if (postDetail.userLike) {
+      dispatch(postUnLike(postId)); // userlike가 true면 false로 바꿔주라
     } else {
-      setHeart(true);
+      dispatch(postLike(postId));
     }
-    dispatch(postLike(postId));
   };
 
   return (
@@ -54,18 +59,19 @@ function Detail() {
       <Header>
         <div>
           <BiLeftArrowAlt
+            size={30}
             onClick={() => {
               navigate("/");
             }}
           />
-          <AiOutlineHome />
+          {/* <AiOutlineHome /> */}
         </div>
         <div>
           <MdOutlineIosShare />
           {/* 모달창 열기 */}
           <FiMoreVertical onClick={openModal} />
 
-          <Modal open={modalOpen} close={closeModal} header="">
+          <Modal open={modalOpen} close={closeModal}>
             {user?.nickname === postDetail?.nickname ? (
               <ButtonWrap>
                 <ButtonModify
@@ -99,35 +105,12 @@ function Detail() {
       <Container>
         <ProfileBar>
           <Profile>
-            <img src={user.userImg} />
+            <img src={postDetail?.userImg} />
             <Nickname>
               <p>{postDetail?.nickname}</p>
               <p>{postDetail?.userLocation}</p>
             </Nickname>
           </Profile>
-
-          {/* {user?.nickname === postDetail?.nickname ? (
-            <>
-              <button
-                onClick={() => {
-                  navigate("/modify/" + postId);
-                }}
-              >
-                수정
-              </button>
-              <button
-                onClick={() => {
-                  dispatch(deletePost(postId));
-                  alert("삭제가 완료되었습니다. ");
-                  navigate("/");
-                }}
-              >
-                삭제
-              </button>
-            </>
-          ) : (
-            ""
-          )} */}
 
           <Ondo>
             <div>
@@ -143,12 +126,12 @@ function Detail() {
           <p>{postDetail?.title}</p>
           <p>{postDetail?.category}</p>
           <p>{postDetail?.content}</p>
-          <p>관심 {postDetail?.userLike}</p>
+          <p>관심 {postDetail?.likeNum}</p>
         </Contents>
       </Container>
       <Footer>
         <Heart>
-          {heart ? (
+          {postDetail?.userLike ? (
             <BsHeartFill size="35" color="red" onClick={likeHeart} />
           ) : (
             <BsHeart size="35" onClick={likeHeart} />
@@ -161,7 +144,7 @@ function Detail() {
             <p>{carrotPrice}원</p>
             <p>가격 제안하기</p>
           </div>
-          <button>채팅하기</button>
+          <button onClick={()=>{ navigate("/chatting/" + postId);}}>채팅하기</button>
         </Price>
       </Footer>
     </Wrap>
