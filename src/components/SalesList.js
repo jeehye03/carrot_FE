@@ -3,12 +3,17 @@ import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import React, { useState } from "react";
-import { loadSalseposts } from "../redux/modules/post";
-import { useSelector, useDispatch } from "react-redux";
+
+import { loadSalseposts } from '../redux/modules/post'
+import { useSelector,  useDispatch } from 'react-redux';
+import { useNavigate } from "react-router-dom";
+
+
+
 
 function SalesList() {
   const [boardList, setBoardList] = useState();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.post.postList);
@@ -18,49 +23,36 @@ function SalesList() {
   }, [boardList]);
 
   return (
-    <div style={{ padding: "8px", height: "450px", overflow: "scroll" }}>
-      <SubTitle>판매 내역</SubTitle>
-      {!postList ? <NotFound> 판매내역이 없어요</NotFound> : ""}
-      <div>
-        {/* 위 디브에 온클릭 이벤트 걸어둘것! list.pistId */}
-        {postList.sellList &&
-          postList.sellList.map((list, index) => (
-            <>
-              <CardBox className="card">
-                <div style={{ display: "flex" }}>
-                  <Img src={list.postImg} />
-                  <TextArea>
-                    <span style={{ fontSize: "15px", marginBottom: "5px" }}>
-                      {list.title}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: "12px",
-                        padding: "5px",
-                        color: "#AAAAAA",
-                      }}
-                    >
-                      {list.userLocation}
-                    </span>
-                    <span
-                      style={{
-                        fontSize: "13px",
-                        padding: "5px",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      {list.price}
-                    </span>
-                  </TextArea>
-                </div>
 
-                <AiOutlineMenu />
-                {/* 거래완료 API */}
-              </CardBox>
-            </>
-          ))}
-      </div>
+    <div style={{ padding: '8px', height: '450px', overflow: 'scroll' }}>
+      <SubTitle>판매 내역</SubTitle>
+      {!(postList) ? <NotFound> 판매내역이 없어요</NotFound> : ""}
+      {postList.sellList && postList.sellList.map((list, index) => (
+        <div key={index}>
+          <><CardBox className="card" >
+            <div style={{ display: "flex" }}>
+              <Img src={list.postImg} />
+              <TextArea>
+                <span style={{ fontSize: "15px", marginBottom: "5px" }}>
+                  {list.title}
+                </span>
+                <span style={{ fontSize: "12px", padding: "5px", color: "#AAAAAA" }}>
+                  {list.userLocation}
+                </span>
+                <span style={{ fontSize: "13px", padding: "5px", fontWeight: "bold" }} >
+                  {list.price}
+                </span>
+              </TextArea>
+            </div>
+
+            <AiOutlineMenu />
+            {/* 거래완료 API */}
+          </CardBox></>
+        </div>
+      ))}
+
     </div>
+
   );
 }
 
@@ -94,6 +86,7 @@ const SubTitle = styled.div`
   border-bottom: 2px dotted #aaaaaa;
   font-weight: bold;
 `;
+
 
 const NotFound = styled.div`
   display: flex;

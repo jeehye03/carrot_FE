@@ -112,29 +112,6 @@ function Detail() {
             </Nickname>
           </Profile>
 
-          {/* {user?.nickname === postDetail?.nickname ? (
-            <>
-              <button
-                onClick={() => {
-                  navigate("/modify/" + postId);
-                }}
-              >
-                수정
-              </button>
-              <button
-                onClick={() => {
-                  dispatch(deletePost(postId));
-                  alert("삭제가 완료되었습니다. ");
-                  navigate("/");
-                }}
-              >
-                삭제
-              </button>
-            </>
-          ) : (
-            ""
-          )} */}
-
           <Ondo>
             <div>
               <p>{postDetail?.mannerOndo} °C </p>
@@ -167,7 +144,7 @@ function Detail() {
             <p>{carrotPrice}원</p>
             <p>가격 제안하기</p>
           </div>
-          <button>채팅하기</button>
+          <button onClick={()=>{ navigate("/chatting/" + postId);}}>채팅하기</button>
         </Price>
       </Footer>
     </Wrap>
