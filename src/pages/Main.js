@@ -17,10 +17,6 @@ function Main () {
   const [pageState, setState] = useState(<MainItemList/>);
   const user = useSelector((state) => state.user);
 
-
-
-
-
   return (
     <div className="Wrap">
       <div className="TMenuBar"> 
