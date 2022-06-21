@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import { loadSalseposts } from '../redux/modules/post'
 import { useSelector,  useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
-import LikeList from './LikeList';
+
 
 
 function SalesList() {
@@ -66,6 +66,7 @@ const CardBox = styled.div`
 
 const Img = styled.img`
   width: 100px;
+  height: 100px;
   border-radius: 10px;
 `;
 
@@ -83,10 +84,6 @@ const SubTitle = styled.div`
   border-bottom: 2px dotted #aaaaaa;
   font-weight: bold;
 `;
-
-
-
-
 
 
 const NotFound = styled.div`
