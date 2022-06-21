@@ -241,6 +241,7 @@ const File = styled.div`
 const Title = styled.div`
   padding: 20px 0px;
   border-bottom: 1px solid #dadada;
+
   outline: none;
   input {
     border: none;
