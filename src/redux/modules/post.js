@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { instance } from "../../shared/axios";
@@ -49,13 +50,24 @@ export const carrotPost = (newPost) => {
 export const modyfyPost = (modifyPostInfo) => {
   return async function (dispatch) {
     console.log(modifyPostInfo);
-    await instance
-      .put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo)
-      .then((re) => {
-        console.log(re);
-      });
-  };
-};
+
+    await instance.put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo).then((re)=>{
+      dispatch(getLoadPost(re.data));
+    }).catch((err) => { console.log(err);});
+  }
+}
+
+
+//게시물 삭제 
+
+export const deletePost = (postId)=>{
+  return async function (dispatch){
+    await instance.delete(`/api/post/${postId}`).then((re)=>{
+      dispatch(roadPosts(re.data));
+    }).catch((err) => { console.log(err);});
+  }
+}
+
 
 // 게시물 상세 조회
 export const carrotGetPost = (postId) => {
@@ -63,7 +75,6 @@ export const carrotGetPost = (postId) => {
     await instance
       .get(`api/post/${postId}`)
       .then((res) => {
-        //console.log(res);
         dispatch(getLoadPost(res.data));
       })
       .catch((err) => {
@@ -72,7 +83,7 @@ export const carrotGetPost = (postId) => {
   };
 };
 
-// 메인화면 포스트
+// 메인화면 포스트 리드 
 export const loadMainposts = () => {
   return async function (dispatch) {
     await instance
@@ -93,9 +104,10 @@ export const loadSalseposts = () => {
       .get("/api/user")
       .then((re) => {
         dispatch(roadPosts(re.data));
-      })
-      .catch((err) => {
-        console.log(err);
+
+      }).catch((err) => {
+        console.log("판매목록"+err);
+
       });
   };
 };
@@ -106,12 +118,15 @@ export const loadConcernsposts = () => {
     await instance
       .get("/api/user/likeList")
       .then((re) => {
+        console.log(re);
         dispatch(roadPosts(re.data));
-      })
-      .catch((err) => {
-        console.log(err);
+
+      }).catch((err) => {
+        console.log("관심목록"+err);
+
       });
   };
+
 };
 
 //Reducer
