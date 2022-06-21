@@ -133,6 +133,14 @@ export const loadConcernsposts = () => {
   };
 };
 
+export const changeTradeStateDB = (postId, state) => {
+  return async function (dispatch) {
+    const response = await instance.put(`/api/post/tradeState/${postId}`, {tradeState: state});
+    console.log(response);
+    dispatch(changeTradeState({id: postId, tradeState: state}));
+  }
+}
+
 //Reducer
 const postSlice = createSlice({
   name: "post",
@@ -159,8 +167,16 @@ const postSlice = createSlice({
       state.likeNum = action.payload;
       //console.log(state.likeNum);
     },
+    changeTradeState: (state, action) => {
+      state.postList = state.postList.map((post) => {
+        if (post.postId === action.payload.id) {
+          post.tradeState = action.payload.tradeState;
+        }
+        return post;
+      });
+    }
   },
 });
 
-const { uploadPost, getLoadPost, roadPosts, likeNum } = postSlice.actions;
+const { uploadPost, getLoadPost, roadPosts, likeNum, changeTradeState } = postSlice.actions;
 export default postSlice.reducer;
