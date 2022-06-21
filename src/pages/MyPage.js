@@ -111,7 +111,8 @@ const Circle = styled.div`
 `;
 
 const Img = styled.img`
-  width: 100px;
+border-radius: 100px;
+  width: 80px;
 `;
 
 export default MyPage;
