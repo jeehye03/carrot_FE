@@ -1,13 +1,11 @@
-import '../public/css/listForm.css';
+import "../public/css/listForm.css";
 import styled from "styled-components";
 import { AiFillPlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
-import { useSelector,  useDispatch } from 'react-redux';
-import { loadMainposts } from '../redux/modules/post'
-
-
+import { useSelector, useDispatch } from "react-redux";
+import { loadMainposts } from "../redux/modules/post";
 
 function MainItemList() {
   const dispatch = useDispatch();
@@ -18,32 +16,64 @@ function MainItemList() {
 
   React.useEffect(() => {
     dispatch(loadMainposts());
-  }, [boardList])
+  }, [boardList]);
 
   const navigate = useNavigate();
   return (
     <div className="MainListBox">
-      {mainPostList.posts&&mainPostList.posts.map((list, index) => (
-        <div key={index}>
-          {user.userLocation === list.userLocation ? 
-              <CardBox className='card'>
-              <div style={{ display: 'flex' }} onClick={() => { navigate("/detail/"+list.postId); }} >
-                <Img src= {list.postImg} />
-                <TextArea>
-                  <span style={{ fontSize: '15px', marginBottom: '5px' }}>{list.title}</span>
-                  <span style={{ fontSize: '12px', padding: '5px', color: '#AAAAAA' }}>{list.userLocation}</span>
-                  <span style={{ fontSize: '13px', padding: '5px', fontWeight: 'bold' }}>{list.price}</span>
-                </TextArea>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'flex-end' }}>❤️ {list.likeNum}</div>
-            </CardBox>
-          : ""}
-      
-        </div>
-      ))}
+      {mainPostList.posts &&
+        mainPostList.posts.map((list, index) => (
+          <div key={index}>
+            {user.userLocation === list.userLocation ? (
+              <CardBox className="card">
+                <div
+                  style={{ display: "flex" }}
+                  onClick={() => {
+                    navigate("/detail/" + list.postId);
+                  }}
+                >
+                  <Img src={list.postImg} />
+                  <TextArea>
+                    <span style={{ fontSize: "15px", marginBottom: "5px" }}>
+                      {list.title}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        padding: "5px",
+                        color: "#AAAAAA",
+                      }}
+                    >
+                      {list.userLocation}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        padding: "5px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {list.price}
+                    </span>
+                  </TextArea>
+                </div>
+                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                  ❤️ {list.likeNum}
+                </div>
+              </CardBox>
+            ) : (
+              ""
+            )}
+          </div>
+        ))}
 
       <FixedButton>
-        <AiFillPlusCircle size="60" color="#ff7E36" onClick={() => { navigate("/add"); }}
+        <AiFillPlusCircle
+          size="60"
+          color="#ff7E36"
+          onClick={() => {
+            navigate("/add");
+          }}
         />
       </FixedButton>
     </div>
@@ -51,18 +81,18 @@ function MainItemList() {
 }
 
 const CardBox = styled.div`
-display:flex;
-padding: 15px;
-height : 130px;
-justify-content: space-around;
-border-bottom: 1px solid  #AAAAAA;
+  display: flex;
+  padding: 15px;
+  height: 130px;
+  justify-content: space-around;
+  border-bottom: 1px solid #aaaaaa;
 `;
 
 const TextArea = styled.div`
-display: flex;
-flex-direction: column;
-width: 200px;
-padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  padding: 10px;
 `;
 
 const FixedButton = styled.div`

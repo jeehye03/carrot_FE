@@ -31,7 +31,7 @@ function Add() {
   useEffect(() => {
     if (price) {
       chk_ref.current.checked = true;
-      chk_ref.current.disabled = false;
+      chk_ref.current.disabled = false; // 비활성화
     } else {
       chk_ref.current.checked = false;
       chk_ref.current.disabled = true;

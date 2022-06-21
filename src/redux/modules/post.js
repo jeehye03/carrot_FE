@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { instance } from "../../shared/axios";
 
 // 찜하기
@@ -34,16 +33,14 @@ export const postUnLike = (postId) => {
 
 // 게시물 등록
 export const carrotPost = (newPost) => {
-  return function (dispatch) {
-    instance
-      .post("api/post", newPost)
-      .then((res) => {
-        console.log(res);
-        dispatch(uploadPost(newPost));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  return async function (dispatch) {
+    try {
+      const res = await instance.post("api/post", newPost);
+      //console.log(res);
+      dispatch(uploadPost(newPost));
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
@@ -145,11 +142,7 @@ const postSlice = createSlice({
   },
   reducers: {
     uploadPost: (state, action) => {
-      const title = action.payload.title;
-      const postImg = action.payload.postImg;
-      const category = action.payload.category;
-      const price = action.payload.price;
-      state.postList.push({ title, postImg, category, price });
+      state.postList.posts.push(action.payload);
     },
     getLoadPost: (state, action) => {
       state.post = action.payload;
