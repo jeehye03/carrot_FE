@@ -8,6 +8,7 @@ import { useSelector,  useDispatch } from 'react-redux';
 import { loadMainposts } from '../redux/modules/post'
 
 
+
 function MainItemList() {
   const dispatch = useDispatch();
   const [boardList, setBoardList] = useState();
