@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { deletePost } from "../redux/modules/post";
 import { carrotGetPost, postLike } from "../redux/modules/post";
+import Modal from "../components/Modal";
 
 function Detail() {
   const navigate = useNavigate();
@@ -20,12 +21,20 @@ function Detail() {
   const postPrice = Number(postDetail?.price);
   const params = useParams();
   const postId = params.postid;
+  const user = useSelector((state) => state.user); // 유저 정보
+
+  // 모달
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const closeModal = () => {
+    setModalOpen(false);
+  };
 
   // console.log(postDetail);
   // 금액 콤마(,) 찍어서 보여주기
   let carrotPrice = postPrice?.toLocaleString("ko-KR");
-  const user = useSelector((state) => state.user);
-
 
   useEffect(() => {
     dispatch(carrotGetPost(postId));
@@ -53,7 +62,33 @@ function Detail() {
         </div>
         <div>
           <MdOutlineIosShare />
-          <FiMoreVertical />
+          {/* 모달창 열기 */}
+          <FiMoreVertical onClick={openModal} />
+
+          <Modal open={modalOpen} close={closeModal} header="">
+            {user?.nickname === postDetail?.nickname ? (
+              <ButtonWrap>
+                <ButtonModify
+                  onClick={() => {
+                    navigate("/modify/" + postId);
+                  }}
+                >
+                  수정
+                </ButtonModify>
+                <ButtonDelete
+                  onClick={() => {
+                    dispatch(deletePost(postId));
+                    alert("삭제가 완료되었습니다. ");
+                    navigate("/");
+                  }}
+                >
+                  삭제
+                </ButtonDelete>
+              </ButtonWrap>
+            ) : (
+              <Claim>신고하기</Claim>
+            )}
+          </Modal>
         </div>
       </Header>
 
@@ -64,21 +99,35 @@ function Detail() {
       <Container>
         <ProfileBar>
           <Profile>
-            <BsPersonCircle size="35" />
+            <img src={user.userImg} />
             <Nickname>
               <p>{postDetail?.nickname}</p>
               <p>{postDetail?.userLocation}</p>
             </Nickname>
           </Profile>
 
-          {user?.nickname === postDetail?.nickname ? 
-            <><button onClick={()=>{navigate("/modify/"+postId)}}>수정</button>
-            <button onClick={()=>{dispatch(deletePost(postId)); 
-                                  alert("삭제가 완료되었습니다. ");
-                                  navigate("/");}}>삭제</button></>
-            : ""}
-
-          
+          {/* {user?.nickname === postDetail?.nickname ? (
+            <>
+              <button
+                onClick={() => {
+                  navigate("/modify/" + postId);
+                }}
+              >
+                수정
+              </button>
+              <button
+                onClick={() => {
+                  dispatch(deletePost(postId));
+                  alert("삭제가 완료되었습니다. ");
+                  navigate("/");
+                }}
+              >
+                삭제
+              </button>
+            </>
+          ) : (
+            ""
+          )} */}
 
           <Ondo>
             <div>
@@ -144,6 +193,37 @@ const Header = styled.div`
   position: absolute;
 `;
 
+const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const ButtonModify = styled.button`
+  width: 100%;
+  height: 50px;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  /* margin-bottom: 1px; */
+  background-color: whitesmoke;
+  color: #6bb7e0;
+  font-size: 13px;
+`;
+
+const ButtonDelete = styled.button`
+  width: 100%;
+  height: 50px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  background-color: whitesmoke;
+  color: red;
+  font-size: 13px;
+`;
+
+const Claim = styled(ButtonModify)`
+  border-radius: 15px;
+  color: red;
+`;
 const ProfileBar = styled.div`
   display: flex;
   justify-content: space-between;
@@ -162,6 +242,13 @@ const Profile = styled.div`
   align-items: center;
   //width: 180px;
   line-height: 20px;
+
+  img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
 
   div > p:first-child {
     font-weight: 600;

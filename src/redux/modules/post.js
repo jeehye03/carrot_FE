@@ -1,11 +1,10 @@
-import { async } from "@firebase/util";
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { instance } from "../../shared/axios";
 
 // 찜하기
 export const postLike = (postId) => {
-  return async function (dispatch) {
+  return function (dispatch) {
     instance
       .post(`api/like/${postId}`)
       .then((res) => {
@@ -34,8 +33,8 @@ export const postUnLike = (postId) => {
 
 // 게시물 등록
 export const carrotPost = (newPost) => {
-  return async function (dispatch) {
-    await instance
+  return function (dispatch) {
+    instance
       .post("api/post", newPost)
       .then((res) => {
         dispatch(uploadPost(newPost));
@@ -51,23 +50,31 @@ export const modyfyPost = (modifyPostInfo) => {
   return async function (dispatch) {
     console.log(modifyPostInfo);
 
-    await instance.put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo).then((re)=>{
-      dispatch(getLoadPost(re.data));
-    }).catch((err) => { console.log(err);});
-  }
-}
+    await instance
+      .put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo)
+      .then((re) => {
+        dispatch(getLoadPost(re.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
+//게시물 삭제
 
-//게시물 삭제 
-
-export const deletePost = (postId)=>{
-  return async function (dispatch){
-    await instance.delete(`/api/post/${postId}`).then((re)=>{
-      dispatch(roadPosts(re.data));
-    }).catch((err) => { console.log(err);});
-  }
-}
-
+export const deletePost = (postId) => {
+  return async function (dispatch) {
+    await instance
+      .delete(`/api/post/${postId}`)
+      .then((re) => {
+        dispatch(roadPosts(re.data));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
 
 // 게시물 상세 조회
 export const carrotGetPost = (postId) => {
@@ -83,7 +90,7 @@ export const carrotGetPost = (postId) => {
   };
 };
 
-// 메인화면 포스트 리드 
+// 메인화면 포스트 리드
 export const loadMainposts = () => {
   return async function (dispatch) {
     await instance
@@ -104,10 +111,9 @@ export const loadSalseposts = () => {
       .get("/api/user/sellList")
       .then((re) => {
         dispatch(roadPosts(re.data));
-
-      }).catch((err) => {
-        console.log("판매목록"+err);
-
+      })
+      .catch((err) => {
+        console.log("판매목록" + err);
       });
   };
 };
@@ -120,13 +126,11 @@ export const loadConcernsposts = () => {
       .then((re) => {
         console.log(re);
         dispatch(roadPosts(re.data));
-
-      }).catch((err) => {
-        console.log("관심목록"+err);
-
+      })
+      .catch((err) => {
+        console.log("관심목록" + err);
       });
   };
-
 };
 
 //Reducer
