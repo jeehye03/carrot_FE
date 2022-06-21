@@ -16,6 +16,7 @@ function MainItemList() {
   const mainPostList = useSelector((state) => state.post.postList);
   const user = useSelector((state) => state.user);
 
+
   React.useEffect(() => {
     dispatch(loadMainposts());
   }, [boardList])
