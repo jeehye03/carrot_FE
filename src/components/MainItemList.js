@@ -60,7 +60,6 @@ border-bottom: 1px solid  #AAAAAA;
 `;
 
 const TextArea = styled.div`
-
 display: flex;
 flex-direction: column;
 width: 200px;

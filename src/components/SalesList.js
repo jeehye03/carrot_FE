@@ -15,43 +15,42 @@ function SalesList() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const postList = useSelector((state) => state.post.postList);
+
+
   React.useEffect(() => {
   dispatch(loadSalseposts());
   }, [boardList])
-
   
   return (
-    <div className="ContentsBox">
+    <div style={{padding : '8px', height:'450px', overflow:'scroll'}}>
       <SubTitle>판매 내역</SubTitle>
-      {!(boardList) ? <NotFound> 판매내역이 없어요</NotFound> :
-        <>  <CardBox className="card">
+      {!(postList) ? <NotFound> 판매내역이 없어요</NotFound> :""}
+      <div>
+        {/* 위 디브에 온클릭 이벤트 걸어둘것! list.pistId */}
+        {postList.sellList&&postList.sellList.map((list, index) => (
+          <><CardBox className="card">
           <div style={{ display: "flex" }}>
-            <Img src="https://i.pinimg.com/564x/83/6b/5f/836b5fbea54ad957fbc397600ea072de.jpg" />
+            <Img src={list.postImg} />
             <TextArea>
               <span style={{ fontSize: "15px", marginBottom: "5px" }}>
-                귀엽고 깜찍한 죠르디에요
+                {list.title}
               </span>
-              <span
-                style={{ fontSize: "12px", padding: "5px", color: "#AAAAAA" }}
-              >
-                군자동
+              <span style={{ fontSize: "12px", padding: "5px", color: "#AAAAAA" }}>
+                {list.userLocation}
               </span>
-              <span
-                style={{ fontSize: "13px", padding: "5px", fontWeight: "bold" }}
-              >
-                30,000원
+              <span style={{ fontSize: "13px", padding: "5px", fontWeight: "bold" }} >
+                {list.price}
               </span>
             </TextArea>
           </div>
 
           <AiOutlineMenu />
           {/* 거래완료 API */}
-        </CardBox>
-          <StateBox>
-            <BMenuBox>예약중</BMenuBox>
-            <BMenuBox>거래완료</BMenuBox>
-          </StateBox></>
-      }
+        </CardBox></> 
+
+        ))}
+      </div>
     </div>
   );
 }
@@ -59,10 +58,11 @@ function SalesList() {
 const CardBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;;
   height: 130px;
   padding: 15px;
   align-items: flex-start;
+  border-bottom: 1px solid #AAAAAA;
 `;
 
 const Img = styled.img`
@@ -85,21 +85,8 @@ const SubTitle = styled.div`
   font-weight: bold;
 `;
 
-const StateBox = styled.div`
-display: flex;
-justify-content: space-around;
-align-items: center;
-height: 50px;
-`;
 
-const BMenuBox =styled.div`
-width: 50%;
-height: 50px;
-border: 1px solid #AAAAAA;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-direction: column`;
+
 
 
 

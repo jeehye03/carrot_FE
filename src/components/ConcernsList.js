@@ -16,6 +16,9 @@ function ConcernsList () {
     dispatch(loadSalseposts());
     }, [boardList])
 
+    const mainPostList = useSelector((state) => state.post.postList);
+
+    console.log(mainPostList);
 
     return (
         <div className="ContentsBox"> 
