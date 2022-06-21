@@ -19,7 +19,7 @@ function App() {
     } else {
       dispatch(carrotLoginStatus(false));
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={defaultTheme}>
