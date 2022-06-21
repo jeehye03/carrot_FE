@@ -1,7 +1,6 @@
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { FaRegSmile } from "react-icons/fa";
-import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineIosShare } from "react-icons/md";
 import { FiMoreVertical } from "react-icons/fi";
 // 이모티콘
@@ -64,7 +63,6 @@ function Detail() {
               navigate("/");
             }}
           />
-          {/* <AiOutlineHome /> */}
         </div>
         <div>
           <MdOutlineIosShare />
@@ -99,13 +97,13 @@ function Detail() {
       </Header>
 
       <div>
-        <img src={postDetail?.postImg} />
+        <img src={postDetail?.postImg} alt="postImg" />
       </div>
 
       <Container>
         <ProfileBar>
           <Profile>
-            <img src={postDetail?.userImg} />
+            <img src={postDetail?.userImg} alt="userImg" />
             <Nickname>
               <p>{postDetail?.nickname}</p>
               <p>{postDetail?.userLocation}</p>
@@ -136,15 +134,19 @@ function Detail() {
           ) : (
             <BsHeart size="35" onClick={likeHeart} />
           )}
-          {/* // <BsHeart size="35" onClick={likeHeart} /> */}
-          {/* <BsHeartFill /> */}
         </Heart>
         <Price>
           <div>
             <p>{carrotPrice}원</p>
             <p>가격 제안하기</p>
           </div>
-          <button onClick={()=>{ navigate("/chatting/" + postId);}}>채팅하기</button>
+          <button
+            onClick={() => {
+              navigate("/chatting/" + postId);
+            }}
+          >
+            채팅하기
+          </button>
         </Price>
       </Footer>
     </Wrap>
