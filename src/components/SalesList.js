@@ -1,12 +1,13 @@
-
 import "../public/css/listForm.css";
 import styled from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import React, { useState } from "react";
+
 import { loadSalseposts } from '../redux/modules/post'
 import { useSelector,  useDispatch } from 'react-redux';
 import { useNavigate } from "react-router-dom";
+
 
 
 
@@ -17,12 +18,12 @@ function SalesList() {
 
   const postList = useSelector((state) => state.post.postList);
 
-
   React.useEffect(() => {
-  dispatch(loadSalseposts());
-  }, [boardList])
-  
+    dispatch(loadSalseposts());
+  }, [boardList]);
+
   return (
+
     <div style={{ padding: '8px', height: '450px', overflow: 'scroll' }}>
       <SubTitle>판매 내역</SubTitle>
       {!(postList) ? <NotFound> 판매내역이 없어요</NotFound> : ""}
@@ -49,6 +50,7 @@ function SalesList() {
           </CardBox></>
         </div>
       ))}
+
     </div>
 
   );
@@ -57,11 +59,11 @@ function SalesList() {
 const CardBox = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;;
+  justify-content: space-between;
   height: 130px;
   padding: 15px;
   align-items: flex-start;
-  border-bottom: 1px solid #AAAAAA;
+  border-bottom: 1px solid #aaaaaa;
 `;
 
 const Img = styled.img`
@@ -87,11 +89,10 @@ const SubTitle = styled.div`
 
 
 const NotFound = styled.div`
-display: flex;
-height: 100px;
-align-items: center;
-justify-content: center;
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
 `;
-
 
 export default SalesList;
