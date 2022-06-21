@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { IoIosClose, IoIosCamera } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../shared/firebase";
 import { carrotPost } from "../redux/modules/post";
@@ -16,9 +16,11 @@ function Add() {
   const title_ref = useRef();
   const price_ref = useRef();
   const content_ref = useRef();
+  const chk_ref = useRef();
   const [category, setCategory] = useState();
   const [imageSrc, setImageSrc] = useState(); // 프리뷰
   const [enteredNum, setEnterdNum] = useState();
+  const [price, setPrice] = useState(0);
 
   const location = useSelector((state) => state.user.userLocation);
 
@@ -26,12 +28,23 @@ function Add() {
     setCategory(e.target.value);
   };
 
+  useEffect(() => {
+    if (price) {
+      chk_ref.current.checked = true;
+      chk_ref.current.disabled = false;
+    } else {
+      chk_ref.current.checked = false;
+      chk_ref.current.disabled = true;
+    }
+  }, [price]); //
+
   // 파일 업로드
   const selectFile = async (e) => {
     const uploded_file = await uploadBytes(
       ref(storage, `images/${e.target.files[0].name}`),
       e.target.files[0] // 어떤 파일 저장 할건지
     );
+
     // 스토리지로 url 다운로드
     const file_url = await getDownloadURL(uploded_file.ref);
 
@@ -54,6 +67,7 @@ function Add() {
   // 금액 콤마(,) 찍기
 
   const priceComma = (e) => {
+    setPrice(e.target.value);
     let value = e.target.value;
     value = Number(value.replaceAll(",", ""));
     if (isNaN(value)) {
@@ -65,9 +79,9 @@ function Add() {
   };
 
   // 콤마제거
-  const commaRemovePrice = enteredNum?.replace(/,/g, "");
+  const commaRemovePrice = enteredNum?.replace(/,/g, ""); // g -> global
   let numberPrice = parseInt(commaRemovePrice);
-  console.log(numberPrice);
+  //console.log(numberPrice);
 
   const upload = () => {
     const newPost = {
@@ -148,7 +162,7 @@ function Add() {
             value={enteredNum || ""}
           />
           <label htmlFor="price">
-            <input type="radio" id="price" />
+            <input type="radio" id="price" ref={chk_ref} />
             가격 제안받기
           </label>
         </Price>
