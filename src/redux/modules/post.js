@@ -96,7 +96,7 @@ export const loadMainposts = () => {
     await instance
       .get("/api/post")
       .then((re) => {
-        dispatch(roadPosts(re.data.posts));
+        dispatch(roadPosts(re.data));
         /*
         re.data = {
           result: true,
@@ -116,7 +116,7 @@ export const loadSalseposts = () => {
     await instance
       .get("/api/user/sellList")
       .then((re) => {
-        dispatch(roadPosts(re.data.sellList));
+        dispatch(loadSalesPosts(re.data));
       })
       .catch((err) => {
         console.log("판매목록" + err);
@@ -131,7 +131,7 @@ export const loadConcernsposts = () => {
       .get("/api/user/likeList")
       .then((re) => {
         console.log(re);
-        dispatch(roadPosts(re.data.likeList));
+        dispatch(roadPosts(re.data));
       })
       .catch((err) => {
         console.log("관심목록" + err);
@@ -149,6 +149,11 @@ export const changeTradeStateDB = (postId, state) => {
   };
 };
 
+// 객체는 map, reduce, filter라는 함수가 없음
+// SalesList에서는 postList를 map을 돌리고 있고
+// MainItemList에선은 postList.posts를 맵을 돌리고 있음
+
+//Reducer
 const postSlice = createSlice({
   name: "post",
   initialState: {
@@ -163,7 +168,10 @@ const postSlice = createSlice({
       state.post = action.payload;
     },
     roadPosts: (state, action) => {
-      state.postList = action.payload;
+      state.postList = action.payload.posts;
+    },
+    loadSalesPosts: (state, action) => {
+      state.postList = action.payload.sellList;
     },
     setLike: (state, action) => {
       state.post.likeNum = action.payload.likeNum;
@@ -180,6 +188,6 @@ const postSlice = createSlice({
   },
 });
 
-const { uploadPost, getLoadPost, roadPosts, changeTradeState, setLike } =
+const { uploadPost, getLoadPost, roadPosts, loadSalesPosts, changeTradeState, setLike } =
   postSlice.actions;
 export default postSlice.reducer;

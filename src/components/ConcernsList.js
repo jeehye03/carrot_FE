@@ -19,7 +19,7 @@ function ConcernsList () {
             <SubTitle>관심 목록</SubTitle>
             <div>
                 {!(postList) ? <NotFound> 판매내역이 없어요 </NotFound> : ""}
-                {postList && postList.map((list, index) => (
+                {postList.likeList && postList.likeList.map((list, index) => (
                     <Card key={index}>
                         <CardBox className="card" >
                             <div style={{ display: "flex" }}>

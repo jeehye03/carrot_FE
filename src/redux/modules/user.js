@@ -26,10 +26,6 @@ const userSlice = createSlice({
     nickname: "",
     userLocation: "",
     userImg: "",
-    save: {
-      location: null,
-      image: null,
-    },
   },
   reducers: {
     setUser: (state, action) => {
