@@ -7,7 +7,6 @@ export const postLike = (postId) => {
     instance
       .post(`api/like/${postId}`)
       .then((res) => {
-        //console.log(res);
         dispatch(setLike({ userLike: true, likeNum: res.data.likeNum }));
       })
       .catch((err) => {
@@ -22,7 +21,6 @@ export const postUnLike = (postId) => {
     instance
       .delete(`api/like/${postId}`)
       .then((res) => {
-        //console.log(res.data);
         dispatch(setLike({ userLike: false, likeNum: res.data.likeNum }));
       })
       .catch((err) => {
