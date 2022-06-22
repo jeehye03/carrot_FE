@@ -29,9 +29,6 @@ function Profile() {
     }
   }, [userRedux]);
 
-  useEffect(() => {
-  }, [user]);
-
   const load = async () => {
     try {
       const data = {...userRedux};

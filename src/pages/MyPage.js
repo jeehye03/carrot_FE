@@ -26,13 +26,13 @@ function MyPage () {
 
   const logout = (e) => {
     removeToken();
-    navigate("/start");
+    navigate("/");
   }
 
   useEffect(() => {
     const token = getToken();
     if (!token) {
-      navigate("/start");
+      navigate("/");
     }
   }, [navigate]);
 
@@ -66,7 +66,7 @@ function MyPage () {
 
 
         <div className="BMenuBar">
-          <div className="BMenuBox" onClick={() => { navigate("/") }}>
+          <div className="BMenuBox" onClick={() => { navigate("/main") }}>
             <AiFillHome size="30px" color={"#AAAAAA"} />
             <p style={{ color: "#AAAAAA" }}></p>HOME</div>
           <div className="BMenuBox" onClick={() => { navigate("/mypage") }}>

@@ -61,13 +61,13 @@ function Modify(props) {
       postId : postId
     };
     dispatch(modyfyPost(newPost));
-    navigate("/");
+    navigate("/main");
   };
 
   return (
     <Wrap>
       <Header>
-        <IoIosClose size="25" onClick={() => { navigate("/"); }}/>
+        <IoIosClose size="25" onClick={() => { navigate("/main"); }}/>
             <h4>수정하기</h4>
             <h5 onClick={upload}>완료</h5>
       </Header>
