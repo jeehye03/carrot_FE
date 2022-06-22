@@ -18,6 +18,7 @@ function SalesList() {
   const dispatch = useDispatch();
 
   const postList = useSelector((state) => state.post.postList);
+  console.log(postList);
   const user = useSelector((state) => state.user); // 유저 정보
 
   const [modalOpen, setModalOpen] = useState(false);
@@ -39,7 +40,7 @@ function SalesList() {
       {!(postList) ? <NotFound> 판매내역이 없어요</NotFound> : ""}
       {postList.sellList && postList.sellList.map((list, index) => (
         <div key={index}>
-          <><CardBox className="card" >
+          <CardBox className="card" >
             <div style={{ display: "flex" }}>
               <Img src={list.postImg} />
               <TextArea>
@@ -56,8 +57,7 @@ function SalesList() {
             </div>
 
             <AiOutlineMenu onClick={openModal} />
-
-            <Modal open={modalOpen} close={closeModal} header="">
+            <Modal open={modalOpen} close={closeModal} >
               {user.nickname === list.nickname ? (
                 <ButtonWrap>
                   <ButtonModify
@@ -70,6 +70,7 @@ function SalesList() {
 
                   <ButtonDelete
                     onClick={() => {
+                      console.log(list.postId)
                       dispatch(deletePost(list.postId));
                       alert("삭제가 완료되었습니다. ");
                       navigate("/");
@@ -82,8 +83,7 @@ function SalesList() {
                 <Claim>신고하기</Claim>
               )}
             </Modal>
-
-          </CardBox></>
+          </CardBox>
         </div>
       ))}
 
@@ -91,6 +91,9 @@ function SalesList() {
 
   );
 }
+
+
+
 
 const CardBox = styled.div`
   display: flex;
