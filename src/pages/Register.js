@@ -19,7 +19,7 @@ function Register () {
 
   useEffect(() => {
     if (!location.state) {
-      navigate("/start");
+      navigate("/");
     }
   }, []);
 

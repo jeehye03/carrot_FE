@@ -60,7 +60,7 @@ function Detail() {
           <BiLeftArrowAlt
             size={30}
             onClick={() => {
-              navigate("/");
+              navigate("/main");
             }}
           />
         </div>
@@ -83,7 +83,7 @@ function Detail() {
                   onClick={() => {
                     dispatch(deletePost(postId));
                     alert("삭제가 완료되었습니다. ");
-                    navigate("/");
+                    navigate("/main");
                   }}
                 >
                   삭제

@@ -21,13 +21,12 @@ function Main () {
     <div className="Wrap">
       <div className="TMenuBar"> 
       <span> {user.userLocation} </span>
-
     </div>
         
         {pageState}
 
         <div className="BMenuBar"> 
-          <div className="BMenuBox" onClick={() => { navigate("/") }}>
+          <div className="BMenuBox" onClick={() => { navigate("/main") }}>
             <AiFillHome size="30px" color={"black"}/>
             <p style={{color: "black"}}></p>HOME</div>
           <div className="BMenuBox" onClick={() => { navigate("/mypage") }}>

@@ -93,7 +93,7 @@ function Add() {
     };
 
     dispatch(carrotPost(newPost));
-    navigate("/");
+    navigate("/main");
   };
 
   return (
@@ -102,7 +102,7 @@ function Add() {
         <IoIosClose
           size="25"
           onClick={() => {
-            navigate("/");
+            navigate("/main");
           }}
         />
         <h4>중고거래 글쓰기</h4>
