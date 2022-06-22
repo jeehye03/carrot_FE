@@ -83,9 +83,8 @@ function Detail() {
                 </ButtonModify>
                 <ButtonDelete
                   onClick={() => {
-                    dispatch(deletePost(postId,navigate));
+                    dispatch(deletePost(postId, navigate));
                     alert("삭제가 완료되었습니다. ");
-                    //navigate("/main");
                   }}
                 >
                   삭제

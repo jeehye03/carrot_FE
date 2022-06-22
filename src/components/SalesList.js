@@ -107,7 +107,7 @@ function SalesList() {
                 {list.tradeState === "0" && (
                   <button
                     onClick={() => {
-                      dispatch(changeTradeStateDB(list._id, "1")); // 예약으로 바꾸기
+                      dispatch(changeTradeStateDB(list.postId, "1")); // 예약으로 바꾸기
                     }}
                   >
                     예약중
@@ -116,7 +116,7 @@ function SalesList() {
                 {list.tradeState === "1" && (
                   <button
                     onClick={() => {
-                      dispatch(changeTradeStateDB(list._id, "0"));
+                      dispatch(changeTradeStateDB(list.postId, "0"));
                     }}
                   >
                     거래중
@@ -125,7 +125,7 @@ function SalesList() {
                 {(list.tradeState === "0" || list.tradeState === "1") && (
                   <button
                     onClick={() => {
-                      dispatch(changeTradeStateDB(list._id, "2"));
+                      dispatch(changeTradeStateDB(list.postId, "2"));
                     }}
                   >
                     거래완료
