@@ -19,11 +19,10 @@ function Main () {
 
   return (
     <div className="Wrap">
+      <div className="TMenuBar"> 
+        <span> {user.userLocation} </span>
+      </div>
       <div className="topView">
-        <div className="TMenuBar"> 
-          <span> {user.userLocation} </span>
-        </div>
-          
         {pageState}
       </div>
       <div className="bottomView">
