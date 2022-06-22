@@ -14,7 +14,6 @@ function MainItemList() {
   const mainPostList = useSelector((state) => state.post.postList);
   const user = useSelector((state) => state.user);
 
-
   React.useEffect(() => {
     dispatch(loadMainposts());
   }, [boardList]);
@@ -35,7 +34,12 @@ function MainItemList() {
                 >
                   <Img src={list.postImg} />
                   <TextArea>
-                    <span style={{ fontSize: "15px", marginBottom: "5px" }}>
+                    <span
+                      style={{
+                        fontSize: "15px",
+                        marginBottom: "5px",
+                      }}
+                    >
                       {list.title}
                     </span>
                     <span
@@ -54,11 +58,16 @@ function MainItemList() {
                         fontWeight: "bold",
                       }}
                     >
-                      {list.price}
+                      {Number(list.price).toLocaleString("ko-KR")}원
                     </span>
                   </TextArea>
                 </div>
-                <div style={{ display: "flex", alignItems: "flex-end" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "flex-end",
+                  }}
+                >
                   ❤️ {list.likeNum}
                 </div>
               </CardBox>
@@ -89,7 +98,7 @@ const CardBox = styled.div`
 const TextArea = styled.div`
   display: flex;
   flex-direction: column;
-  width: 200px;
+  width: 180px;
   padding: 10px;
 `;
 

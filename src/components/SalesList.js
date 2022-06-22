@@ -3,13 +3,12 @@ import styled, { css } from "styled-components";
 import { AiOutlineMenu } from "react-icons/ai";
 
 import { useEffect, useState } from "react";
-import { changeTradeStateDB, loadSalseposts } from '../redux/modules/post'
-import { useSelector,  useDispatch } from 'react-redux';
+import { changeTradeStateDB, loadSalseposts } from "../redux/modules/post";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import Modal from "../components/Modal";
 import { deletePost } from "../redux/modules/post";
-
 
 function SalesList() {
   const dispatch = useDispatch();
@@ -27,7 +26,7 @@ function SalesList() {
   useEffect(() => {
     dispatch(loadSalseposts());
   }, [dispatch]);
-  
+
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -35,95 +34,130 @@ function SalesList() {
   const closeModal = () => {
     setModalOpen(false);
   };
-  
+
   return (
     <div>
       <SubTitle>판매 내역</SubTitle>
       <SellMenu active={tab}>
-        <button onClick={() => {setTab(NOW_SELL)}}>판매중</button>
-        <button onClick={() => {setTab(COMPLETE_SELL)}}>거래완료</button>
+        <button
+          onClick={() => {
+            setTab(NOW_SELL);
+          }}
+        >
+          판매중
+        </button>
+        <button
+          onClick={() => {
+            setTab(COMPLETE_SELL);
+          }}
+        >
+          거래완료
+        </button>
       </SellMenu>
-      {!(postList) ? <NotFound> 판매내역이 없어요</NotFound> :""}
+      {!postList ? <NotFound> 판매내역이 없어요</NotFound> : ""}
       <div>
         {/* 위 디브에 온클릭 이벤트 걸어둘것! list.pistId */}
-        {postList.sellList?.filter((post) => {
-          if (tab === 0) { // 거래중
-            return post.tradeState === "0" || post.tradeState === "1";
-          } else if (tab === 1) { // 거래 완료
-            return post.tradeState === "2";
-          }
-          return false;
-        }).map((list, index) => (
-          <Card key={index}>
-            <CardBox className="card">
-              <div style={{ display: "flex" }}>
-                <Img src={list.postImg} />
-                <TextArea>
-                  <span style={{ fontSize: "15px", marginBottom: "5px" }}>
-                    {list.title}
-                  </span>
-                  <span style={{ fontSize: "12px", padding: "5px", color: "#AAAAAA" }}>
-                    {list.userLocation}
-                  </span>
-                  <span style={{ fontSize: "13px", padding: "5px", fontWeight: "bold" }} >
-                    {list.tradeState === "1" && <span>예약중</span>}{list.price}
-                  </span>
-                </TextArea>
-              </div>
+        {postList.sellList
+          ?.filter((post) => {
+            if (tab === 0) {
+              // 거래중
+              return post.tradeState === "0" || post.tradeState === "1";
+            } else if (tab === 1) {
+              // 거래 완료
+              return post.tradeState === "2";
+            }
+            return false;
+          })
+          .map((list, index) => (
+            <Card key={index}>
+              <CardBox className="card">
+                <div style={{ display: "flex" }}>
+                  <Img src={list.postImg} />
+                  <TextArea>
+                    <span style={{ fontSize: "15px", marginBottom: "5px" }}>
+                      {list.title}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "12px",
+                        padding: "5px",
+                        color: "#AAAAAA",
+                      }}
+                    >
+                      {list.userLocation}
+                    </span>
+                    <span
+                      style={{
+                        fontSize: "13px",
+                        padding: "5px",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {list.tradeState === "1" && <span>예약중</span>}
+                      {Number(list.price).toLocaleString("ko-KR")}원
+                    </span>
+                  </TextArea>
+                </div>
 
-              <AiOutlineMenu/>
-              {/* 거래완료 API */}
-            </CardBox>
-            <CardButton>
-              {list.tradeState === "0" && 
-              <button
-                onClick={() => {
-                  dispatch(changeTradeStateDB(list._id, "1")); // 예약으로 바꾸기
-                }}
-              >예약중</button>}
-              {list.tradeState === "1" && 
-              <button
-                onClick={() => {
-                  dispatch(changeTradeStateDB(list._id, "0"));
-                }}
-              >거래중</button>
-              }
-              {(list.tradeState === "0" || list.tradeState === "1") && 
-              <button
-                onClick={() => {
-                  dispatch(changeTradeStateDB(list._id, "2"));
-                }}
-              >거래완료</button>}
-            </CardButton>
-            <Modal open={modalOpen} close={closeModal} header="">
-              {user.nickname === list.nickname ? (
-                <ButtonWrap>
-                  <ButtonModify
+                <AiOutlineMenu />
+                {/* 거래완료 API */}
+              </CardBox>
+              <CardButton>
+                {list.tradeState === "0" && (
+                  <button
                     onClick={() => {
-                      navigate("/modify/" + list.postId);
+                      dispatch(changeTradeStateDB(list._id, "1")); // 예약으로 바꾸기
                     }}
                   >
-                    수정
-                  </ButtonModify>
-
-                  <ButtonDelete
+                    예약중
+                  </button>
+                )}
+                {list.tradeState === "1" && (
+                  <button
                     onClick={() => {
-                      dispatch(deletePost(list.postId));
-                      alert("삭제가 완료되었습니다. ");
-                      navigate("/");
+                      dispatch(changeTradeStateDB(list._id, "0"));
                     }}
                   >
-                    삭제
-                  </ButtonDelete>
-                </ButtonWrap>
-              ) : (
-                <Claim>신고하기</Claim>
-              )}
-            </Modal>
-          </Card>
+                    거래중
+                  </button>
+                )}
+                {(list.tradeState === "0" || list.tradeState === "1") && (
+                  <button
+                    onClick={() => {
+                      dispatch(changeTradeStateDB(list._id, "2"));
+                    }}
+                  >
+                    거래완료
+                  </button>
+                )}
+              </CardButton>
+              <Modal open={modalOpen} close={closeModal} header="">
+                {user.nickname === list.nickname ? (
+                  <ButtonWrap>
+                    <ButtonModify
+                      onClick={() => {
+                        navigate("/modify/" + list.postId);
+                      }}
+                    >
+                      수정
+                    </ButtonModify>
 
-        ))
-        }
+                    <ButtonDelete
+                      onClick={() => {
+                        dispatch(deletePost(list.postId));
+                        alert("삭제가 완료되었습니다. ");
+                        navigate("/");
+                      }}
+                    >
+                      삭제
+                    </ButtonDelete>
+                  </ButtonWrap>
+                ) : (
+                  <Claim>신고하기</Claim>
+                )}
+              </Modal>
+            </Card>
+          ))}
       </div>
     </div>
   );
@@ -143,7 +177,7 @@ const CardButton = styled.div`
     border: none;
     border-top: 1px solid #ddd;
     border-bottom: 1px solid #ddd;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     cursor: pointer;
   }
 
@@ -193,27 +227,31 @@ const SellMenu = styled.div`
     padding: 20px 0;
     font-weight: bold;
     font-size: 20px;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     border-bottom: 1px solid #ddd;
     color: #999;
     cursor: pointer;
   }
 
   // NOW_SELL
-  ${props => props.active === 0 && css`
-    button:first-of-type {
-      border-bottom: 3px solid #333;
-      color: #333;
-    }
-  `}
+  ${(props) =>
+    props.active === 0 &&
+    css`
+      button:first-of-type {
+        border-bottom: 3px solid #333;
+        color: #333;
+      }
+    `}
 
   // COMPLETE_SELL
-  ${props => props.active === 1 && css`
-    button:last-of-type {
-      border-bottom: 3px solid #333;
-      color: #333;
-    }
-  `}
+  ${(props) =>
+    props.active === 1 &&
+    css`
+      button:last-of-type {
+        border-bottom: 3px solid #333;
+        color: #333;
+      }
+    `}
 `;
 
 const NotFound = styled.div`
@@ -241,7 +279,6 @@ const ButtonWrap = styled.div`
   justify-content: center;
 `;
 
-
 const ButtonDelete = styled.button`
   width: 100%;
   height: 50px;
@@ -251,7 +288,6 @@ const ButtonDelete = styled.button`
   color: red;
   font-size: 13px;
 `;
-
 
 const Claim = styled(ButtonModify)`
   border-radius: 15px;

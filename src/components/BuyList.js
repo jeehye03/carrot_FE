@@ -8,10 +8,10 @@ function BuyList () {
   const dispatch = useDispatch();
 
   return (
-    <div style={{height:'450px', overflowY:'scroll'}}>
+    <div style={{ height: "450px", overflowY: "scroll" }}>
       <SubTitle>구매 내역</SubTitle>
       <div>
-      {postList.sellList?.map((list, index) => (
+        {postList.sellList?.map((list, index) => (
           <Card key={index}>
             <CardBox className="card">
               <div style={{ display: "flex" }}>
@@ -20,21 +20,33 @@ function BuyList () {
                   <span style={{ fontSize: "15px", marginBottom: "5px" }}>
                     {list.title}
                   </span>
-                  <span style={{ fontSize: "12px", padding: "5px", color: "#AAAAAA" }}>
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      padding: "5px",
+                      color: "#AAAAAA",
+                    }}
+                  >
                     {list.userLocation}
                   </span>
-                  <span style={{ fontSize: "13px", padding: "5px", fontWeight: "bold" }} >
-                    {list.tradeState === "1" && <span>예약중</span>}{list.price}
+                  <span
+                    style={{
+                      fontSize: "13px",
+                      padding: "5px",
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {list.tradeState === "1" && <span>예약중</span>}
+                    {Number(list.price).toLocaleString("ko-KR")}원
                   </span>
                 </TextArea>
               </div>
 
-              <AiOutlineMenu/>
+              <AiOutlineMenu />
               {/* 거래완료 API */}
             </CardBox>
           </Card>
-        ))
-        }
+        ))}
       </div>
     </div>
   );
@@ -67,6 +79,7 @@ const CardBox = styled.div`
 
 const Img = styled.img`
   width: 100px;
+  height: 100px;
   border-radius: 10px;
 `;
 
