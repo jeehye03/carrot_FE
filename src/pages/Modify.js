@@ -61,7 +61,7 @@ function Modify(props) {
       postId : postId
     };
     dispatch(modyfyPost(newPost));
-    navigate("/main");
+    //navigate("/main");
   };
 
   return (

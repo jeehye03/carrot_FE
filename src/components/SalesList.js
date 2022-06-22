@@ -100,7 +100,7 @@ function SalesList() {
                   </TextArea>
                 </div>
 
-                <AiOutlineMenu />
+                <AiOutlineMenu  onClick={openModal}/>
                 {/* 거래완료 API */}
               </CardBox>
               <CardButton>
@@ -132,8 +132,8 @@ function SalesList() {
                   </button>
                 )}
               </CardButton>
-              <Modal open={modalOpen} close={closeModal} header="">
-                {user.nickname === list.nickname ? (
+              <Modal open={modalOpen} close={closeModal}>
+                
                   <ButtonWrap>
                     <ButtonModify
                       onClick={() => {
@@ -146,15 +146,13 @@ function SalesList() {
                       onClick={() => {
                         dispatch(deletePost(list.postId));
                         alert("삭제가 완료되었습니다. ");
-                        navigate("/");
+                        navigate("/main");
                       }}
                     >
                       삭제
                     </ButtonDelete>
                   </ButtonWrap>
-                ) : (
-                  <Claim>신고하기</Claim>
-                )}
+                
               </Modal>
             </Card>
           ))}

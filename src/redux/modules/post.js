@@ -33,14 +33,13 @@ export const postUnLike = (postId) => {
 };
 
 // 게시물 등록
-export const carrotPost = (newPost) => {
+export const carrotPost = (newPost,navigate) => {
  
   return async function (dispatch,) {
     try {
       const res = await instance.post("api/post", newPost);
-      //console.log(res);
       dispatch(uploadPost(newPost));
-      //window.location.replace("/main");
+      navigate('/main');
     } catch (err) {
       console.log(err);
     }
@@ -65,12 +64,13 @@ export const modyfyPost = (modifyPostInfo) => {
 
 //게시물 삭제
 
-export const deletePost = (postId) => {
+export const deletePost = (postId,navigate) => {
   return async function (dispatch) {
     await instance
       .delete(`/api/post/${postId}`)
       .then((re) => {
         dispatch(roadPosts(re.data));
+        navigate("/main")
       })
       .catch((err) => {
         console.log(err);
