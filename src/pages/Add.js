@@ -98,8 +98,8 @@ function Add() {
       price: numberPrice,
     };
 
-    dispatch(carrotPost(newPost));
-    navigate("/main");
+    dispatch(carrotPost(newPost, navigate));
+    // navigate("/main");
   };
 
   return (

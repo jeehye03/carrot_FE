@@ -20,9 +20,9 @@ function ConcernsList () {
 
 
     return (
-        <div style={{ padding: '8px', height: '450px', overflow: 'scroll' }}>
+        <div>
             <SubTitle>관심 목록</SubTitle>
-            {!(postList) ? <NotFound> 판매내역이 없어요</NotFound> : ""}
+            {!(postList) ? <NotFound> 판매내역이 없어요 </NotFound> : ""}
             {postList.likeList && postList.likeList.map((list, index) => (
                 <div key={index}>
                     <><CardBox className="card" >

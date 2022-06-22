@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { instance } from "../../shared/axios";
-import {  useNavigate } from "react-router-dom";
 
 // 찜하기
 export const postLike = (postId) => {
@@ -33,14 +32,12 @@ export const postUnLike = (postId) => {
 };
 
 // 게시물 등록
-export const carrotPost = (newPost) => {
- 
-  return async function (dispatch,) {
+export const carrotPost = (newPost, navigate) => {
+  return async function (dispatch) {
     try {
       const res = await instance.post("api/post", newPost);
-      //console.log(res);
       dispatch(uploadPost(newPost));
-      //window.location.replace("/main");
+      navigate("/main");
     } catch (err) {
       console.log(err);
     }
@@ -48,14 +45,13 @@ export const carrotPost = (newPost) => {
 };
 
 // 게시물 수정
-export const modyfyPost = (modifyPostInfo) => {
+export const modyfyPost = (modifyPostInfo, navigate) => {
   return async function (dispatch) {
-    console.log(modifyPostInfo);
-
     await instance
       .put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo)
       .then((re) => {
         dispatch(getLoadPost(re.data));
+        navigate("/main");
       })
       .catch((err) => {
         console.log(err);
@@ -65,12 +61,13 @@ export const modyfyPost = (modifyPostInfo) => {
 
 //게시물 삭제
 
-export const deletePost = (postId) => {
+export const deletePost = (postId, navigate) => {
   return async function (dispatch) {
     await instance
       .delete(`/api/post/${postId}`)
       .then((re) => {
         dispatch(roadPosts(re.data));
+        navigate("/main");
       })
       .catch((err) => {
         console.log(err);
@@ -138,7 +135,7 @@ export const loadConcernsposts = () => {
 
 export const changeTradeStateDB = (postId, state) => {
   return async function (dispatch) {
-    const response = await instance.put(`/api/post/tradeState/${postId}`, {
+    const response = await instance.patch(`/api/post/tradeState/${postId}`, {
       tradeState: state,
     });
     console.log(response);

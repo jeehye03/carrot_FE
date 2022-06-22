@@ -83,9 +83,8 @@ console.log(postDetail);
                 </ButtonModify>
                 <ButtonDelete
                   onClick={() => {
-                    dispatch(deletePost(postId));
+                    dispatch(deletePost(postId, navigate));
                     alert("삭제가 완료되었습니다. ");
-                    navigate("/main");
                   }}
                 >
                   삭제

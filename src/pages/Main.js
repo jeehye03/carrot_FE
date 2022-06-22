@@ -3,9 +3,8 @@ import { AiFillHome } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 
 import MainItemList from '../components/MainItemList';
-import MyPage from './MyPage';
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
