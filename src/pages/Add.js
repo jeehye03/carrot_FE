@@ -21,7 +21,8 @@ function Add() {
   const [imageSrc, setImageSrc] = useState(); // 프리뷰
   const [enteredNum, setEnterdNum] = useState();
   const [price, setPrice] = useState(0);
-
+  const post = useSelector((state) => state.post.postList)
+  
   const location = useSelector((state) => state.user.userLocation);
 
   const changeCategory = (e) => {
@@ -37,6 +38,11 @@ function Add() {
       chk_ref.current.disabled = true;
     }
   }, [price]); //
+
+  useEffect(() => {
+    console.log(post)
+
+  },[post])
 
   // 파일 업로드
   const selectFile = async (e) => {
@@ -92,8 +98,8 @@ function Add() {
       price: numberPrice,
     };
 
-    dispatch(carrotPost(newPost));
-    navigate("/main");
+    dispatch(carrotPost(newPost, navigate));
+    // navigate("/main");
   };
 
   return (

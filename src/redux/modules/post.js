@@ -30,11 +30,12 @@ export const postUnLike = (postId) => {
 };
 
 // 게시물 등록
-export const carrotPost = (newPost) => {
+export const carrotPost = (newPost, navigate) => {
   return async function (dispatch) {
     try {
       const res = await instance.post("api/post", newPost);
       dispatch(uploadPost(newPost));
+      navigate("/main");
     } catch (err) {
       console.log(err);
     }
@@ -42,14 +43,13 @@ export const carrotPost = (newPost) => {
 };
 
 // 게시물 수정
-export const modyfyPost = (modifyPostInfo) => {
+export const modyfyPost = (modifyPostInfo, navigate) => {
   return async function (dispatch) {
-    console.log(modifyPostInfo);
-
     await instance
       .put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo)
       .then((re) => {
         dispatch(getLoadPost(re.data));
+        navigate("/main");
       })
       .catch((err) => {
         console.log(err);
@@ -59,12 +59,13 @@ export const modyfyPost = (modifyPostInfo) => {
 
 //게시물 삭제
 
-export const deletePost = (postId) => {
+export const deletePost = (postId, navigate) => {
   return async function (dispatch) {
     await instance
       .delete(`/api/post/${postId}`)
       .then((re) => {
         dispatch(roadPosts(re.data));
+        navigate("/main");
       })
       .catch((err) => {
         console.log(err);
@@ -94,6 +95,12 @@ export const loadMainposts = () => {
       .get("/api/post")
       .then((re) => {
         dispatch(roadPosts(re.data));
+        /*
+        re.data = {
+          result: true,
+          posts: [{}, {}, {}]
+        }
+        */
       })
       .catch((err) => {
         console.log(err);
@@ -107,7 +114,7 @@ export const loadSalseposts = () => {
     await instance
       .get("/api/user/sellList")
       .then((re) => {
-        dispatch(roadPosts(re.data));
+        dispatch(loadSalesPosts(re.data));
       })
       .catch((err) => {
         console.log("판매목록" + err);
@@ -132,13 +139,17 @@ export const loadConcernsposts = () => {
 
 export const changeTradeStateDB = (postId, state) => {
   return async function (dispatch) {
-    const response = await instance.put(`/api/post/tradeState/${postId}`, {
+    const response = await instance.patch(`/api/post/tradeState/${postId}`, {
       tradeState: state,
     });
     console.log(response);
     dispatch(changeTradeState({ id: postId, tradeState: state }));
   };
 };
+
+// 객체는 map, reduce, filter라는 함수가 없음
+// SalesList에서는 postList를 map을 돌리고 있고
+// MainItemList에선은 postList.posts를 맵을 돌리고 있음
 
 //Reducer
 const postSlice = createSlice({
@@ -153,10 +164,12 @@ const postSlice = createSlice({
     },
     getLoadPost: (state, action) => {
       state.post = action.payload;
-      //console.log(state.post);
     },
     roadPosts: (state, action) => {
-      state.postList = action.payload;
+      state.postList = action.payload.posts;
+    },
+    loadSalesPosts: (state, action) => {
+      state.postList = action.payload.sellList;
     },
     setLike: (state, action) => {
       state.post.likeNum = action.payload.likeNum;
@@ -173,6 +186,6 @@ const postSlice = createSlice({
   },
 });
 
-const { uploadPost, getLoadPost, roadPosts, changeTradeState, setLike } =
+const { uploadPost, getLoadPost, roadPosts, loadSalesPosts, changeTradeState, setLike } =
   postSlice.actions;
 export default postSlice.reducer;

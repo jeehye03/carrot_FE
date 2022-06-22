@@ -60,8 +60,7 @@ function Modify(props) {
       price: numberPrice,
       postId : postId
     };
-    dispatch(modyfyPost(newPost));
-    navigate("/main");
+    dispatch(modyfyPost(newPost, navigate));
   };
 
   return (

@@ -15,7 +15,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from 'react-redux';
 import { getToken, removeToken } from '../shared/localStorage';
-import BuyList from '../components/BuyList';
 
 function MyPage () {
   const [subMenu, setSubMenu] = useState(<SalesList/>);
@@ -55,7 +54,7 @@ function MyPage () {
 
             <MyMenuMiddle>
               <div><Circle onClick={() => { setSubMenu(<SalesList />); }}><BsReceipt size="25" color='#ff7E36' /></Circle>판매내역</div>
-              <div><Circle onClick={() => { setSubMenu(<BuyList />) }}><BsFillBasket2Fill size="25" color='#ff7E36' /></Circle>구매내역</div>
+              <div><Circle onClick={() => { alert("미구현 상태입니다") }}><BsFillBasket2Fill size="25" color='#ff7E36' /></Circle>구매내역</div>
               <div><Circle onClick={() => { setSubMenu(<ConcernsList />); }}><AiFillHeart size="25" color='#ff7E36' /></Circle>관심목록</div>
             </MyMenuMiddle>
           </div>

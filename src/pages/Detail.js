@@ -28,8 +28,6 @@ function Detail() {
   const postId = params.postid;
   const user = useSelector((state) => state.user); // 유저 정보
 
-
-  
   // 모달
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
@@ -83,9 +81,8 @@ function Detail() {
                 </ButtonModify>
                 <ButtonDelete
                   onClick={() => {
-                    dispatch(deletePost(postId));
+                    dispatch(deletePost(postId, navigate));
                     alert("삭제가 완료되었습니다. ");
-                    navigate("/main");
                   }}
                 >
                   삭제

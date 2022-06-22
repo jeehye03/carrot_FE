@@ -1,6 +1,6 @@
 import "../public/css/listForm.css";
 import styled, { css } from "styled-components";
-import { AiOutlineMenu } from "react-icons/ai";
+import { FiMoreVertical } from "react-icons/fi";
 
 import { useEffect, useState } from "react";
 import { changeTradeStateDB, loadSalseposts } from "../redux/modules/post";
@@ -16,7 +16,6 @@ function SalesList() {
   // const [boardList, setBoardList] = useState();
 
   const postList = useSelector((state) => state.post.postList);
-  console.log(postList);
   const user = useSelector((state) => state.user); // 유저 정보
 
   // 현재 탭
@@ -27,6 +26,10 @@ function SalesList() {
   useEffect(() => {
     dispatch(loadSalseposts());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log(postList);
+  }, [postList]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
@@ -58,7 +61,7 @@ function SalesList() {
       {!postList ? <NotFound> 판매내역이 없어요</NotFound> : ""}
       <div>
         {/* 위 디브에 온클릭 이벤트 걸어둘것! list.pistId */}
-        {postList.sellList
+        {postList
           ?.filter((post) => {
             if (tab === 0) {
               // 거래중
@@ -72,10 +75,17 @@ function SalesList() {
           .map((list, index) => (
             <Card key={index}>
               <CardBox className="card">
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", width: "100%" }}>
                   <Img src={list.postImg} />
                   <TextArea>
-                    <span style={{ fontSize: "15px", marginBottom: "5px" }}>
+                    <span
+                      style={{
+                        fontSize: "15px",
+                        marginBottom: "5px",
+                        padding: "0 5px",
+                        wordBreak: "break-all",
+                      }}
+                    >
                       {list.title}
                     </span>
                     <span
@@ -87,27 +97,32 @@ function SalesList() {
                     >
                       {list.userLocation}
                     </span>
-                    <span
+                    <div
                       style={{
+                        display: "flex",
+                        alignItems: "center",
                         fontSize: "13px",
                         padding: "5px",
                         fontWeight: "bold",
                       }}
                     >
-                      {list.tradeState === "1" && <span>예약중</span>}
+                      {list.tradeState === "1" && <Book>예약중</Book>}
                       {Number(list.price).toLocaleString("ko-KR")}원
-                    </span>
+                    </div>
                   </TextArea>
                 </div>
 
-                <AiOutlineMenu />
+                <FiMoreVertical
+                  style={{ marginTop: "5px" }}
+                  onClick={openModal}
+                />
                 {/* 거래완료 API */}
               </CardBox>
               <CardButton>
                 {list.tradeState === "0" && (
                   <button
                     onClick={() => {
-                      dispatch(changeTradeStateDB(list._id, "1")); // 예약으로 바꾸기
+                      dispatch(changeTradeStateDB(list.postId, "1")); // 예약으로 바꾸기
                     }}
                   >
                     예약중
@@ -116,7 +131,7 @@ function SalesList() {
                 {list.tradeState === "1" && (
                   <button
                     onClick={() => {
-                      dispatch(changeTradeStateDB(list._id, "0"));
+                      dispatch(changeTradeStateDB(list.postId, "0"));
                     }}
                   >
                     거래중
@@ -125,36 +140,31 @@ function SalesList() {
                 {(list.tradeState === "0" || list.tradeState === "1") && (
                   <button
                     onClick={() => {
-                      dispatch(changeTradeStateDB(list._id, "2"));
+                      dispatch(changeTradeStateDB(list.postId, "2"));
                     }}
                   >
                     거래완료
                   </button>
                 )}
               </CardButton>
-              <Modal open={modalOpen} close={closeModal} header="">
-                {user.nickname === list.nickname ? (
-                  <ButtonWrap>
-                    <ButtonModify
-                      onClick={() => {
-                        navigate("/modify/" + list.postId);
-                      }}
-                    >
-                      수정
-                    </ButtonModify>
-                    <ButtonDelete
-                      onClick={() => {
-                        dispatch(deletePost(list.postId));
-                        alert("삭제가 완료되었습니다. ");
-                        navigate("/");
-                      }}
-                    >
-                      삭제
-                    </ButtonDelete>
-                  </ButtonWrap>
-                ) : (
-                  <Claim>신고하기</Claim>
-                )}
+              <Modal open={modalOpen} close={closeModal}>
+                <ButtonWrap>
+                  <ButtonModify
+                    onClick={() => {
+                      navigate("/modify/" + list.postId);
+                    }}
+                  >
+                    수정
+                  </ButtonModify>
+                  <ButtonDelete
+                    onClick={() => {
+                      dispatch(deletePost(list.postId, navigate));
+                      alert("삭제가 완료되었습니다. ");
+                    }}
+                  >
+                    삭제
+                  </ButtonDelete>
+                </ButtonWrap>
               </Modal>
             </Card>
           ))}
@@ -162,7 +172,6 @@ function SalesList() {
     </div>
   );
 }
-
 
 const Card = styled.div`
   display: flex;
@@ -200,6 +209,7 @@ const Img = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 10px;
+  flex-shrink: 0;
 `;
 
 const TextArea = styled.div`
@@ -290,9 +300,16 @@ const ButtonDelete = styled.button`
   font-size: 13px;
 `;
 
-const Claim = styled(ButtonModify)`
-  border-radius: 15px;
-  color: red;
+const Book = styled.div`
+  padding: 6px 5px;
+  border-radius: 5px;
+  width: 55px;
+  background-color: #34bf9e;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 500;
+  margin-right: 5px;
 `;
 
 export default SalesList;
