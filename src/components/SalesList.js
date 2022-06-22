@@ -144,9 +144,9 @@ function SalesList() {
                     </ButtonModify>
                     <ButtonDelete
                       onClick={() => {
-                        dispatch(deletePost(list.postId));
+                        dispatch(deletePost(list.postId,navigate));
                         alert("삭제가 완료되었습니다. ");
-                        navigate("/main");
+                        //navigate("/main");
                       }}
                     >
                       삭제

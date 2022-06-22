@@ -41,6 +41,12 @@ function MainItemList() {
                         fontSize: "15px",
                         marginBottom: "5px",
                         padding: "0 5px",
+                        
+                        width: "160px",
+                        textOverflow: "ellipsis",
+                        overflow: "hidden",
+                        whiteSpace:"nowrap",
+                        
                       }}
                     >
                       {list.title}
