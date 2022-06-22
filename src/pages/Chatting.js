@@ -5,12 +5,15 @@ function Chatting(){
   const [chat,setChat] =useState([]) //채팅 받는 곳 
 
   return (
-    <div></div>
+    <div>
+      <div> header </div>
+      <div> chatting </div>
+      <div> inputMSG</div>
+      
+    </div>
 
   );
 
 }
-
-
 
 export default Chatting;

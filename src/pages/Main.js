@@ -20,14 +20,14 @@ function Main () {
   return (
     <div className="Wrap">
       <div className="TMenuBar"> 
-      <span> {user.userLocation} </span>
-
-    </div>
-        
+        <span> {user.userLocation} </span>
+      </div>
+      <div className="topView">
         {pageState}
-
+      </div>
+      <div className="bottomView">
         <div className="BMenuBar"> 
-          <div className="BMenuBox" onClick={() => { navigate("/") }}>
+          <div className="BMenuBox" onClick={() => { navigate("/main") }}>
             <AiFillHome size="30px" color={"black"}/>
             <p style={{color: "black"}}></p>HOME</div>
           <div className="BMenuBox" onClick={() => { navigate("/mypage") }}>
@@ -35,6 +35,7 @@ function Main () {
               <p style={{color: "#AAAAAA"}}>MY Carrot</p> 
           </div>        
         </div>
+      </div>
     </div>
   )
 }

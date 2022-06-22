@@ -17,7 +17,6 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/start" element={<Start />} />
         <Route path="/location" element={<RegisterLocation />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
@@ -28,7 +27,8 @@ function Router() {
         <Route path="/chatting/:postid" element={<Chatting />} />
         <Route path="/profile/location" element={<ProfileLocation />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/" element={<Main />} />
+        <Route path="/main" element={<Main />} />
+        <Route path="/" element={<Start />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

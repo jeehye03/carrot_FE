@@ -33,16 +33,14 @@ export const postUnLike = (postId) => {
 
 // 게시물 등록
 export const carrotPost = (newPost) => {
-  return function (dispatch) {
-    instance
-      .post("api/post", newPost)
-      .then((res) => {
-        console.log(res);
-        dispatch(uploadPost(newPost));
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  return async function (dispatch) {
+    try {
+      const res = await instance.post("api/post", newPost);
+      //console.log(res);
+      dispatch(uploadPost(newPost));
+    } catch (err) {
+      console.log(err);
+    }
   };
 };
 
@@ -135,6 +133,16 @@ export const loadConcernsposts = () => {
   };
 };
 
+export const changeTradeStateDB = (postId, state) => {
+  return async function (dispatch) {
+    const response = await instance.put(`/api/post/tradeState/${postId}`, {
+      tradeState: state,
+    });
+    console.log(response);
+    dispatch(changeTradeState({ id: postId, tradeState: state }));
+  };
+};
+
 //Reducer
 const postSlice = createSlice({
   name: "post",
@@ -144,11 +152,7 @@ const postSlice = createSlice({
   },
   reducers: {
     uploadPost: (state, action) => {
-      const title = action.payload.title;
-      const postImg = action.payload.postImg;
-      const category = action.payload.category;
-      const price = action.payload.price;
-      state.postList.push({ title, postImg, category, price });
+      state.postList.posts.push(action.payload);
     },
     getLoadPost: (state, action) => {
       state.post = action.payload;
@@ -161,8 +165,17 @@ const postSlice = createSlice({
       state.post.likeNum = action.payload.likeNum;
       state.post.userLike = action.payload.userLike;
     },
+    changeTradeState: (state, action) => {
+      state.postList = state.postList.map((post) => {
+        if (post.postId === action.payload.id) {
+          post.tradeState = action.payload.tradeState;
+        }
+        return post;
+      });
+    },
   },
 });
 
-const { uploadPost, getLoadPost, roadPosts, setLike } = postSlice.actions;
+const { uploadPost, getLoadPost, roadPosts, changeTradeState, setLike } =
+  postSlice.actions;
 export default postSlice.reducer;

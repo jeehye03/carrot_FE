@@ -31,7 +31,7 @@ function Add() {
   useEffect(() => {
     if (price) {
       chk_ref.current.checked = true;
-      chk_ref.current.disabled = false;
+      chk_ref.current.disabled = false; // 비활성화
     } else {
       chk_ref.current.checked = false;
       chk_ref.current.disabled = true;
@@ -93,7 +93,7 @@ function Add() {
     };
 
     dispatch(carrotPost(newPost));
-    navigate("/");
+    navigate("/main");
   };
 
   return (
@@ -102,7 +102,7 @@ function Add() {
         <IoIosClose
           size="25"
           onClick={() => {
-            navigate("/");
+            navigate("/main");
           }}
         />
         <h4>중고거래 글쓰기</h4>
@@ -162,7 +162,7 @@ function Add() {
             value={enteredNum || ""}
           />
           <label htmlFor="price">
-            <input type="radio" id="price" ref={chk_ref} />
+            <input type="checkbox" id="price" ref={chk_ref} />
             가격 제안받기
           </label>
         </Price>
@@ -273,6 +273,10 @@ const Price = styled(Title)`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  input[type="checkbox"] {
+    accent-color: #ff7e36;
+  }
 `;
 
 export default Add;

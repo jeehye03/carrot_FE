@@ -46,7 +46,7 @@ function Login () {
       saveToken(response.data.token);
       dispatch(carrotLoginStatus(true));
       dispatch(getCarrotUserInfo());
-      navigate("/");
+      navigate("/main");
     })
     .catch((err) => {
       alert("로그인 실패!");

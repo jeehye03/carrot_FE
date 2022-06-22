@@ -60,10 +60,9 @@ function Detail() {
           <BiLeftArrowAlt
             size={30}
             onClick={() => {
-              navigate("/");
+              navigate("/main");
             }}
           />
-          {/* <AiOutlineHome /> */}
         </div>
         <div>
           <MdOutlineIosShare />
@@ -84,7 +83,7 @@ function Detail() {
                   onClick={() => {
                     dispatch(deletePost(postId));
                     alert("삭제가 완료되었습니다. ");
-                    navigate("/");
+                    navigate("/main");
                   }}
                 >
                   삭제
@@ -98,13 +97,13 @@ function Detail() {
       </Header>
 
       <div>
-        <img src={postDetail?.postImg} />
+        <img src={postDetail?.postImg} alt="postImg" />
       </div>
 
       <Container>
         <ProfileBar>
           <Profile>
-            <img src={postDetail?.userImg} />
+            <img src={postDetail?.userImg} alt="userImg" />
             <Nickname>
               <p>{postDetail?.nickname}</p>
               <p>{postDetail?.userLocation}</p>
@@ -135,15 +134,19 @@ function Detail() {
           ) : (
             <BsHeart size="35" onClick={likeHeart} />
           )}
-          {/* // <BsHeart size="35" onClick={likeHeart} /> */}
-          {/* <BsHeartFill /> */}
         </Heart>
         <Price>
           <div>
             <p>{carrotPrice}원</p>
             <p>가격 제안하기</p>
           </div>
-          <button onClick={()=>{ navigate("/chatting/" + postId);}}>채팅하기</button>
+          <button
+            onClick={() => {
+              navigate("/chatting/" + postId);
+            }}
+          >
+            채팅하기
+          </button>
         </Price>
       </Footer>
     </Wrap>
@@ -152,6 +155,7 @@ function Detail() {
 
 const Wrap = styled.div`
   box-sizing: border-box;
+  overflow-y:hidden;
 
   img {
     background-size: cover;
@@ -163,6 +167,7 @@ const Wrap = styled.div`
 
 const Container = styled.div`
   padding: 16px 16px;
+  position: relative;
 `;
 const Header = styled.div`
   display: flex;
@@ -264,7 +269,10 @@ const Ondo = styled.div`
 
 const Contents = styled.div`
   padding-top: 35px;
+  padding-bottom:70px;
   line-height: 30px;
+  position:relative;
+  
 
   & p:first-child {
     font-weight: 600;
@@ -273,18 +281,22 @@ const Contents = styled.div`
     font-size: 13px;
     text-decoration: underline;
   }
+  /* & p:nth-child(3) {
+    margin-bottom: 50px;
+  } */
+  
   & p:last-child {
     font-size: 13px;
-    position: absolute;
-    bottom: 80px;
+    
   }
 `;
 
 const Footer = styled.div`
+  background-color: white;
   display: flex;
   align-items: center;
   height: 70px;
-  position: absolute;
+  position: fixed;
   width: 100%;
   bottom: 0;
   border-top: 1px solid #dadada;
