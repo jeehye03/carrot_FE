@@ -61,8 +61,7 @@ function SalesList() {
       {!postList ? <NotFound> 판매내역이 없어요</NotFound> : ""}
       <div>
         {/* 위 디브에 온클릭 이벤트 걸어둘것! list.pistId */}
-        {postList?.sellList
-          ?.filter((post) => {
+        {postList?.filter((post) => {
             if (tab === 0) {
               // 거래중
               return post.tradeState === "0" || post.tradeState === "1";

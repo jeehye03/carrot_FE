@@ -171,7 +171,7 @@ const postSlice = createSlice({
       state.postList = action.payload.posts;
     },
     loadSalesPosts: (state, action) => {
-      state.postList = action.payload;
+      state.postList = action.payload.sellList;
     },
     setLike: (state, action) => {
       state.post.likeNum = action.payload.likeNum;
