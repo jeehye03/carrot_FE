@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import { instance } from "../../shared/axios";
 
 // 찜하기
