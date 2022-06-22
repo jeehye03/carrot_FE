@@ -61,7 +61,8 @@ function SalesList() {
       {!postList ? <NotFound> 판매내역이 없어요</NotFound> : ""}
       <div>
         {/* 위 디브에 온클릭 이벤트 걸어둘것! list.pistId */}
-        {postList?.filter((post) => {
+        {postList
+          ?.filter((post) => {
             if (tab === 0) {
               // 거래중
               return post.tradeState === "0" || post.tradeState === "1";
@@ -77,7 +78,14 @@ function SalesList() {
                 <div style={{ display: "flex", width: "100%" }}>
                   <Img src={list.postImg} />
                   <TextArea>
-                    <span style={{ fontSize: "15px", marginBottom: "5px", padding: "0 5px", wordBreak: "break-all" }}>
+                    <span
+                      style={{
+                        fontSize: "15px",
+                        marginBottom: "5px",
+                        padding: "0 5px",
+                        wordBreak: "break-all",
+                      }}
+                    >
                       {list.title}
                     </span>
                     <span
@@ -89,20 +97,25 @@ function SalesList() {
                     >
                       {list.userLocation}
                     </span>
-                    <span
+                    <div
                       style={{
+                        display: "flex",
+                        alignItems: "center",
                         fontSize: "13px",
                         padding: "5px",
                         fontWeight: "bold",
                       }}
                     >
-                      {list.tradeState === "1" && <span>예약중</span>}
+                      {list.tradeState === "1" && <Book>예약중</Book>}
                       {Number(list.price).toLocaleString("ko-KR")}원
-                    </span>
+                    </div>
                   </TextArea>
                 </div>
 
-                <FiMoreVertical style={{marginTop: "5px"}} onClick={openModal} />
+                <FiMoreVertical
+                  style={{ marginTop: "5px" }}
+                  onClick={openModal}
+                />
                 {/* 거래완료 API */}
               </CardBox>
               <CardButton>
@@ -135,26 +148,23 @@ function SalesList() {
                 )}
               </CardButton>
               <Modal open={modalOpen} close={closeModal}>
-                  <ButtonWrap>
-                    <ButtonModify
-                      onClick={() => {
-                        navigate("/modify/" + list.postId);
-                      }}
-                    >
-                      수정
-                    </ButtonModify>
-                    <ButtonDelete
-                      onClick={() => {
-
-                        dispatch(deletePost(list.postId, navigate));
-                        alert("삭제가 완료되었습니다. ");
-
-                      }}
-                    >
-                      삭제
-                    </ButtonDelete>
-                  </ButtonWrap>
-                
+                <ButtonWrap>
+                  <ButtonModify
+                    onClick={() => {
+                      navigate("/modify/" + list.postId);
+                    }}
+                  >
+                    수정
+                  </ButtonModify>
+                  <ButtonDelete
+                    onClick={() => {
+                      dispatch(deletePost(list.postId, navigate));
+                      alert("삭제가 완료되었습니다. ");
+                    }}
+                  >
+                    삭제
+                  </ButtonDelete>
+                </ButtonWrap>
               </Modal>
             </Card>
           ))}
@@ -162,7 +172,6 @@ function SalesList() {
     </div>
   );
 }
-
 
 const Card = styled.div`
   display: flex;
@@ -237,13 +246,13 @@ const SellMenu = styled.div`
 
   // NOW_SELL
   ${(props) =>
-  props.active === 0 &&
-  css`
-    button:first-of-type {
-      border-bottom: 3px solid #333;
-      color: #333;
-    }
-  `}
+    props.active === 0 &&
+    css`
+      button:first-of-type {
+        border-bottom: 3px solid #333;
+        color: #333;
+      }
+    `}
 
   // COMPLETE_SELL
   ${(props) =>
@@ -289,6 +298,18 @@ const ButtonDelete = styled.button`
   background-color: whitesmoke;
   color: red;
   font-size: 13px;
+`;
+
+const Book = styled.div`
+  padding: 6px 5px;
+  border-radius: 5px;
+  width: 55px;
+  background-color: #34bf9e;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 500;
+  margin-right: 5px;
 `;
 
 export default SalesList;
