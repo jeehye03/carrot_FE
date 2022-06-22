@@ -166,6 +166,7 @@ const Wrap = styled.div`
 
 const Container = styled.div`
   padding: 16px 16px;
+  position: relative;
 `;
 const Header = styled.div`
   display: flex;
@@ -268,6 +269,7 @@ const Ondo = styled.div`
 const Contents = styled.div`
   padding-top: 35px;
   line-height: 30px;
+  /* height: 100%; */
 
   & p:first-child {
     font-weight: 600;
@@ -278,12 +280,13 @@ const Contents = styled.div`
   }
   & p:last-child {
     font-size: 13px;
-    position: absolute;
+    position: fixed;
     bottom: 80px;
   }
 `;
 
 const Footer = styled.div`
+  background-color: white;
   display: flex;
   align-items: center;
   height: 70px;
