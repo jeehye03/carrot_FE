@@ -1,6 +1,7 @@
 import "../public/css/listForm.css";
 import styled from "styled-components";
 import { FaPlus } from "react-icons/fa";
+import { BsHeart } from "react-icons/bs";
 import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
@@ -67,9 +68,13 @@ function MainItemList() {
                   style={{
                     display: "flex",
                     alignItems: "flex-end",
+                    justifyContent: "space-between",
+                    width:"30px",
+                    fontSize: "14px",
                   }}
                 >
-                  ❤️ {list.likeNum}
+                  <BsHeart size="15"/>
+                  {list.likeNum}
                 </div>
               </CardBox>
             ) : (

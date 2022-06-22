@@ -28,6 +28,8 @@ function Detail() {
   const postId = params.postid;
   const user = useSelector((state) => state.user); // 유저 정보
 
+console.log(postDetail);
+  
   // 모달
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
@@ -175,9 +177,13 @@ const Header = styled.div`
   width: 100%;
   align-items: center;
   padding: 16px 10px;
-  color: gray;
+  color: white;
   font-size: 23px;
   position: absolute;
+
+  svg {
+    filter: drop-shadow(0px 0px 1px rgb(0 0 0 / 0.4));
+  }
 `;
 
 const ButtonWrap = styled.div`
@@ -268,11 +274,10 @@ const Ondo = styled.div`
 `;
 
 const Contents = styled.div`
-  padding-top: 35px;
-  padding-bottom:70px;
+  padding-top: 30px;
+  padding-bottom: 70px;
   line-height: 30px;
-  position:relative;
-  
+  position: relative;
 
   & p:first-child {
     font-weight: 600;
@@ -280,14 +285,16 @@ const Contents = styled.div`
   & p:nth-child(2) {
     font-size: 13px;
     text-decoration: underline;
+    color: #aaa;
   }
-  /* & p:nth-child(3) {
-    margin-bottom: 50px;
-  } */
-  
+  & p:nth-child(3) {
+    font-size: 14px;
+    padding-bottom:15px;
+  }
+
   & p:last-child {
     font-size: 13px;
-    
+    color: #aaa;
   }
 `;
 
