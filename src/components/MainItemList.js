@@ -23,8 +23,8 @@ function MainItemList() {
   const navigate = useNavigate();
   return (
     <div className="MainListBox">
-      {mainPostList.posts&&
-        mainPostList.posts.map((list, index) => (
+      {mainPostList &&
+        mainPostList.map((list, index) => (
           <div key={index}>
             {user.userLocation === list.userLocation ? (
               <CardBox className="card">
