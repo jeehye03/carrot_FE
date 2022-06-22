@@ -28,7 +28,7 @@ function Detail() {
   const postId = params.postid;
   const user = useSelector((state) => state.user); // 유저 정보
 
-console.log(postDetail);
+//console.log(postDetail);
   
   // 모달
   const [modalOpen, setModalOpen] = useState(false);
