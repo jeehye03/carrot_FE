@@ -9,9 +9,10 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 import io from 'socket.io-client';
-const socket =  io.connect('http://localhost:4000')
 
 function Chatting(){
+    const socket =  io.connect('http://localhost:4000')
+    
     const [state, setState] = useState({message:'', name:''})
     const [chat,setChat] =useState([])
 

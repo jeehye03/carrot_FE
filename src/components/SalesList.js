@@ -37,7 +37,7 @@ function SalesList() {
   };
   
   return (
-    <div style={{height:'450px', overflowY:'scroll'}}>
+    <div>
       <SubTitle>판매 내역</SubTitle>
       <SellMenu active={tab}>
         <button onClick={() => {setTab(NOW_SELL)}}>판매중</button>

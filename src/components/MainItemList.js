@@ -1,6 +1,6 @@
 import "../public/css/listForm.css";
 import styled from "styled-components";
-import { AiFillPlusCircle } from "react-icons/ai";
+import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 import React, { useState } from "react";
@@ -69,9 +69,7 @@ function MainItemList() {
         ))}
 
       <FixedButton>
-        <AiFillPlusCircle
-          size="60"
-          color="#ff7E36"
+        <FaPlus
           onClick={() => {
             navigate("/add");
           }}
@@ -83,10 +81,9 @@ function MainItemList() {
 
 const CardBox = styled.div`
   display: flex;
-  padding: 15px;
-  height: 130px;
-  justify-content: space-around;
-  border-bottom: 1px solid #aaaaaa;
+  padding: 20px;
+  justify-content: space-between;
+  border-bottom: 1px solid #DDDDDD;
 `;
 
 const TextArea = styled.div`
@@ -99,13 +96,24 @@ const TextArea = styled.div`
 const FixedButton = styled.div`
   display: flex;
   position: fixed;
-  bottom: 13%;
-  right: 5%;
+  bottom: 120px;
+  right: 30px;
+  width: 70px;
+  height: 70px;
+  font-size: 30px;
+  background-color: ${props => props.theme.color.orange};
+  color: ${props => props.theme.color.white};
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 6px 0 #999;
 `;
 
 const Img = styled.img`
   width: 100px;
+  height: 100px;
   border-radius: 10px;
+  object-fit: cover;
 `;
 
 export default MainItemList;
