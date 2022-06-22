@@ -18,7 +18,6 @@ import { getToken, removeToken } from '../shared/localStorage';
 
 function MyPage () {
     const [subMenu, setSubMenu] = useState(<SalesList/>);
-    const [boardList, setBoardList] = useState();
 
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);

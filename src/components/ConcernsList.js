@@ -8,13 +8,12 @@ import { useSelector,  useDispatch } from 'react-redux';
 
 
 function ConcernsList () {
-    const [boardList, setBoardList] = useState();
     // const navigate = useNavigate();
     const dispatch = useDispatch();
   
     React.useEffect(() => {
     dispatch(loadConcernsposts());
-    }, [boardList])
+    })
 
     const postList = useSelector((state) => state.post.postList);
     console.log(postList);

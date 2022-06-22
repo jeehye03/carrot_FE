@@ -1,7 +1,6 @@
 import { BiLeftArrowAlt } from "react-icons/bi";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { FaRegSmile } from "react-icons/fa";
-import { AiOutlineHome } from "react-icons/ai";
 import { MdOutlineIosShare } from "react-icons/md";
 import { FiMoreVertical } from "react-icons/fi";
 // 이모티콘
