@@ -155,6 +155,7 @@ function Detail() {
 
 const Wrap = styled.div`
   box-sizing: border-box;
+  overflow-y:hidden;
 
   img {
     background-size: cover;
@@ -268,8 +269,10 @@ const Ondo = styled.div`
 
 const Contents = styled.div`
   padding-top: 35px;
+  padding-bottom:70px;
   line-height: 30px;
-  /* height: 100%; */
+  position:relative;
+  
 
   & p:first-child {
     font-weight: 600;
@@ -278,10 +281,13 @@ const Contents = styled.div`
     font-size: 13px;
     text-decoration: underline;
   }
+  /* & p:nth-child(3) {
+    margin-bottom: 50px;
+  } */
+  
   & p:last-child {
     font-size: 13px;
-    position: fixed;
-    bottom: 80px;
+    
   }
 `;
 
@@ -290,7 +296,7 @@ const Footer = styled.div`
   display: flex;
   align-items: center;
   height: 70px;
-  position: absolute;
+  position: fixed;
   width: 100%;
   bottom: 0;
   border-top: 1px solid #dadada;
