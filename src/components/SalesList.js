@@ -1,6 +1,6 @@
 import "../public/css/listForm.css";
 import styled, { css } from "styled-components";
-import { AiOutlineMenu } from "react-icons/ai";
+import { FiMoreVertical } from "react-icons/fi";
 
 import { useEffect, useState } from "react";
 import { changeTradeStateDB, loadSalseposts } from "../redux/modules/post";
@@ -16,7 +16,6 @@ function SalesList() {
   // const [boardList, setBoardList] = useState();
 
   const postList = useSelector((state) => state.post.postList);
-  console.log(postList);
   const user = useSelector((state) => state.user); // 유저 정보
 
   // 현재 탭
@@ -27,6 +26,10 @@ function SalesList() {
   useEffect(() => {
     dispatch(loadSalseposts());
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log(postList);
+  }, [postList]);
 
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
@@ -58,7 +61,7 @@ function SalesList() {
       {!postList ? <NotFound> 판매내역이 없어요</NotFound> : ""}
       <div>
         {/* 위 디브에 온클릭 이벤트 걸어둘것! list.pistId */}
-        {postList.sellList
+        {postList?.sellList
           ?.filter((post) => {
             if (tab === 0) {
               // 거래중
@@ -72,10 +75,10 @@ function SalesList() {
           .map((list, index) => (
             <Card key={index}>
               <CardBox className="card">
-                <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", width: "100%" }}>
                   <Img src={list.postImg} />
                   <TextArea>
-                    <span style={{ fontSize: "15px", marginBottom: "5px" }}>
+                    <span style={{ fontSize: "15px", marginBottom: "5px", padding: "0 5px", wordBreak: "break-all" }}>
                       {list.title}
                     </span>
                     <span
@@ -100,7 +103,7 @@ function SalesList() {
                   </TextArea>
                 </div>
 
-                <AiOutlineMenu  onClick={openModal}/>
+                <FiMoreVertical style={{marginTop: "5px"}} onClick={openModal} />
                 {/* 거래완료 API */}
               </CardBox>
               <CardButton>
@@ -133,7 +136,6 @@ function SalesList() {
                 )}
               </CardButton>
               <Modal open={modalOpen} close={closeModal}>
-                
                   <ButtonWrap>
                     <ButtonModify
                       onClick={() => {
@@ -144,9 +146,8 @@ function SalesList() {
                     </ButtonModify>
                     <ButtonDelete
                       onClick={() => {
-                        dispatch(deletePost(list.postId));
+                        dispatch(deletePost(list.postId, navigate));
                         alert("삭제가 완료되었습니다. ");
-                        navigate("/main");
                       }}
                     >
                       삭제
@@ -198,6 +199,7 @@ const Img = styled.img`
   width: 100px;
   height: 100px;
   border-radius: 10px;
+  flex-shrink: 0;
 `;
 
 const TextArea = styled.div`
@@ -234,13 +236,13 @@ const SellMenu = styled.div`
 
   // NOW_SELL
   ${(props) =>
-    props.active === 0 &&
-    css`
-      button:first-of-type {
-        border-bottom: 3px solid #333;
-        color: #333;
-      }
-    `}
+  props.active === 0 &&
+  css`
+    button:first-of-type {
+      border-bottom: 3px solid #333;
+      color: #333;
+    }
+  `}
 
   // COMPLETE_SELL
   ${(props) =>
@@ -286,11 +288,6 @@ const ButtonDelete = styled.button`
   background-color: whitesmoke;
   color: red;
   font-size: 13px;
-`;
-
-const Claim = styled(ButtonModify)`
-  border-radius: 15px;
-  color: red;
 `;
 
 export default SalesList;
