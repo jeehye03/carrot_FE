@@ -38,6 +38,7 @@ function MainItemList() {
                       style={{
                         fontSize: "15px",
                         marginBottom: "5px",
+                        padding: "0 5px",
                       }}
                     >
                       {list.title}

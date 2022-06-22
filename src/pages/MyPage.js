@@ -37,11 +37,11 @@ function MyPage () {
 
   return (
       <div className="Wrap">
+      <div className="TMenuBar">
+        <p>나의 당근</p>
+        <p onClick={logout} style={{cursor: "pointer"}}> 로그아웃 </p> 
+      </div>
         <div className="topView">
-          <div className="TMenuBar">
-            <p>나의 당근</p>
-            <p onClick={logout} style={{cursor: "pointer"}}> 로그아웃 </p> 
-          </div>
           <div className="ContentsBox">
             <MyInfoBox>
               <div style={{ display: 'flex', alignItems: 'center' }}>
