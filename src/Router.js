@@ -21,7 +21,7 @@ function Router() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/add" element={<Add />} />
-        <Route path="/mypage" element={<MyPage />}/>
+        <Route path="/mypage" element={<MyPage />} />
         <Route path="/modify/:postid" element={<Modify />} />
         <Route path="/detail/:postid" element={<Detail />} />
         <Route path="/chatting/:postid" element={<Chatting />} />

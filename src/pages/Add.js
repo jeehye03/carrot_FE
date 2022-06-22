@@ -18,7 +18,7 @@ function Add() {
   const content_ref = useRef();
   const chk_ref = useRef();
   const [category, setCategory] = useState();
-  const [imageSrc, setImageSrc] = useState(); // 프리뷰
+  const [imageSrc, setImageSrc] = useState();
   const [enteredNum, setEnterdNum] = useState();
   const [price, setPrice] = useState(0);
   const post = useSelector((state) => state.post.postList)
@@ -99,7 +99,6 @@ function Add() {
     };
 
     dispatch(carrotPost(newPost, navigate));
-    // navigate("/main");
   };
 
   return (
@@ -176,8 +175,7 @@ function Add() {
         <textarea
           cols="40"
           rows="5"
-          placeholder="올릴 게시글 내용을 작성해주세요. (가품 및 판매금지품목은 게시가 제한될
-          수 있어요.)"
+          placeholder="올릴 게시글 내용을 작성해주세요. (가품 및 판매금지품목은 게시가 제한될 수 있어요.)"
           ref={content_ref}
         />
       </Container>

@@ -32,7 +32,7 @@ function Profile() {
   const load = async () => {
     try {
       const data = {...userRedux};
-      nickRef.current.value = data.nickname;
+        nickRef.current.value = data.nickname;
       if (location.state) {
         data.userLocation = location.state;
       }

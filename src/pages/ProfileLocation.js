@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import HeaderBack from "../components/HeaderBack";
 
-function RegisterLocation () {
+function ProfileLocation (props) {
+  const location = useLocation();
   const [locations, _] = useState([
     { fullName: "서울시 강남구 삼성동", name: "삼성동" },
     { fullName: "서울시 강남구 대치동", name: "대치동" },
@@ -14,7 +15,7 @@ function RegisterLocation () {
   const navigate = useNavigate();
 
   const locationClick = (name) => {
-    navigate("/profile", { state: name });
+    navigate("/profile", { state: { name } });
   }
 
   return (
@@ -72,4 +73,4 @@ const Location = styled.div`
   }
 `;
 
-export default RegisterLocation;
+export default ProfileLocation;
