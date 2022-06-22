@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { instance } from "../../shared/axios";
+import {  useNavigate } from "react-router-dom";
 
 // 찜하기
 export const postLike = (postId) => {
@@ -33,11 +34,13 @@ export const postUnLike = (postId) => {
 
 // 게시물 등록
 export const carrotPost = (newPost) => {
-  return async function (dispatch) {
+ 
+  return async function (dispatch,) {
     try {
       const res = await instance.post("api/post", newPost);
       //console.log(res);
       dispatch(uploadPost(newPost));
+      //window.location.replace("/main");
     } catch (err) {
       console.log(err);
     }
@@ -147,7 +150,9 @@ export const changeTradeStateDB = (postId, state) => {
 const postSlice = createSlice({
   name: "post",
   initialState: {
-    postList: [],
+    postList: {
+      posts:[]
+    },
     post: {},
   },
   reducers: {
@@ -159,7 +164,8 @@ const postSlice = createSlice({
       //console.log(state.post);
     },
     roadPosts: (state, action) => {
-      state.postList = action.payload;
+      //console.log(action.payload);
+      state.postList= action.payload;
     },
     setLike: (state, action) => {
       state.post.likeNum = action.payload.likeNum;

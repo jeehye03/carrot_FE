@@ -15,14 +15,15 @@ function MainItemList() {
   const mainPostList = useSelector((state) => state.post.postList);
   const user = useSelector((state) => state.user);
 
+  console.log(mainPostList);
   React.useEffect(() => {
     dispatch(loadMainposts());
-  }, [boardList]);
+  }, [boardList,dispatch]);
 
   const navigate = useNavigate();
   return (
     <div className="MainListBox">
-      {mainPostList.posts &&
+      {mainPostList.posts&&
         mainPostList.posts.map((list, index) => (
           <div key={index}>
             {user.userLocation === list.userLocation ? (
