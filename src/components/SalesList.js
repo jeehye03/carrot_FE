@@ -16,6 +16,7 @@ function SalesList() {
   // const [boardList, setBoardList] = useState();
 
   const postList = useSelector((state) => state.post.postList);
+  console.log(postList);
   const user = useSelector((state) => state.user); // 유저 정보
 
   // 현재 탭
@@ -141,7 +142,6 @@ function SalesList() {
                     >
                       수정
                     </ButtonModify>
-
                     <ButtonDelete
                       onClick={() => {
                         dispatch(deletePost(list.postId));
@@ -162,6 +162,7 @@ function SalesList() {
     </div>
   );
 }
+
 
 const Card = styled.div`
   display: flex;
