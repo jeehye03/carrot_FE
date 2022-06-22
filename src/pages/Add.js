@@ -37,7 +37,7 @@ function Add() {
       chk_ref.current.checked = false;
       chk_ref.current.disabled = true;
     }
-  }, [price]); //
+  }, [price]);
 
   useEffect(() => {
     console.log(post)
@@ -60,7 +60,7 @@ function Add() {
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    // //파일내용 읽어오기
+    // 파일내용 읽어오기
     reader.readAsDataURL(file);
 
     //읽기가 끝나면 발생하는 이벤트 핸들러
