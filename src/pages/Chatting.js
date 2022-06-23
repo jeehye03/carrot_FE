@@ -13,11 +13,9 @@ import {AiOutlineCaretRight} from "react-icons/ai";
 
 import io from 'socket.io-client';
 
-const socket = io.connect('http://54.180.121.151',{
-  cors :{origin:'http://54.180.121.151'}
-});
+const socket = io.connect('http://54.180.121.151');
 
-// const socket = io.connect('http://localhost:4000');
+//const socket = io.connect('http://localhost:4000');
 
 function Chatting(){
   const dispatch = useDispatch();
