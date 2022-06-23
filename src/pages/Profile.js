@@ -9,7 +9,8 @@ import { storage } from "../shared/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { instance } from "../shared/axios";
 import { useDispatch, useSelector } from "react-redux";
-import { getCarrotUserInfo } from "../redux/modules/user";
+import { backupCarrotUserProfile, getCarrotUserInfo } from "../redux/modules/user";
+import { current } from "@reduxjs/toolkit";
 
 function Profile() {
   const navigate = useNavigate();
@@ -17,7 +18,6 @@ function Profile() {
   const dispatch = useDispatch();
 
   const userRedux = useSelector((state) => state.user);
-
   const [user, setUser] = useState({});
 
   const nickRef = useRef(null);
@@ -27,18 +27,30 @@ function Profile() {
     if (userRedux.isLogin && userRedux.nickname !== "") {
       load();
     }
+    console.log(userRedux);
   }, [userRedux]);
 
   const load = async () => {
-    try {
-      const data = {...userRedux};
-      nickRef.current.value = data.nickname;
-      if (location.state) {
-        data.userLocation = location.state;
-      }
-      setUser(data);
-    } catch (err) {
-      console.log("에러 " + err);
+    console.log(userRedux);
+    setUser(userRedux);
+    if (userRedux.save.nickname) {
+      nickRef.current.value = userRedux.save.nickname;
+      setUser((current) => {
+        return {...current, nickname: userRedux.save.nickname}
+      });
+    }
+
+    if (userRedux.save.userImg) {
+      setUser((current) => {
+        return {...current, userImg: userRedux.save.userImg}
+      });
+    }
+
+    if (userRedux.save.userLocation) {
+      console.log("작동");
+      setUser((current) => {
+        return {...current, userLocation: userRedux.save.userLocation}
+      });
     }
   }
 
@@ -48,6 +60,7 @@ function Profile() {
     reader.onload = (e) => {
       var img = document.getElementById("previewImage");
       img.setAttribute("src", e.target.result);
+      dispatch(backupCarrotUserProfile({userImg: e.target.result}));
     }
 
     reader.readAsDataURL(e.target.files[0]);
@@ -65,12 +78,12 @@ function Profile() {
       const snapshot = await uploadBytes(_upload, image);
       url = await getDownloadURL(_upload);
     } else {
-      url = user.userImg;
+      url = user?.userImg;
     }
 
     data = {
       nickname: nickRef.current.value,
-      userLocation: user.userLocation,
+      userLocation: user?.userLocation,
       userImg: url
     }
 
@@ -96,7 +109,7 @@ function Profile() {
       <Article>
         <File>
           <div>
-            <img id="previewImage" src={user.userImg === "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : user.userImg} alt="profile" />
+            <img id="previewImage" src={user?.userImg === "" ? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" : user?.userImg} alt="profile" />
             {/* <img src="https://images.squarespace-cdn.com/content/v1/5c9f919e94d71a2bab6d18d8/1578604998045-HYULPFF63SR5H2OZSDQ3/portrait-placeholder.png" alt="profile" /> */}
           </div>
           <label htmlFor="file">
@@ -109,12 +122,15 @@ function Profile() {
           <p>프로필 사진과 닉네임을 입력해주세요.</p>
         </Name>
 
-        <Link to={"/profile/location"}>
+        <LocationButton onClick={() => {
+          dispatch(backupCarrotUserProfile({nickname: nickRef.current.value}));
+          navigate("/profile/location");
+        }}>
           <Locate>
             <div>{user?.userLocation}</div>
             <IoIosArrowForward />
           </Locate>
-        </Link>
+        </LocationButton>
       </Article>
       <Footer>
         <button onClick={onClick}>완료</button>
@@ -122,6 +138,10 @@ function Profile() {
     </Wrap>
   );
 }
+
+const LocationButton = styled.div`
+
+`;
 
 const Wrap = styled.div`
   box-sizing: border-box;

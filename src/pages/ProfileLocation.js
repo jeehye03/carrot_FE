@@ -1,9 +1,12 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import HeaderBack from "../components/HeaderBack";
+import { backupCarrotUserProfile } from "../redux/modules/user";
 
-function RegisterLocation () {
+function ProfileLocation (props) {
+  const dispatch = useDispatch();
   const [locations, _] = useState([
     { fullName: "서울시 강남구 삼성동", name: "삼성동" },
     { fullName: "서울시 강남구 대치동", name: "대치동" },
@@ -14,7 +17,8 @@ function RegisterLocation () {
   const navigate = useNavigate();
 
   const locationClick = (name) => {
-    navigate("/profile", { state: name });
+    dispatch(backupCarrotUserProfile({userLocation: name}));
+    navigate("/profile");
   }
 
   return (
@@ -72,4 +76,4 @@ const Location = styled.div`
   }
 `;
 
-export default RegisterLocation;
+export default ProfileLocation;
