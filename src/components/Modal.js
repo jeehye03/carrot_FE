@@ -14,7 +14,7 @@ const Modal = (props) => {
           <main>{props.children}</main>
           <footer>
             <button className="close" onClick={close}>
-              취소
+              닫기
             </button>
           </footer>
         </section>

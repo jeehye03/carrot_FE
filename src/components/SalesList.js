@@ -278,10 +278,11 @@ const ButtonModify = styled.button`
   height: 50px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  /* margin-bottom: 1px; */
   background-color: whitesmoke;
   color: #6bb7e0;
   font-size: 13px;
+  border: 0;
+  border-bottom: 1px solid #dadada;
 `;
 
 const ButtonWrap = styled.div`
@@ -298,8 +299,8 @@ const ButtonDelete = styled.button`
   background-color: whitesmoke;
   color: red;
   font-size: 13px;
+  border: 0;
 `;
-
 const Book = styled.div`
   padding: 6px 5px;
   border-radius: 5px;
