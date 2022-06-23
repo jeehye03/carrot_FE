@@ -16,6 +16,7 @@
 
 
 ## 📷 시연 영상
+https://youtu.be/gpb6dWag9Uo
 
 
 
