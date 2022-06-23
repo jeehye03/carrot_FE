@@ -2,13 +2,23 @@ import "../public/css/chatting.css"
 
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
+import { AiOutlineArrowLeft } from "react-icons/ai";
+import {AiOutlineCaretRight} from "react-icons/ai";
+
 
 import io from 'socket.io-client';
 
-const socket = io.connect('http://54.180.121.151:8080');
+const socket = io.connect('http://54.180.121.151',{
+  cors :{origin:'http://54.180.121.151'}
+});
+
+//const socket = io.connect('http://localhost:4000');
 
 function Chatting(){
   const user = useSelector((state) => state.user); // 유저 정보
+  const navigate = useNavigate();
   const nickname = user.nickname;
   const userImg = user.userImg;
   const messageRef = useRef();
@@ -43,14 +53,16 @@ function Chatting(){
     const msg =  messageRef.current.value;
     socket.emit('chatting', {nickname, userImg, msg});
     cleanInput();
-    
-  }
+ }
 
 return (
     <div className="wrapper">
       
       <div className="userInfo"> 
-        <label>{user.nickname}</label>
+        <div className="arrow" onClick={()=>{
+          navigate(-1);
+        }}><AiOutlineArrowLeft /></div>
+        <label className="nickname">{user.nickname}</label>
       </div>
       
        <div className="saleList">
@@ -104,7 +116,7 @@ return (
         <span>
           <input type="text" className="chattingInput" ref={messageRef} 
                 onKeyPress={handleOnKeyPress} id='inputBox'/>
-          <button className="sendButton" onClick={handleOnClick}/>
+          <AiOutlineCaretRight className="sendButton" onClick={handleOnClick}/>
         </span>
       </div> 
       
