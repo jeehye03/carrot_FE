@@ -23,8 +23,8 @@ function Router() {
         <Route path="/add" element={<Add />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/modify/:postid" element={<Modify />} />
-        <Route path="/detail/:postid" element={<Detail />} />
-        <Route path="/chatting/:postid" element={<Chatting />} />
+        <Route path="/detail/:postid/:trade" element={<Detail />} />
+        <Route path="/chatting/:postid/:trade" element={<Chatting />} />
         <Route path="/profile/location" element={<ProfileLocation />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/main" element={<Main />} />
