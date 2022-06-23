@@ -36,8 +36,9 @@ export const carrotPost = (newPost, navigate) => {
   return async function (dispatch) {
     try {
       const res = await instance.post("api/post", newPost);
+      //console.log(res)
       dispatch(uploadPost(newPost));
-      navigate("/main");
+    navigate("/main");
     } catch (err) {
       console.log(err);
     }
@@ -162,7 +163,7 @@ const postSlice = createSlice({
   },
   reducers: {
     uploadPost: (state, action) => {
-      state.postList.posts.push(action.payload);
+      state.postList.push(action.payload);
     },
     getLoadPost: (state, action) => {
       state.post = action.payload;

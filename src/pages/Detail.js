@@ -47,6 +47,7 @@ function Detail() {
     dispatch(carrotGetPost(postId));
   }, [dispatch, postId]);
 
+  // 관심하트
   const likeHeart = () => {
     if (postDetail.userLike) {
       dispatch(postUnLike(postId)); // userlike가 true면 false로 바꿔주라
@@ -141,7 +142,7 @@ function Detail() {
             <p>{carrotPrice}원</p>
             <p>가격 제안하기</p>
           </div>
-          <button
+          <button style={{cursor:"pointer"}}
             onClick={() => {
               navigate("/chatting/" + postId);
             }}
@@ -184,7 +185,7 @@ const Header = styled.div`
     filter: drop-shadow(0px 0px 1px rgb(0 0 0 / 0.4));
   }
 `;
-
+// 모달 css
 const ButtonWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -196,10 +197,11 @@ const ButtonModify = styled.button`
   height: 50px;
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
-  /* margin-bottom: 1px; */
   background-color: whitesmoke;
   color: #6bb7e0;
   font-size: 13px;
+  border:0;
+  border-bottom:1px solid #dadada;
 `;
 
 const ButtonDelete = styled.button`
@@ -210,12 +212,15 @@ const ButtonDelete = styled.button`
   background-color: whitesmoke;
   color: red;
   font-size: 13px;
+  border:0;
 `;
 
 const Claim = styled(ButtonModify)`
   border-radius: 15px;
   color: red;
 `;
+
+// 여기 까지 모달
 const ProfileBar = styled.div`
   display: flex;
   justify-content: space-between;
