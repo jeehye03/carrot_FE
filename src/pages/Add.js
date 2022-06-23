@@ -39,10 +39,10 @@ function Add() {
     }
   }, [price]);
 
-  useEffect(() => {
-    console.log(post)
+  // useEffect(() => {
+  //   console.log(post)
 
-  },[post])
+  // },[post])
 
   // 파일 업로드
   const selectFile = async (e) => {
