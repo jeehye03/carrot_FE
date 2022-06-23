@@ -26,6 +26,7 @@ function Detail() {
   const postPrice = Number(postDetail?.price);
   const params = useParams();
   const postId = params.postid;
+  const state = params.trade;
   const user = useSelector((state) => state.user); // 유저 정보
 
   // 모달
@@ -109,7 +110,6 @@ function Detail() {
               <p>{postDetail?.userLocation}</p>
             </Nickname>
           </Profile>
-
           <Ondo>
             <div>
               <p>{postDetail?.mannerOndo} °C </p>
@@ -142,7 +142,7 @@ function Detail() {
           </div>
           <button style={{cursor:"pointer"}}
             onClick={() => {
-              navigate("/chatting/" + postId);
+              navigate("/chatting/" + postId+"/"+state);
             }}
           >
             채팅하기
@@ -342,5 +342,24 @@ const Price = styled.div`
     color: white;
   }
 `;
+
+
+const SoldOut = styled.div`
+  margin
+  padding: 6px 5px;
+  width: 65px;
+  border-radius: 5px;
+  background-color: #565656;
+  color: white;
+  font-size: 12px;
+  text-align: center;
+`;
+
+const Book = styled(SoldOut)`
+  width: 55px;
+  background-color: #34bf9e;
+`;
+
+
 
 export default Detail;
