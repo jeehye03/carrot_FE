@@ -29,7 +29,7 @@ function Detail() {
   const state = params.trade;
   const user = useSelector((state) => state.user); // 유저 정보
 
-  // 모달
+  // 모달.
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
