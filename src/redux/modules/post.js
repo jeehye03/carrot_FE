@@ -49,7 +49,7 @@ export const modyfyPost = (modifyPostInfo, navigate) => {
     await instance
       .put(`/api/post/${modifyPostInfo.postId}`, modifyPostInfo)
       .then((re) => {
-        dispatch(getLoadPost(re.data));
+        // dispatch(getLoadPost(re.data));
         navigate("/main");
       })
       .catch((err) => {
@@ -65,7 +65,7 @@ export const deletePost = (postId, navigate) => {
     await instance
       .delete(`/api/post/${postId}`)
       .then((re) => {
-        dispatch(roadPosts(re.data));
+        // dispatch(roadPosts(re.data));
         navigate("/main");
       })
       .catch((err) => {
@@ -96,12 +96,6 @@ export const loadMainposts = () => {
       .get("/api/post")
       .then((re) => {
         dispatch(roadPosts(re.data.posts));
-        /*
-        re.data = {
-          result: true,
-          posts: [{}, {}, {}]
-        }
-        */
       })
       .catch((err) => {
         console.log(err);
