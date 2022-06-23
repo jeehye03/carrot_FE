@@ -66,9 +66,10 @@ function Register () {
       if (response.data.result) {
         alert("회원가입이 완료되었습니다.");
         navigate("/login");
-      } else {
-        alert("회원가입이 실패하였습니다.");
       }
+    }).catch((err) => {
+      const json = JSON.parse(err.request.response);
+      alert(json.message);
     });
   }
 

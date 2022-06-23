@@ -29,7 +29,7 @@ function Detail() {
   const state = params.trade;
   const user = useSelector((state) => state.user); // 유저 정보
 
-  // 모달
+  // 모달.
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -38,7 +38,7 @@ function Detail() {
     setModalOpen(false);
   };
 
-  //console.log(postDetail);
+  //console.log(state);
   // 금액 콤마(,) 찍어서 보여주기
   let carrotPrice = postPrice?.toLocaleString("ko-KR");
 
@@ -109,7 +109,20 @@ function Detail() {
               <p>{postDetail?.nickname}</p>
               <p>{postDetail?.userLocation}</p>
             </Nickname>
+            <TradeState>
+              <span>
+                {state === "1" ? (
+                  <Book>예약중</Book>
+                ) : state === "2" ? (
+                  <SoldOut>거래완료</SoldOut>
+                ) : (
+                  ""
+                )}
+              </span>
+              
+            </TradeState>
           </Profile>
+
           <Ondo>
             <div>
               <p>{postDetail?.mannerOndo} °C </p>
@@ -140,9 +153,10 @@ function Detail() {
             <p>{carrotPrice}원</p>
             <p>가격 제안하기</p>
           </div>
-          <button style={{cursor:"pointer"}}
+          <button
+            style={{ cursor: "pointer" }}
             onClick={() => {
-              navigate("/chatting/" + postId+"/"+state);
+              navigate("/chatting/" + postId + "/" + state);
             }}
           >
             채팅하기
@@ -238,6 +252,7 @@ const Profile = styled.div`
   //width: 180px;
   line-height: 20px;
 
+
   img {
     width: 50px;
     height: 50px;
@@ -252,8 +267,9 @@ const Profile = styled.div`
 `;
 
 const Nickname = styled.div`
-  width: 180px;
+  //width: 100px;
   padding-left: 10px;
+
 `;
 
 const Ondo = styled.div`
@@ -344,22 +360,32 @@ const Price = styled.div`
 `;
 
 
+const TradeState = styled.div`
+  margin-top: 5px;
+  margin-left:10px;
+  display: flex;
+  align-items: center;
+`;
+
 const SoldOut = styled.div`
-  margin
   padding: 6px 5px;
   width: 65px;
+  height:26px;
   border-radius: 5px;
   background-color: #565656;
   color: white;
   font-size: 12px;
   text-align: center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 `;
 
 const Book = styled(SoldOut)`
   width: 55px;
+  height: 26px;
   background-color: #34bf9e;
 `;
-
 
 
 export default Detail;
