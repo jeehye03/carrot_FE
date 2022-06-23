@@ -30,6 +30,9 @@ https://youtu.be/gpb6dWag9Uo
 #### 프론트 - 이보람, 박수봉, 김지혜
 #### 백 - 김상선, 이재근
 #### 프론트 GIT-HUB 주소 
+https://github.com/epppo/carrot_front
+#### 백 GIT-HUB 주소 
+https://github.com/xoxokss/7weekDanggeunClone
 
 
 
