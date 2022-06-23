@@ -8,12 +8,14 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loadMainposts } from "../redux/modules/post";
 
+
 function MainItemList() {
   const dispatch = useDispatch();
   const [boardList, setBoardList] = useState();
 
   const mainPostList = useSelector((state) => state.post.postList);
   const user = useSelector((state) => state.user);
+
 
   React.useEffect(() => {
     dispatch(loadMainposts());
@@ -30,7 +32,7 @@ function MainItemList() {
                 <div
                   style={{ display: "flex" }}
                   onClick={() => {
-                    navigate("/detail/" + list.postId);
+                    navigate("/detail/" + list.postId+"/"+list.tradeState);
                   }}
                 >
                   <Img src={list.postImg} />
